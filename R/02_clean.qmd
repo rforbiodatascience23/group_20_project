@@ -41,19 +41,91 @@ setdiff(colnames(data_sequence), colnames(data_function))
 
 # Changing space in column names to "_"
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
+colnames(joined_data) <- str_to_lower(colnames(joined_data))
+
 
 
 # Tidying data: Tidying "active site" column
 joined_data <- joined_data |>
-  mutate(Active_site = str_extract_all(Active_site, "(?<=ACT_SITE )\\d+")) |>
-  mutate(Active_site = sapply(Active_site, function(x) paste(x, collapse = ","))) |>
-  separate_longer_delim(col = Active_site, ",")
+  mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
+  mutate(active_site = sapply(active_site, function(x) paste(x, collapse = ","))) |>
+  separate_longer_delim(col = active_site, ",")
 
 # Tidying data: Tidying "binding site" column
 joined_data <- joined_data |>
-  mutate(Binding_site_pos = str_extract_all(Binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
+  mutate(binding_site_pos = str_extract_all(binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
 
 joined_data <- joined_data |>
   seperate_wider_delim(Binding_site, )
   (Binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
+```
+
+# Clean function data
+
+```{r}
+
+###
+# Tidy Pathway column
+# Spørg de andre om step skal gemmes i ny collone 
+joined_data <- joined_data |>
+  # Remove unwanted patterns
+  mutate(
+    pathway = str_remove_all(pathway, "^PATHWAY: "),
+    pathway = str_remove_all(pathway, "\\{.*?\\}"),
+    pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
+    pathway = str_remove_all(pathway, "\\.")
+  ) |>
+  # Split into longer form
+  separate_longer_delim(col = pathway, delim = ";")
+
+###
+# Tidy `Subcellular location [CC]` column
+joined_data <- joined_data |>
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "Note=.*")) |>
+  mutate(`subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "SUBCELLULAR LOCATION: ")) |>
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ";") |>
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ". ") |>
+  mutate(`subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\{.*?\\}"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\[.*?\\]")) |>
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ",") |>
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\.")) |>
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: "))
+
+
+# Tidy Cofactor
+joined_data <- joined_data |>
+  mutate(cofactor = str_remove_all(cofactor, "COFACTOR: "),
+         cofactor = str_remove_all(cofactor, "\\s*Xref\\s*=.*?;"),
+         cofactor = str_remove_all(cofactor, ";\\s*Evidence=\\{.*?\\}"),
+         cofactor = str_remove(cofactor, "Note=.*")) |>
+  separate_longer_delim(col = cofactor, delim = ";") |>
+  mutate(cofactor = str_remove(cofactor, "Name=")) 
+
+# Tidy Protein Family   
+joined_data <- joined_data |>
+  separate_longer_delim(protein_families, delim = ",")|>
+  mutate(family_type = str_extract(protein_families, 
+                                    pattern = "\\S*family\\b", group = NULL),
+         `Protein families` = str_remove(protein_families, 
+                                         pattern = "\\S*family\\b")) |>
+  rename(protein_family = protein_families )
+  
+
+# Tidy Gene Ontlogogy 
+joined_data <- joined_data |>
+  mutate(`gene_ontology_(molecular_function)` = str_remove_all(`gene_ontology_(molecular_function)`, "\\[.*?\\]"))|>
+  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ";")
+
+# Correct empty columns if any non registered NA's are created by deleting text elements
+joined_data <- joined_data |>
+  mutate_all(~ ifelse(. == "", NA, .))|>
+  distinct()
+
+#data|>
+#  select(`Temperature dependence`, Organism)|>
+#  drop_na()
+  
+#data|>
+#  select(Intramembrane, Organism, Pathway)|>
+#  drop_na()
 ```
