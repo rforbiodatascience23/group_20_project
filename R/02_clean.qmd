@@ -130,7 +130,9 @@ joined_data <- joined_data |>
   # Remove GO numbers
   mutate(`gene_ontology_(molecular_function)` = str_remove_all(`gene_ontology_(molecular_function)`, "\\[.*?\\]"))|>
   # Use delimiter to make data longer
-  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ";")
+  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ";")|>
+  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ",")|>
+  mutate(`gene_ontology_(molecular_function)` = str_remove(`gene_ontology_(molecular_function)`, "^ "))
 
 ####
 # Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
