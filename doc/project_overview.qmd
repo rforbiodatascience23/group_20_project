@@ -1,0 +1,25 @@
+---
+title: "Project overview"
+format: html
+editor: visual
+---
+
+# Project Overview
+
+## Project Aim
+
+Finding trends in data from Uniprot
+
+We will focus on differences between mouse and human and use logo plots fro active sequences
+
+## Analysis tracks
+
+### Sequence Logo Plots
+
+-   Compare differences between similar protein families
+
+-   Compare differences between Mouse and Human for same protein families
+
+-   Look at EIC numbers
+
+-   Transmembrane domains
