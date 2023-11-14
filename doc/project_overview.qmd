@@ -16,6 +16,12 @@ Be aware that all data-analysis result is dependent on what have been reported i
 
 ## Analysis tracks
 
+### Bar plots
+
+-   Examine columns like "pathway" in bar plots. Do ratio on y-axis and not just counts, to adjust for what is most studied
+
+-   
+
 ### Sequence Logo Plots
 
 -   Compare differences between similar protein families

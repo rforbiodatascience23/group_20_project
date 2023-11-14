@@ -1,0 +1,59 @@
+---
+title: "Clean and join data"
+format: html
+editor: visual
+---
+
+## Load libraries
+
+```{r}
+#| label: Load libraries
+library(tidyverse)
+```
+
+## Load data
+
+```{r}
+#| label: Load data
+
+# Loading data
+data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
+data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
+```
+
+## Join data
+
+```{r}
+#| label: Join Data
+
+# Tidying data: joining data
+joined_data <- data_function |>
+  select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
+  full_join(data_sequence,
+            by = "Entry")
+```
+
+```{r}
+#| label: Clean data
+
+# Finding col_names in data_sequence but not in data_function. These Jeppe are responsible for cleaning
+setdiff(colnames(data_sequence), colnames(data_function))
+
+# Changing space in column names to "_"
+colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
+
+
+# Tidying data: Tidying "active site" column
+joined_data <- joined_data |>
+  mutate(Active_site = str_extract_all(Active_site, "(?<=ACT_SITE )\\d+")) |>
+  mutate(Active_site = sapply(Active_site, function(x) paste(x, collapse = ","))) |>
+  separate_longer_delim(col = Active_site, ",")
+
+# Tidying data: Tidying "binding site" column
+joined_data <- joined_data |>
+  mutate(Binding_site_pos = str_extract_all(Binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
+
+joined_data <- joined_data |>
+  seperate_wider_delim(Binding_site, )
+  (Binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
+```
