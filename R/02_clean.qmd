@@ -33,6 +33,8 @@ joined_data <- data_function |>
             by = "Entry")
 ```
 
+## Clean columns originating from sequence_file.tsv.gz
+
 ```{r}
 #| label: Clean data
 
@@ -43,41 +45,47 @@ setdiff(colnames(data_sequence), colnames(data_function))
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
 
-# Uncomment if testing with less rows
-joined_data <- joined_data |>
-  sample_n(10000)
-
-# # Tidying "active site" column
+# # Uncomment if testing with less rows
 # joined_data <- joined_data |>
-#   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
-#   mutate(active_site = sapply(active_site, function(x) paste(x, collapse = ","))) |>
-#   separate_longer_delim(col = active_site, ",")
+#   sample_n(10000)
+
+# Tidying "active site" column
+joined_data <- joined_data |>
+  mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
+  mutate(active_site = sapply(active_site, function(x) paste(x, collapse = ","))) |>
+  separate_longer_delim(col = active_site, ",")
 
 
 # Tidying "binding site" column
 joined_data <- joined_data |>
   mutate(binding_site_pos = ifelse(is.na(binding_site),
-                                   "NA",
+                                   binding_site,
                                    str_extract_all(binding_site,
                                                    "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))) |>
   mutate(binding_site_ligand = ifelse(is.na(binding_site),
-                                   "NA",
+                                   binding_site,
                                    str_extract_all(binding_site,
                                                    "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
   mutate(binding_site_pos = sapply(binding_site_pos,
                                    function(x) paste(x, collapse = ";"))) |>
   mutate(binding_site_ligand = sapply(binding_site_ligand,
-                                      function(x) paste(x, collapse = ";"))) |> 
-  separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";")
-  
+                                      function(x) paste(x, collapse = ";"))) |>
+  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |>
+  separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
+  select(-binding_site)
+
+# Converting to proper NA values
+joined_data <- joined_data |> 
+  mutate(binding_site_pos = na_if(binding_site_pos, "NA")) |> 
+  mutate(binding_site_ligand = na_if(binding_site_ligand, "NA"))
 ```
 
-# Clean function data
+## Clean data originating from function_file.tsv.gz
 
 ```{r}
 
 ###
-# Tidy pathway 
+# Tidy pathway column
 ###
 joined_data <- joined_data |>
   # Remove unwanted patterns (step is removed since it is a small minority that has this noted)
@@ -86,7 +94,8 @@ joined_data <- joined_data |>
          pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
          pathway = str_remove_all(pathway, "\\.")) |>
   # Split into longer form
-  separate_longer_delim(col = pathway, delim = ";")
+  separate_longer_delim(col = pathway, delim = "; ") |> 
+  mutate(pathway = tolower(pathway))
 
 ###
 # Tidy subcellular_location_[cc]
@@ -96,15 +105,17 @@ joined_data <- joined_data |>
   mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "Note=.*"),
          `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "SUBCELLULAR LOCATION: "),
          `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\{.*?\\}"),
-         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\[.*?\\]")) |>
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\[.*?\\]"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\.\\s*$")) |>
   # Use delimiter to make data longer (there are several for cofactors)
-  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ";") |>
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = "; ") |>
   separate_longer_delim(col = `subcellular_location_[cc]`, delim = ". ") |>
-  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ",") |>
-  # Remove '.' ':' and whitespace that is inserted in a few entries
-  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\."), 
-         `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: "),
-         `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "^ "))
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ", ") |>
+  # Remove '.' ':' and whitespace in beginning and end of strings
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "^[. ]+|[. ]+$"),
+         `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: ")) |> 
+  # Convert to lower case
+  mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`))
 
 ####
 # Tidy cofactor
