@@ -47,11 +47,11 @@ colnames(joined_data) <- str_to_lower(colnames(joined_data))
 joined_data <- joined_data |>
   sample_n(10000)
 
-# Tidying "active site" column
-joined_data <- joined_data |>
-  mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
-  mutate(active_site = sapply(active_site, function(x) paste(x, collapse = ","))) |>
-  separate_longer_delim(col = active_site, ",")
+# # Tidying "active site" column
+# joined_data <- joined_data |>
+#   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
+#   mutate(active_site = sapply(active_site, function(x) paste(x, collapse = ","))) |>
+#   separate_longer_delim(col = active_site, ",")
 
 
 # Tidying "binding site" column
@@ -63,14 +63,13 @@ joined_data <- joined_data |>
   mutate(binding_site_ligand = ifelse(is.na(binding_site),
                                    "NA",
                                    str_extract_all(binding_site,
-                                                   "(?<=/ligand=\")[^\"]+(?=\")"))) |>
+                                                   "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
   mutate(binding_site_pos = sapply(binding_site_pos,
-                                   function(x) paste(x, collapse = ","))) |>
+                                   function(x) paste(x, collapse = ";"))) |>
   mutate(binding_site_ligand = sapply(binding_site_ligand,
-                                      function(x) paste(x, collapse = ",")))
-  #separate_longer_delim(col = binding_site_pos, ",") |> 
-  #separate_longer_delim(col = binding_site_ligand, ",") 
-  #select(-binding_site)
+                                      function(x) paste(x, collapse = ";"))) |> 
+  separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";")
+  
 ```
 
 # Clean function data
