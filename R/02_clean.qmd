@@ -31,7 +31,11 @@ joined_data <- data_function |>
   select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
   full_join(data_sequence,
             by = "Entry")
+
+
 ```
+
+## Clean columns originating from sequence_file.tsv.gz
 
 ```{r}
 #| label: Clean data
@@ -39,93 +43,167 @@ joined_data <- data_function |>
 # Finding col_names in data_sequence but not in data_function. These Jeppe are responsible for cleaning
 setdiff(colnames(data_sequence), colnames(data_function))
 
-# Changing space in column names to "_"
+# Changing space in column names to "_" and lower case letters
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
 
+# Drop all unwanted cols
+joined_data <- joined_data |>
+  select(-reviewed,-`function_[cc]`,
+         -temperature_dependence,
+         -protein_names,
+         -intramembrane,
+         -catalytic_activity,
+         -entry_name)
 
+# # Uncomment if testing with less rows
+# joined_data <- joined_data |>
+#   sample_n(10000)
 
-# Tidying data: Tidying "active site" column
+# Tidying "active site" column
 joined_data <- joined_data |>
   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
-  mutate(active_site = sapply(active_site, function(x) paste(x, collapse = ","))) |>
+  mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
   separate_longer_delim(col = active_site, ",")
 
-# Tidying data: Tidying "binding site" column
-joined_data <- joined_data |>
-  mutate(binding_site_pos = str_extract_all(binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
 
+# Tidying "binding site" column
 joined_data <- joined_data |>
-  seperate_wider_delim(Binding_site, )
-  (Binding_site, "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))
+  mutate(binding_site_pos = ifelse(is.na(binding_site),
+                                   binding_site,
+                                   str_extract_all(binding_site,
+                                                   "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))) |>
+  mutate(binding_site_ligand = ifelse(is.na(binding_site),
+                                   binding_site,
+                                   str_extract_all(binding_site,
+                                                   "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
+  mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";")) |>
+  mutate(binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
+  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |>
+  separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
+  select(-binding_site)
+
+# Converting to proper NA values
+joined_data <- joined_data |> 
+  mutate(binding_site_pos = na_if(binding_site_pos, "NA")) |> 
+  mutate(binding_site_ligand = na_if(binding_site_ligand, "NA")) |> 
+  mutate(active_site = na_if(active_site, "NA"))
 ```
 
-# Clean function data
+## Clean data originating from function_file.tsv.gz
 
 ```{r}
 
 ###
-# Tidy Pathway column
-# Spørg de andre om step skal gemmes i ny collone 
+# Tidy pathway column
+###
 joined_data <- joined_data |>
-  # Remove unwanted patterns
-  mutate(
-    pathway = str_remove_all(pathway, "^PATHWAY: "),
-    pathway = str_remove_all(pathway, "\\{.*?\\}"),
-    pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
-    pathway = str_remove_all(pathway, "\\.")
-  ) |>
+  # Remove unwanted patterns (step is removed since it is a small minority that has this noted)
+  mutate(pathway = str_remove_all(pathway, "^PATHWAY: "),
+         pathway = str_remove_all(pathway, "\\{.*?\\}"),
+         pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
+         pathway = str_remove_all(pathway, "\\.")) |>
   # Split into longer form
-  separate_longer_delim(col = pathway, delim = ";")
+  separate_longer_delim(col = pathway, delim = "; ") |> 
+  mutate(pathway = tolower(pathway))
 
 ###
-# Tidy `Subcellular location [CC]` column
+# Tidy subcellular_location_[cc]
+###
 joined_data <- joined_data |>
-  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "Note=.*")) |>
-  mutate(`subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "SUBCELLULAR LOCATION: ")) |>
-  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ";") |>
+  # Remove header and Notes
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "Note=.*"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "SUBCELLULAR LOCATION: "),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\{.*?\\}"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\[.*?\\]"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\.\\s*$")) |>
+  # Use delimiter to make data longer (there are several for cofactors)
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = "; ") |>
   separate_longer_delim(col = `subcellular_location_[cc]`, delim = ". ") |>
-  mutate(`subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\{.*?\\}"),
-         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\[.*?\\]")) |>
-  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ",") |>
-  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\.")) |>
-  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: "))
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ", ") |>
+  # Remove '.' ':' and whitespace in beginning and end of strings
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "^[. ]+|[. ]+$"),
+         `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: ")) |> 
+  # Convert to lower case
+  mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`))
 
-
-# Tidy Cofactor
+####
+# Tidy cofactor
+####
 joined_data <- joined_data |>
-  mutate(cofactor = str_remove_all(cofactor, "COFACTOR: "),
-         cofactor = str_remove_all(cofactor, "\\s*Xref\\s*=.*?;"),
-         cofactor = str_remove_all(cofactor, ";\\s*Evidence=\\{.*?\\}"),
-         cofactor = str_remove(cofactor, "Note=.*")) |>
-  separate_longer_delim(col = cofactor, delim = ";") |>
-  mutate(cofactor = str_remove(cofactor, "Name=")) 
+  # keep only cofactor names in column
+  mutate(cofactor = str_extract_all(cofactor, "(?<=Name=)[^;]+")) |> 
+  mutate(cofactor = sapply(cofactor, paste, collapse = "_")) |> 
+  separate_longer_delim(col = cofactor, "_") |> 
+  mutate(cofactor = na_if(cofactor, "NA")) |> 
+  mutate(cofactor = tolower(cofactor))
 
-# Tidy Protein Family   
+####
+# Tidy protein_families 
+####
 joined_data <- joined_data |>
+  # Use delimiter to make data longer
   separate_longer_delim(protein_families, delim = ",")|>
+  # Extract family type and make new column to put data in + remove from colum
   mutate(family_type = str_extract(protein_families, 
                                     pattern = "\\S*family\\b", group = NULL),
-         `Protein families` = str_remove(protein_families, 
+         protein_families = str_remove(protein_families, 
                                          pattern = "\\S*family\\b")) |>
-  rename(protein_family = protein_families )
+  # Rename column as there is only one protein family in each row now
+  rename(protein_family = protein_families ) |> 
+  relocate(protein_family, .before = family_type)
   
 
-# Tidy Gene Ontlogogy 
+####
+#Tidy gene_ontology_(molecular_function)
+####
 joined_data <- joined_data |>
-  mutate(`gene_ontology_(molecular_function)` = str_remove_all(`gene_ontology_(molecular_function)`, "\\[.*?\\]"))|>
-  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ";")
+  # Give column a better name
+  rename(GO_molceular_function = `gene_ontology_(molecular_function)`) |> 
+  # Remove GO numbers
+  mutate(GO_molceular_function = str_remove_all(GO_molceular_function, "\\[.*?\\]")) |> 
+  # Use delimiter to make data longer
+  separate_longer_delim(GO_molceular_function, delim = " ; ")
+
+####
+# Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
+####
+joined_data <- joined_data |>
+  # Extract the first digit and create new column
+  # For the few cases with more ec numbers we just look at the first
+  mutate(first_digit = str_extract(ec_number, "^\\d"),
+         # Translate digit to enzyme class using vector
+         enzyme_class = case_when(
+           first_digit == 1  ~ "oxidoreductases",
+           first_digit == 2  ~ "transferases",
+           first_digit == 3  ~ "hydrolases",
+           first_digit == 4  ~ "lysases",
+           first_digit == 5  ~ "isomerases",
+           first_digit == 6  ~ "ligases",
+           first_digit == 7  ~ "translocases",
+         )) |> 
+  select(-first_digit, -ec_number)
+  
+####
+
+joined_data <- joined_data |>
+  # Only keep the first gene name
+  mutate(gene_name = str_extract(gene_names, "^\\S*"))|>
+  # Remove gene names column
+  select(-gene_names) |> 
+  # Remove any duplicate entries
+  distinct()
+  
 
 # Correct empty columns if any non registered NA's are created by deleting text elements
 joined_data <- joined_data |>
-  mutate_all(~ ifelse(. == "", NA, .))|>
-  distinct()
+  mutate_all(~ ifelse(. == "", NA, .))
 
-#data|>
-#  select(`Temperature dependence`, Organism)|>
-#  drop_na()
-  
-#data|>
-#  select(Intramembrane, Organism, Pathway)|>
-#  drop_na()
+
+## Code to find out what rows are duplicated
+# result <- duplicated(joined_data)
+# duplicated_rows <- subset(joined_data, result)
+
+
+
 ```
