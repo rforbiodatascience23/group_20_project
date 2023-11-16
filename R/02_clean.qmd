@@ -79,20 +79,15 @@ joined_data <- joined_data |>
                                                    "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
   mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";")) |>
   mutate(binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
-  mutate(binding_site_pos = sapply(binding_site_pos,
-                                   function(x) paste(x, collapse = ";"))) |>
-  mutate(binding_site_ligand = sapply(binding_site_ligand,
-                                      function(x) paste(x, collapse = ";"))) |>
   filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |>
   separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
   select(-binding_site)
 
 # Converting to proper NA values
 joined_data <- joined_data |> 
-  mutate(binding_site_pos = na_if(binding_site_pos, "NA")) |>
+  mutate(binding_site_pos = na_if(binding_site_pos, "NA")) |> 
   mutate(binding_site_ligand = na_if(binding_site_ligand, "NA")) |> 
   mutate(active_site = na_if(active_site, "NA"))
-  mutate(binding_site_ligand = na_if(binding_site_ligand, "NA"))
 ```
 
 ## Clean data originating from function_file.tsv.gz
@@ -142,15 +137,6 @@ joined_data <- joined_data |>
   separate_longer_delim(col = cofactor, "_") |> 
   mutate(cofactor = na_if(cofactor, "NA")) |> 
   mutate(cofactor = tolower(cofactor))
-  # Remove header in row, Xref, evidence and Notes
-  mutate(cofactor = str_remove_all(cofactor, "COFACTOR: "),
-         cofactor = str_remove_all(cofactor, "\\s*Xref\\s*=.*?;"),
-         cofactor = str_remove_all(cofactor, ";\\s*Evidence=\\{.*?\\}"),
-         cofactor = str_remove(cofactor, "Note=.*")) |>
-  # Use delimiter to make data longer
-  separate_longer_delim(col = cofactor, delim = ";") |>
-  # Remove 'Name='
-  mutate(cofactor = str_remove(cofactor, "Name=")) 
 
 ####
 # Tidy protein_families 
@@ -166,7 +152,6 @@ joined_data <- joined_data |>
   # Rename column as there is only one protein family in each row now
   rename(protein_family = protein_families ) |> 
   relocate(protein_family, .before = family_type)
-  rename(protein_family = protein_families )
   
 
 ####
@@ -174,11 +159,11 @@ joined_data <- joined_data |>
 ####
 joined_data <- joined_data |>
   # Give column a better name
-  rename(GO_molceular_function = `gene_ontology_(molecular_function)`) |> 
+  rename(GO_molecular_function = `gene_ontology_(molecular_function)`) |> 
   # Remove GO numbers
-  mutate(GO_molceular_function = str_remove_all(GO_molceular_function, "\\[.*?\\]")) |> 
+  mutate(GO_molecular_function = str_remove_all(GO_molecular_function, "\\[.*?\\]")) |> 
   # Use delimiter to make data longer
-  separate_longer_delim(GO_molceular_function, delim = " ; ")
+  separate_longer_delim(GO_molecular_function, delim = " ; ")
 
 ####
 # Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
@@ -200,33 +185,6 @@ joined_data <- joined_data |>
   select(-first_digit, -ec_number)
   
 ####
-joined_data <- joined_data |>
-  # Remove GO numbers
-  mutate(`gene_ontology_(molecular_function)` = str_remove_all(`gene_ontology_(molecular_function)`, "\\[.*?\\]"))|>
-  # Use delimiter to make data longer
-  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ";")|>
-  separate_longer_delim(`gene_ontology_(molecular_function)`, delim = ",")|>
-  mutate(`gene_ontology_(molecular_function)` = str_remove(`gene_ontology_(molecular_function)`, "^ "))
-
-####
-# Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
-####
-enzyme_class <- c("oxidoreductases", "transferases", "hydrolases", "lysases", "isomerases", "ligases", "translocases")
-
-joined_data <- joined_data |>
-  # Extract the first digit and create new column
-  mutate(first_digit = str_extract(ec_number, "^\\d"),
-         # Translate digit to enzyme class using vector 
-         enzyme_class = enzyme_class[as.numeric(first_digit)])|>
-  select(-first_digit, -ec_number)
-  
-####
-# Only keep the first gene name
-####
-joined_data <- joined_data |>
-  mutate(gene_name = str_extract(gene_names, "^\\S*"))|>
-  # Remove gene names column
-  select(-gene_names)
 
 joined_data <- joined_data |>
   # Only keep the first gene name
@@ -247,26 +205,5 @@ joined_data <- joined_data |>
 # duplicated_rows <- subset(joined_data, result)
 
 
-  mutate_all(~ ifelse(. == "", NA, .))|>
-  # Check we dont have any duplicate entries
-  distinct()
-
-
-#data|>
-#  select(`Temperature dependence`, Organism)|>
-#  drop_na()
-  
-#data|>
-#  select(Intramembrane, Organism, Pathway)|>
-#  drop_na()
-
-# Drop all unwanted cols
-joined_data <- joined_data |>
-  select(-reviewed,-`function_[cc]`,
-         -temperature_dependence,
-         -protein_names,
-         -intramembrane,
-         -catalytic_activity,
-         -entry_name)
 
 ```
