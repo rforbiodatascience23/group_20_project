@@ -1,0 +1,54 @@
+---
+title: "jeppe_data_exploration"
+format: html
+editor: visual
+---
+
+## Load data
+
+```{r}
+clean_data <- read_delim(file = "../data/clean_data.tsv", delim = "\t")
+```
+
+## Augment data
+
+```{r}
+# Function add column with sequence around active site
+get_logo_seq <- function(x, y) {
+  y <- as.integer(y)
+  logo_seq_length <- 11
+  n_aa_per_side <- (logo_seq_length-1/2)
+  return(substr(x, y-5, y+5))
+}
+
+# Extracting peptides around active site and saving in new column
+aug_data <- clean_data |>
+  mutate(logo_seq = get_logo_seq(sequence, active_site)) |>
+  filter(nchar(logo_seq) == 11) # Filtereing out k-mers not covering 11 AA's
+
+
+# See what protein families are most represented in mouse and human
+top_prot_fam_mouse <- aug_data |>
+  drop_na(protein_family) |> 
+  filter(organism == "Mus musculus (Mouse)") |> 
+  group_by(protein_family) |> 
+  summarize(n_mouse = n()) |>
+  arrange(desc(n_mouse))
+
+top_prot_fam_human <- aug_data |>
+  drop_na(protein_family) |> 
+  filter(organism == "Homo sapiens (Human)") |> 
+  group_by(protein_family) |> 
+  summarize(n_human = n()) |>
+  arrange(desc(n_human))
+
+top_prot_fam <- top_prot_fam_mouse |> 
+  full_join(top_prot_fam_human, by = "protein_family")
+```
+
+```{r}
+### helper code
+test <- aug_data |> 
+  drop_na(protein_family) |> 
+  select(entry, protein_family)
+```
