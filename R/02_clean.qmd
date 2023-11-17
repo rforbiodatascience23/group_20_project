@@ -105,6 +105,7 @@ joined_data <- joined_data |>
 joined_data <- joined_data |>
   # Remove unwanted patterns (step is removed since it is a small minority that has this noted)
   mutate(pathway = str_remove_all(pathway, "^PATHWAY: "),
+         pathway = str_remove_all(pathway, "^pathway: "),
          pathway = str_remove_all(pathway, "\\{.*?\\}"),
          pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
          pathway = str_remove_all(pathway, "\\.")) |>
