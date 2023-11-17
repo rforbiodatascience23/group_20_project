@@ -47,7 +47,9 @@ setdiff(colnames(data_sequence), colnames(data_function))
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
 
+#####
 # Drop all unwanted cols
+#####
 joined_data <- joined_data |>
   select(-reviewed,-`function_[cc]`,
          -temperature_dependence,
@@ -60,14 +62,17 @@ joined_data <- joined_data |>
 # joined_data <- joined_data |>
 #   sample_n(10000)
 
+####
 # Tidying "active site" column
+####
 joined_data <- joined_data |>
   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
   mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
   separate_longer_delim(col = active_site, ",")
 
-
+####
 # Tidying "binding site" column
+####
 joined_data <- joined_data |>
   mutate(binding_site_pos = ifelse(is.na(binding_site),
                                    binding_site,
@@ -183,12 +188,12 @@ joined_data <- joined_data |>
            first_digit == 7  ~ "translocases",
          )) |> 
   select(-first_digit, -ec_number)
-  
-####
-# Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
-####
 
-#Function for extracting the optimum pH from the pH dependence column
+
+####
+# Tidy pH dependence column 
+####
+#Function for extracting the optimum pH 
 pH_str_search <- "Optimum pH is (\\d+\\.\\d*)-(\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*)|Optimum pH is around (\\d+\\.\\d*)|Optimum pH is about (\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*) to (\\d+\\.\\d*)|Optimum pH is between (\\d+\\.\\d*) and (\\d+\\.\\d*)"
 
 #Function for creating two new columns for pH interval values
@@ -215,6 +220,7 @@ joined_data <- joined_data |>
   select(-pH_1,-pH_2)
 
 ###
+# Tidy gene name (selct the first one)
 ###
 joined_data <- joined_data |>
   # Only keep the first gene name
