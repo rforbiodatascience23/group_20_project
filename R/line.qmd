@@ -1,0 +1,212 @@
+---
+title: "line"
+format: html
+editor: visual
+---
+
+j
+
+```{r}
+data_clean <- read_delim(file = "../data/clean_data.tsv", delim = "\t")
+```
+
+```{r}
+data_clean |>
+  sample_n(100)
+```
+
+# pH dependence investigations
+
+```{r}
+data_clean |>
+  drop_na(ph_dependence) |>
+  select(ph_dependence,
+         `subcellular_location_[cc]`,
+         entry,
+         organism) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("cytoplasm", "nucleus", "cell membrane", "multi-pass membrane protein", "secreted")) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             y = ph_dependence,
+             color = organism)) +
+  geom_boxplot()
+```
+
+```{r}
+data_clean |>
+  drop_na(`subcellular_location_[cc]`) |>
+  select(`subcellular_location_[cc]`, entry) |>
+  distinct() |>
+  count(`subcellular_location_[cc]`) |>
+  arrange(desc(`n`)) |>
+  
+```
+
+```{r}
+data_clean |>
+  drop_na(ph_dependence) |>
+  select(entry, ph_dependence, organism) |>
+  distinct() |>
+  ggplot(aes(x = organism,
+             y = ph_dependence)) +
+  geom_boxplot()
+```
+
+```{r}
+data_clean |>
+  drop_na(ph_dependence) |>
+  select(entry, ph_dependence, organism) |>
+  distinct() |>
+  filter(organism == 'Mus musculus (Mouse)')
+```
+
+```{r}
+data_clean |>
+  drop_na(ph_dependence, `subcellular_location_[cc]`) |>
+  select(entry, ph_dependence, organism) |>
+  distinct() |>
+  filter(organism == 'Homo sapiens (Human)')
+```
+
+```{r}
+data_clean |>
+  drop_na(ph_dependence, enzyme_class) |>
+  select(entry, ph_dependence, enzyme_class, organism) |>
+  distinct() |>
+  ggplot(aes(x = enzyme_class,
+             y = ph_dependence
+             )) +
+  geom_boxplot()
+```
+
+# Enzyme class investigations
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class) |>
+  select(entry, enzyme_class, organism) |>
+  distinct() |>
+  ggplot(aes(x = enzyme_class,
+             color = organism,
+             fill = organism)) +
+  geom_bar(position = position_dodge2())
+```
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane")) |>
+  ggplot(aes(x = enzyme_class,
+             color = `subcellular_location_[cc]`,
+             fill = `subcellular_location_[cc]`)) +
+  geom_bar() +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane")) |>
+  ggplot(aes(x = enzyme_class,
+             color = `subcellular_location_[cc]`,
+             fill = `subcellular_location_[cc]`)) +
+  geom_bar(position = "fill") +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+#Human
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         organism == c("Mus musculus (Mouse)", "Homo sapiens (Human)")) |>
+  ggplot(aes(x = enzyme_class,
+             color = `subcellular_location_[cc]`,
+             fill = `subcellular_location_[cc]`)) +
+  geom_bar(position = "fill") +
+  theme(legend.position = "bottom") +
+  facet_wrap(~organism)
+```
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         organism == c("Mus musculus (Mouse)", "Homo sapiens (Human)")) |>
+  ggplot(aes(x = enzyme_class,
+             color = `subcellular_location_[cc]`,
+             fill = `subcellular_location_[cc]`)) +
+  geom_bar() +
+  theme(legend.position = "bottom") +
+  facet_wrap(~organism)
+```
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         organism == c("Mus musculus (Mouse)", "Homo sapiens (Human)")) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             color = enzyme_class,
+             fill = enzyme_class)) +
+  geom_bar() +
+  theme(legend.position = "bottom") +
+  scale_fill_viridis_d() +
+  scale_color_viridis_d() +
+  facet_wrap(~organism)
+```
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         organism == c("Mus musculus (Mouse)", "Homo sapiens (Human)")) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             color = enzyme_class,
+             fill = enzyme_class)) +
+  geom_bar(position = "fill") +
+  theme(legend.position = "bottom") +
+  scale_fill_viridis_d() +
+  scale_color_viridis_d() +
+  facet_wrap(~organism)
+```
+
+# Lenght and size investigation
+
+```{r}
+data_clean |>
+  drop_na(length, mass) |>
+  select(entry, length, mass, organism) |>
+  distinct() |>
+  filter(organism == c("Mus musculus (Mouse)", "Homo sapiens (Human)")) |>
+  ggplot(aes(x = length,
+             y = mass,
+             color = organism,
+             fill = organism)) +
+  geom_point() +
+  theme(legend.position = "bottom") +
+  geom_smooth(method = "lm")
+```
+
+```{r}
+data_clean |>
+  drop_na(length, mass, GO_molecular_function) |>
+  select(entry, length, mass, organism, GO_molecular_function) |>
+  distinct() |>
+  count(entry) |>
+  arrange(desc(`n`))
+  
+  
+```

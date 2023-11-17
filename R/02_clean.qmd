@@ -56,7 +56,8 @@ joined_data <- joined_data |>
          -protein_names,
          -intramembrane,
          -catalytic_activity,
-         -entry_name)
+         -entry_name,
+         -transmembrane)
 
 # # Uncomment if testing with less rows
 # joined_data <- joined_data |>
@@ -100,7 +101,7 @@ joined_data <- joined_data |>
 ```{r}
 
 ###
-# Tidy pathway column
+# Tidy "pathway" column
 ###
 joined_data <- joined_data |>
   # Remove unwanted patterns (step is removed since it is a small minority that has this noted)
@@ -114,7 +115,7 @@ joined_data <- joined_data |>
   mutate(pathway = tolower(pathway))
 
 ###
-# Tidy subcellular_location_[cc]
+# Tidy "subcellular_location_[cc]" column
 ###
 joined_data <- joined_data |>
   # Remove header and Notes
@@ -134,7 +135,7 @@ joined_data <- joined_data |>
   mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`))
 
 ####
-# Tidy cofactor
+# Tidy "cofactor" column
 ####
 joined_data <- joined_data |>
   # keep only cofactor names in column
@@ -145,23 +146,24 @@ joined_data <- joined_data |>
   mutate(cofactor = tolower(cofactor))
 
 ####
-# Tidy protein_families 
+# Tidy "protein_families" column
 ####
 joined_data <- joined_data |>
   # Use delimiter to make data longer
-  separate_longer_delim(protein_families, delim = ",")|>
+  separate_longer_delim(protein_families, delim = ", ")|>
   # Extract family type and make new column to put data in + remove from colum
   mutate(family_type = str_extract(protein_families, 
                                     pattern = "\\S*family\\b", group = NULL),
          protein_families = str_remove(protein_families, 
                                          pattern = "\\S*family\\b")) |>
+  separate_longer_delim(protein_families, delim = "; ") |>
   # Rename column as there is only one protein family in each row now
-  rename(protein_family = protein_families ) |> 
+  rename(protein_family = protein_families) |> 
   relocate(protein_family, .before = family_type)
   
 
 ####
-#Tidy gene_ontology_(molecular_function)
+#Tidy "gene_ontology_(molecular_function)" column
 ####
 joined_data <- joined_data |>
   # Give column a better name
@@ -173,7 +175,7 @@ joined_data <- joined_data |>
 
 ####
 # augment 
-# Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
+# Tidy "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
 ####
 joined_data <- joined_data |>
   # Extract the first digit and create new column
@@ -193,7 +195,7 @@ joined_data <- joined_data |>
 
 
 ####
-# Tidy pH dependence column 
+# Tidy "pH dependence" column 
 ####
 #Function for extracting the optimum pH 
 pH_str_search <- "Optimum pH is (\\d+\\.\\d*)-(\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*)|Optimum pH is around (\\d+\\.\\d*)|Optimum pH is about (\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*) to (\\d+\\.\\d*)|Optimum pH is between (\\d+\\.\\d*) and (\\d+\\.\\d*)"
@@ -222,7 +224,7 @@ joined_data <- joined_data |>
   select(-pH_1,-pH_2)
 
 ###
-# Tidy gene name (selct the first one)
+# Tidy "gene name" column (select the first one)
 ###
 joined_data <- joined_data |>
   # Only keep the first gene name
@@ -231,6 +233,17 @@ joined_data <- joined_data |>
   select(-gene_names) |> 
   # Remove any duplicate entries
   distinct()
+
+###
+# Tidy "organism" column
+###
+joined_data <- joined_data |>
+  # Check that there are only Homo sapiens (Human) and Mus musculus (Mouse)
+  filter(organism == c("Homo sapiens (Human)", "Mus musculus (Mouse)")) |>
+  # Shorten organism name
+  mutate(organism = case_when(
+    organism == "Homo sapiens (Human)" ~ "Human",
+    organism == "Mus musculus (Mouse)" ~ "Mouse"))
 
 write_tsv(joined_data, file = "../data/clean_data.tsv")
 
