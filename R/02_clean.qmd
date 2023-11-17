@@ -149,12 +149,13 @@ joined_data <- joined_data |>
 ####
 joined_data <- joined_data |>
   # Use delimiter to make data longer
-  separate_longer_delim(protein_families, delim = ",")|>
+  separate_longer_delim(protein_families, delim = ", ")|>
   # Extract family type and make new column to put data in + remove from colum
   mutate(family_type = str_extract(protein_families, 
                                     pattern = "\\S*family\\b", group = NULL),
          protein_families = str_remove(protein_families, 
                                          pattern = "\\S*family\\b")) |>
+  separate_longer_delim(protein_families, delim = "; ")
   # Rename column as there is only one protein family in each row now
   rename(protein_family = protein_families ) |> 
   relocate(protein_family, .before = family_type)
