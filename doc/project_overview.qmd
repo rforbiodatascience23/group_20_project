@@ -14,6 +14,26 @@ We will focus on differences between mouse and human and use logo plots for acti
 
 Be aware that all data-analysis result is dependent on what have been reported in uniprot, and do not necessarily reflect real life.
 
+## Cleaning data
+
+-   Edit code to good coding style
+
+-   move EC number to augmentation
+
+-   Remove the setdiff() thing that Jeppe did. its not doing anything
+
+-   Consider what to do with binning_site_pos column
+
+-   convert organism to just "human" or "mouse"
+
+## Augmenting data
+
+-   EC number edit
+
+-   Implement peptide kmer sequence extraction around active sites
+
+-   Consider acidic pH number
+
 ## Analysis tracks
 
 ### Bar plots
