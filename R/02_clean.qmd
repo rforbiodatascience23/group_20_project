@@ -171,6 +171,7 @@ joined_data <- joined_data |>
   separate_longer_delim(GO_molecular_function, delim = " ; ")
 
 ####
+# augment 
 # Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
 ####
 joined_data <- joined_data |>
