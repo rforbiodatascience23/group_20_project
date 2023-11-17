@@ -53,8 +53,7 @@ Be aware that all data-analysis result is dependent on what have been reported i
 -   Transmembrane domains
 
 ## Line
-
-See if there is a trend in protein location vs pH dependence
+See if there is something interesting about pH dependence. Finding: There are only 100 mouse entries with pH dependence data. This greatly limits the analysis. Overall the pH dependence is slightly lower for mice (mean~7) compared to human (mean~7.5) but it is not very explicit. There is no obvious trend in pH vs subcellular location for the top 5 subcellular locations. There is a little difference between pH vs enzyme class, however, there are not enough datapoints for mice to compare between organisms.
 
 ## Anton
 
