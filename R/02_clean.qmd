@@ -216,7 +216,7 @@ joined_data <- joined_data |>
   # Remove any duplicate entries
   distinct()
 
-saveRDS(joined_data, file = "../data/clean_data.RDS")
+write_tsv(joined_data, file = "../data/clean_data.tsv")
 
 # # Correct empty columns if any non registered NA's are created by deleting text elements
 # joined_data <- joined_data |>
