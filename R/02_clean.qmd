@@ -187,6 +187,14 @@ joined_data <- joined_data |>
 ####
 # Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
 ####
+
+#Function for extracting the optimum pH from the pH dependence column
+pH_str_search <- "Optimum pH is (\\d+\\.\\d*)-(\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*)|Optimum pH is around (\\d+\\.\\d*)|Optimum pH is about (\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*) to (\\d+\\.\\d*)|Optimum pH is between (\\d+\\.\\d*) and (\\d+\\.\\d*)"
+
+#Function for creating two new columns for pH interval values
+pH_columns <- str_c("pH_", seq(from = 1, to = 2))
+
+# Starting to clean ph_dependence
 joined_data <- joined_data |>
   #Removes text and keeps optimum pH values
   mutate(ph_dependence = str_extract(ph_dependence, pH_str_search),
