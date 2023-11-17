@@ -1,0 +1,37 @@
+---
+title: "Analysis_3"
+format: html
+editor: visual
+---
+
+## Load data
+
+```{r}
+data_clean <- read_delim(file = "../data/clean_data.tsv", delim = "\t")
+```
+
+## Analysis
+
+### Enzyme class and subcellular location
+
+```{r}
+data_clean |>
+  drop_na(enzyme_class, `subcellular_location_[cc]`) |>
+  select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane")) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             color = enzyme_class,
+             fill = enzyme_class)) +
+  geom_bar(position = "fill") +
+  theme(legend.position = "bottom") +
+  scale_fill_viridis_d() +
+  scale_color_viridis_d() +
+  labs(title = "Enzyme classes in subcellular locations",
+       subtitle = "Distribution of the 7 enzyme classes in the three most populated subcellular locations",
+       x = "Subcellular location",
+       y = "Count in %",
+       color = "Enzyme class",
+       fill = "Enzyme class")
+  facet_wrap(~organism)
+```
