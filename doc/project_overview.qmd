@@ -24,6 +24,8 @@ Be aware that all data-analysis result is dependent on what have been reported i
 
 -   Consider what to do with binning_site_pos column
 
+-   convert organism to just "human" or "mouse"
+
 ## Augmenting data
 
 -   EC number edit
