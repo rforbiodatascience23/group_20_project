@@ -1,0 +1,248 @@
+---
+title: "Clean and join data"
+format: html
+editor: visual
+---
+
+## Load libraries
+
+```{r}
+#| label: Load libraries
+library(tidyverse)
+```
+
+## Load data
+
+```{r}
+#| label: Load data
+
+# Loading data
+data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
+data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
+```
+
+## Join data
+
+```{r}
+#| label: Join Data
+
+# Tidying data: joining data
+joined_data <- data_function |>
+  select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
+  full_join(data_sequence,
+            by = "Entry")
+
+
+```
+
+## Clean columns originating from sequence_file.tsv.gz
+
+```{r}
+#| label: Clean data
+
+# Finding col_names in data_sequence but not in data_function. These Jeppe are responsible for cleaning
+setdiff(colnames(data_sequence), colnames(data_function))
+
+# Changing space in column names to "_" and lower case letters
+colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
+colnames(joined_data) <- str_to_lower(colnames(joined_data))
+
+#####
+# Drop all unwanted cols
+#####
+joined_data <- joined_data |>
+  select(-reviewed,-`function_[cc]`,
+         -temperature_dependence,
+         -protein_names,
+         -intramembrane,
+         -catalytic_activity,
+         -entry_name)
+
+# # Uncomment if testing with less rows
+# joined_data <- joined_data |>
+#   sample_n(10000)
+
+####
+# Tidying "active site" column
+####
+joined_data <- joined_data |>
+  mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
+  mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
+  separate_longer_delim(col = active_site, ",")
+
+####
+# Tidying "binding site" column
+####
+joined_data <- joined_data |>
+  mutate(binding_site_pos = ifelse(is.na(binding_site),
+                                   binding_site,
+                                   str_extract_all(binding_site,
+                                                   "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))) |>
+  mutate(binding_site_ligand = ifelse(is.na(binding_site),
+                                   binding_site,
+                                   str_extract_all(binding_site,
+                                                   "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
+  mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";")) |>
+  mutate(binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
+  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |>
+  separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
+  select(-binding_site)
+
+# Converting to proper NA values
+joined_data <- joined_data |> 
+  mutate(binding_site_pos = na_if(binding_site_pos, "NA")) |> 
+  mutate(binding_site_ligand = na_if(binding_site_ligand, "NA")) |> 
+  mutate(active_site = na_if(active_site, "NA"))
+```
+
+## Clean data originating from function_file.tsv.gz
+
+```{r}
+
+###
+# Tidy pathway column
+###
+joined_data <- joined_data |>
+  # Remove unwanted patterns (step is removed since it is a small minority that has this noted)
+  mutate(pathway = str_remove_all(pathway, "^PATHWAY: "),
+         pathway = str_remove_all(pathway, "^pathway: "),
+         pathway = str_remove_all(pathway, "\\{.*?\\}"),
+         pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
+         pathway = str_remove_all(pathway, "\\.")) |>
+  # Split into longer form
+  separate_longer_delim(col = pathway, delim = "; ") |> 
+  mutate(pathway = tolower(pathway))
+
+###
+# Tidy subcellular_location_[cc]
+###
+joined_data <- joined_data |>
+  # Remove header and Notes
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "Note=.*"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "SUBCELLULAR LOCATION: "),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\{.*?\\}"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\[.*?\\]"),
+         `subcellular_location_[cc]` = str_remove_all(`subcellular_location_[cc]`, "\\.\\s*$")) |>
+  # Use delimiter to make data longer (there are several for cofactors)
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = "; ") |>
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ". ") |>
+  separate_longer_delim(col = `subcellular_location_[cc]`, delim = ", ") |>
+  # Remove '.' ':' and whitespace in beginning and end of strings
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "^[. ]+|[. ]+$"),
+         `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: ")) |> 
+  # Convert to lower case
+  mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`))
+
+####
+# Tidy cofactor
+####
+joined_data <- joined_data |>
+  # keep only cofactor names in column
+  mutate(cofactor = str_extract_all(cofactor, "(?<=Name=)[^;]+")) |> 
+  mutate(cofactor = sapply(cofactor, paste, collapse = "_")) |> 
+  separate_longer_delim(col = cofactor, "_") |> 
+  mutate(cofactor = na_if(cofactor, "NA")) |> 
+  mutate(cofactor = tolower(cofactor))
+
+####
+# Tidy protein_families 
+####
+joined_data <- joined_data |>
+  # Use delimiter to make data longer
+  separate_longer_delim(protein_families, delim = ",")|>
+  # Extract family type and make new column to put data in + remove from colum
+  mutate(family_type = str_extract(protein_families, 
+                                    pattern = "\\S*family\\b", group = NULL),
+         protein_families = str_remove(protein_families, 
+                                         pattern = "\\S*family\\b")) |>
+  # Rename column as there is only one protein family in each row now
+  rename(protein_family = protein_families ) |> 
+  relocate(protein_family, .before = family_type)
+  
+
+####
+#Tidy gene_ontology_(molecular_function)
+####
+joined_data <- joined_data |>
+  # Give column a better name
+  rename(GO_molecular_function = `gene_ontology_(molecular_function)`) |> 
+  # Remove GO numbers
+  mutate(GO_molecular_function = str_remove_all(GO_molecular_function, "\\[.*?\\]")) |> 
+  # Use delimiter to make data longer
+  separate_longer_delim(GO_molecular_function, delim = " ; ")
+
+####
+# augment 
+# Tidy ec (we have decided only to work with the first digit but we are aware that the others have information aswell)
+####
+joined_data <- joined_data |>
+  # Extract the first digit and create new column
+  # For the few cases with more ec numbers we just look at the first
+  mutate(first_digit = str_extract(ec_number, "^\\d"),
+         # Translate digit to enzyme class using vector
+         enzyme_class = case_when(
+           first_digit == 1  ~ "oxidoreductases",
+           first_digit == 2  ~ "transferases",
+           first_digit == 3  ~ "hydrolases",
+           first_digit == 4  ~ "lysases",
+           first_digit == 5  ~ "isomerases",
+           first_digit == 6  ~ "ligases",
+           first_digit == 7  ~ "translocases",
+         )) |> 
+  select(-first_digit, -ec_number)
+
+
+####
+# Tidy pH dependence column 
+####
+#Function for extracting the optimum pH 
+pH_str_search <- "Optimum pH is (\\d+\\.\\d*)-(\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*)|Optimum pH is around (\\d+\\.\\d*)|Optimum pH is about (\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*) to (\\d+\\.\\d*)|Optimum pH is between (\\d+\\.\\d*) and (\\d+\\.\\d*)"
+
+#Function for creating two new columns for pH interval values
+pH_columns <- str_c("pH_", seq(from = 1, to = 2))
+
+# Starting to clean ph_dependence
+joined_data <- joined_data |>
+  #Removes text and keeps optimum pH values
+  mutate(ph_dependence = str_extract(ph_dependence, pH_str_search),
+         ph_dependence = str_remove(ph_dependence, "Optimum pH is"),
+         ph_dependence = str_remove(ph_dependence, "about|around|between"),
+         ph_dependence = str_replace(ph_dependence, " and ", "-")) |>
+  #Creates a new variable with pH interval
+  mutate(pH_interval = str_extract(ph_dependence, "(\\d+\\.\\d*)-(\\d+\\.\\d*)")) |>
+  #Separates pH interval into columns
+  separate(pH_interval, into = pH_columns, sep = "-") |>
+  #Inserts optimum pH values from pH dependence if it is not and interval
+  mutate(pH_1 = coalesce(pH_1, ph_dependence),
+         pH_2 = coalesce(pH_2, ph_dependence)) |>
+  #Changes chr to dbl and calculates average pH optimum
+  mutate(pH_1 = as.numeric(pH_1),
+         pH_2 = as.numeric(pH_2),
+         ph_dependence = (pH_1+pH_2)/2) |>
+  select(-pH_1,-pH_2)
+
+###
+# Tidy gene name (selct the first one)
+###
+joined_data <- joined_data |>
+  # Only keep the first gene name
+  mutate(gene_name = str_extract(gene_names, "^\\S*")) |>
+  # Remove gene names column
+  select(-gene_names) |> 
+  # Remove any duplicate entries
+  distinct()
+
+write_tsv(joined_data, file = "../data/clean_data.tsv")
+
+# # Correct empty columns if any non registered NA's are created by deleting text elements
+# joined_data <- joined_data |>
+#   mutate_all(~ ifelse(. == "", NA, .))
+
+
+## Code to find out what rows are duplicated
+# result <- duplicated(joined_data)
+# duplicated_rows <- subset(joined_data, result)
+
+
+
+```
