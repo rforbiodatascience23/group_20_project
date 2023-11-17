@@ -189,21 +189,21 @@ joined_data <- joined_data |>
 ####
 joined_data <- joined_data |>
   #Removes text and keeps optimum pH values
-  mutate(`pH dependence` = str_extract(`pH dependence`, pH_str_search),
-         `pH dependence` = str_remove(`pH dependence`, "Optimum pH is"),
-         `pH dependence` = str_remove(`pH dependence`, "about|around|between"),
-         `pH dependence` = str_replace(`pH dependence`, " and ", "-")) |>
+  mutate(ph_dependence = str_extract(ph_dependence, pH_str_search),
+         ph_dependence = str_remove(ph_dependence, "Optimum pH is"),
+         ph_dependence = str_remove(ph_dependence, "about|around|between"),
+         ph_dependence = str_replace(ph_dependence, " and ", "-")) |>
   #Creates a new variable with pH interval
-  mutate(pH_interval = str_extract(`pH dependence`, "(\\d+\\.\\d*)-(\\d+\\.\\d*)")) |>
+  mutate(pH_interval = str_extract(ph_dependence, "(\\d+\\.\\d*)-(\\d+\\.\\d*)")) |>
   #Separates pH interval into columns
   separate(pH_interval, into = pH_columns, sep = "-") |>
   #Inserts optimum pH values from pH dependence if it is not and interval
-  mutate(pH_1 = coalesce(pH_1, `pH dependence`),
-         pH_2 = coalesce(pH_2, `pH dependence`)) |>
+  mutate(pH_1 = coalesce(pH_1, ph_dependence),
+         pH_2 = coalesce(pH_2, ph_dependence)) |>
   #Changes chr to dbl and calculates average pH optimum
   mutate(pH_1 = as.numeric(pH_1),
          pH_2 = as.numeric(pH_2),
-         `pH dependence` = (pH_1+pH_2)/2) |>
+         ph_dependence = (pH_1+pH_2)/2) |>
   select(-pH_1,-pH_2)
 
 ###
