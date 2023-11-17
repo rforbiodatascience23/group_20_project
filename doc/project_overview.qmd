@@ -10,7 +10,7 @@ editor: visual
 
 Finding trends in data from Uniprot
 
-We will focus on differences between mouse and human and use logo plots fro active sequences
+We will focus on differences between mouse and human and use logo plots for active sequences
 
 Be aware that all data-analysis result is dependent on what have been reported in uniprot, and do not necessarily reflect real life.
 
@@ -28,11 +28,12 @@ Be aware that all data-analysis result is dependent on what have been reported i
 
 -   Compare differences between Mouse and Human for same protein families
 
--   Look at EIC numbers
+-   Look at EC numbers
 
 -   Transmembrane domains
 
 ## Line
+See if there is a trend in protein location vs pH dependence
 
 ## Anton
 
@@ -42,4 +43,4 @@ Bar plots of top 10 pathways counted in mouse vs human
 
 ## Johan
 
-## Line
+## Oscar
