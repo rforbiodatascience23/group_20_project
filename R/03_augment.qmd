@@ -4,4 +4,42 @@ format: html
 editor: visual
 ---
 
-## 
+## Load librares
+
+```{r}
+library(tidyverse)
+library(ggseqlogo)
+library(patchwork)
+```
+
+## Load clean data
+
+```{r}
+clean_data <- read_delim(file = "../data/clean_data.tsv", delim = "\t")
+```
+
+## Augment data
+
+### Add column with peptide sequence around active site
+
+```{r}
+# Function add column with sequence around active site
+get_logo_seq <- function(x, y) {
+  y <- as.integer(y)
+  logo_seq_length <- 7
+  n_aa_per_side <- (logo_seq_length-1/2)
+  return(substr(x, y-3, y+3))
+}
+
+# Extracting peptides around active site and saving in new column
+aug_data <- clean_data |>
+  mutate(logo_seq = get_logo_seq(sequence, active_site)) |>
+  # Filtereing out k-mers not covering 7 AA's
+  mutate(logo_seq = ifelse(nchar(logo_seq) != 7, NA, logo_seq))
+```
+
+## Save augment data object
+
+```{r}
+write_tsv(aug_data, file = "../data/03_dat_aug.tsv")
+```
