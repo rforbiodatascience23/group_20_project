@@ -41,7 +41,7 @@ aug_data <- aug_data |>
 
 ```
 
-## Identify protein families to look at 
+## Identify protein families to look at
 
 ```{r}
 # Filter out if no active site info
