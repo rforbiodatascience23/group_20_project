@@ -73,42 +73,10 @@ top_prot_fam <- top_prot_fam_mouse |>
   full_join(top_prot_fam_human, by = "protein_family") |> 
   mutate(n_average = (n_mouse + n_human) /2) |>
   arrange(desc(n_average))
-```
 
-## Do logo plots
-
-```{r}
 ### protein family logo plots ###
-#| label: logo plotting
-
-# fam_name <- "Tyr protein kinase "
-# fam_name <- "Sirtuin "
 top_prot_fam_name_vec <- top_prot_fam |> 
   pull(protein_family)
-
-# 
-# # Function for logo plot
-# generate_sequence_logo <- function(fam_name, organism, organism_pattern) {
-#   logo <- logoseq_data |>
-#     filter(protein_family == fam_name & str_detect(organism, organism_pattern)) |>
-#     select(entry, logo_seq) |> 
-#     distinct() |> 
-#     pull(logo_seq) |> 
-#     ggseqlogo(method = "bits") +
-#     labs(title = paste(organism, fam_name)) +
-#     theme(text = element_text(size = 3))
-#   
-#   return(logo)
-# }
-# 
-# generate_sequence_logo_many <- function(fam_name) {
-#   logo_mouse <- generate_sequence_logo(fam_name, "Mouse", "Mus")
-#   logo_human <- generate_sequence_logo(fam_name, "Human", "Human")
-#   logo_comb <- logo_mouse/logo_human
-#   return(logo_comb)
-}
-
-# wrap_plots(top_x, nrow = 1)
 ```
 
 ## Logo plots for protein fam
@@ -116,7 +84,6 @@ top_prot_fam_name_vec <- top_prot_fam |>
 ```{r}
 
 # Filter out if no active site info
-
 logoseq_data_mouse_prot <- aug_data |> 
   drop_na(logo_seq, protein_family) |>
   filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
@@ -173,25 +140,4 @@ logo_plot_human_enz <- ggseqlogo(logo_list_human, ncol=7)
 
 logo_comb <- logo_plot_human_enz / logo_plot_mouse_enz #plot_layout(guides = "collect")
 ggsave(filename = "../data/result.pdf", logo_comb)
-```
-
-```{r}
-### helper code
-test <- aug_data |> 
-  drop_na(protein_family)
-
-
-# Do mouse logo
-logo_mouse <- logoseq_data |>
-  filter(protein_family == enz_class & str_detect(organism, "Mus")) |>
-  select(entry, gene_name, logo_seq) |> 
-  distinct()
-
-
-clean_data |>
-  filter(str_detect(organism, "nean")
-```
-
-```{r}
-
 ```
