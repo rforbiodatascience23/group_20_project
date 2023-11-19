@@ -13,7 +13,7 @@ library(tidyverse)
 ## Load clean data
 
 ```{r}
-clean_data <- read_delim(file = "../data/clean_data.tsv", delim = "\t")
+clean_data <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")
 ```
 
 ## Augment data
