@@ -12,14 +12,33 @@ library(readr)
 ```{r, echo=FALSE, message=FALSE}
 
 
-data <- read_tsv("~/group_20_project/data/clean_data.tsv")
+data <- read_tsv("C:/Users/hostp/OneDrive/Documents/group_20_project/data/02_dat_clean.tsv")
 
 
 ```
 
-### Descriptive statistics
+## Descriptive statistics
 
-## Organism types
+### The different variables(columns) in the dataset:
+
+```{r}
+data %>% select(-entry, gene_name) %>% colnames()
+
+```
+
+The dataset describes different genes in Mouse and humans. Orinally the dataset also contained entries from different rodents and also from neantherthale, these has been removed. The genes are described with 16 different variables(including the species)
+
+-   Pathway
+
+    -   The pathway the gene is involved in eg. purine metabolism
+
+-   Cofactor
+
+    -   The cofactor involved
+
+-   
+
+### Organism types
 
 ```{r}
 
@@ -66,7 +85,8 @@ data %>%
   summarise(Unique_Entries = n_distinct(Value)) %>% 
   ggplot(aes(x=Column, y=Unique_Entries, fill = Column)) +
     geom_bar(stat = "identity") +
-    coord_flip()
+    coord_flip() +
+    labs(title = "Amounts of unique entries in the different columns")
 
 
 
@@ -83,7 +103,9 @@ data %>% select(enzyme_class) %>%
   summarise(Amount = n()) %>% 
   ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +
     geom_bar(stat = "identity") +
-    coord_flip()
+    coord_flip() +
+    theme_bw() +
+    labs(title = "Amount of different Enzyme classes")
   
   
 
