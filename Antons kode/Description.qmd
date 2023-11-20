@@ -18,7 +18,7 @@ data <- read_tsv("~/group_20_project/data/clean_data.tsv")
 
 ### Descrptive statistics
 
-## Organism types 
+## Organism types
 
 ```{r}
 
@@ -45,7 +45,6 @@ data %>%
   group_by(Column) %>%
   summarise(Unique_Entries = n_distinct(Value))
 ```
-
 
 ```{r}
 
@@ -90,6 +89,3 @@ data %>% select(enzyme_class) %>%
 
 
 ```
-
-
-
