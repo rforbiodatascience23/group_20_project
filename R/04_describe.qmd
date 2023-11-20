@@ -5,3 +5,94 @@ editor: visual
 ---
 
 ### Description of Dataset
+
+```{r, message=FALSE}
+library(tidyverse) 
+library(readr)
+```
+
+```{r, echo=FALSE, message=FALSE}
+
+
+data <- read_tsv("C:/Users/hostp/OneDrive/Documents/group_20_project/data/02_dat_clean.tsv")  
+```
+
+## Descriptive statistics
+
+### The different variables(columns) in the dataset:
+
+```{r}
+data %>% select(-entry, gene_name) %>% colnames() 
+```
+
+The dataset describes different genes in Mouse and humans. Orinally the dataset also contained entries from different rodents and also from neantherthale, these has been removed. The genes are described with 15 different variables(including the species)
+
+-   pathway:
+    -   eg. purine metabolism
+-   cofactor:
+    -   eg. Heme
+-   ph_dependence
+-   Subcellular_location\[cc\]
+    -   Eg. cytoplasm
+-   GO_molecular_function
+    -   Eg. Chromatin binding
+-   Organism: Mouse or Human
+-   lenth
+    -   The lenght of the protein sequence
+-   mass
+    -   Mass of the protein i Kilo daltons
+-   sequence
+    -   The aminoacid sequence
+-   active_site
+    -   Position of the active site
+-   binding_site_pos
+    -   Position of the binding site
+-   binfing_site_ligand
+    -   eg. Ca(2+)
+-   protein_family
+    -   eg. peroxidase
+-   family_type
+    -   subfamily / family
+-   enzyme_class
+    -   Eg. transferase
+
+```{r}
+data
+```
+
+### Organism types
+
+```{r}
+data %>% group_by(organism) %>%  
+  summarise(Amount = n()) %>%    
+  ggplot(aes(x=organism, y = Amount, fill = organism)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  theme_classic() +
+  theme(legend.position = "none") +
+  labs(title = "Types of organisms in the dataset") 
+```
+
+### Unique entries of each variable
+
+```{r}
+data %>% 
+  select(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway) %>% 
+  filter(!is.na(cofactor),
+         !is.na(`subcellular_location_[cc]`),
+         !is.na(GO_molecular_function),
+         !is.na(protein_family),
+         !is.na(enzyme_class),
+         !is.na(pathway)) %>%
+  pivot_longer(cols = c(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway),                names_to = "Column", values_to = "Value") %>% 
+  group_by(Column) %>% 
+  summarise(Unique_Entries = n_distinct(Value))
+```
+
+```{r}  library(dplyr) library(tidyr)  data %>%    select(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway) %>%    filter(!is.na(cofactor),          !is.na(`subcellular_location_[cc]`),          !is.na(GO_molecular_function),          !is.na(protein_family),          !is.na(enzyme_class),          !is.na(pathway)) %>%   pivot_longer(cols = c(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway),                names_to = "Column", values_to = "Value") %>%   group_by(Column) %>%   summarise(Unique_Entries = n_distinct(Value)) %>%    ggplot(aes(x=Column, y=Unique_Entries, fill = Column)) +     geom_bar(stat = "identity") +     coord_flip() +     labs(title = "Amounts of unique entries for the different vairables") +     theme_bw()}
+```
+
+### Different enzyme classes and their abundance in the dataset
+
+```{r}   data %>% select(enzyme_class) %>%    group_by(enzyme_class) %>%    summarise(Amount = n()) %>%    ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +     geom_bar(stat = "identity") +     coord_flip() +     theme_bw() +     labs(title = "Amount of different Enzyme classes")}
+```
