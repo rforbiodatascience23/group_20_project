@@ -106,7 +106,7 @@ joined_data <- joined_data |>
 joined_data <- joined_data |>
   # Remove unwanted patterns (step is removed since it is a small minority that has this noted)
   mutate(pathway = str_remove_all(pathway, "^PATHWAY: "),
-         pathway = str_remove_all(pathway, "^pathway: "),
+         pathway = str_remove_all(pathway, "pathway: "),
          pathway = str_remove_all(pathway, "\\{.*?\\}"),
          pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
          pathway = str_remove_all(pathway, "\\.")) |>
@@ -245,7 +245,7 @@ joined_data <- joined_data |>
     organism == "Homo sapiens (Human)" ~ "Human",
     organism == "Mus musculus (Mouse)" ~ "Mouse"))
 
-write_tsv(joined_data, file = "../data/clean_data.tsv")
+write_tsv(joined_data, file = "../data/02_dat_clean.tsv")
 
 # # Correct empty columns if any non registered NA's are created by deleting text elements
 # joined_data <- joined_data |>
@@ -255,7 +255,5 @@ write_tsv(joined_data, file = "../data/clean_data.tsv")
 ## Code to find out what rows are duplicated
 # result <- duplicated(joined_data)
 # duplicated_rows <- subset(joined_data, result)
-
-
 
 ```
