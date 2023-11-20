@@ -34,9 +34,7 @@ The dataset describes different genes in Mouse and humans. Orinally the dataset 
 
 -   Cofactor
 
-    -   The cofactor involved
-
--   
+    -   The cofactor involved eg. Heme
 
 ### Organism types
 
