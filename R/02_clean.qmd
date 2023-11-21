@@ -109,7 +109,8 @@ joined_data <- joined_data |>
          pathway = str_remove_all(pathway, "pathway: "),
          pathway = str_remove_all(pathway, "\\{.*?\\}"),
          pathway = str_remove_all(pathway, ": step \\d+/\\d+"),
-         pathway = str_remove_all(pathway, "\\.")) |>
+         pathway = str_remove_all(pathway, "\\."),
+         pathway = str_remove(pathway, "\\s$")) |>
   # Split into longer form
   separate_longer_delim(col = pathway, delim = "; ") |> 
   mutate(pathway = tolower(pathway))
@@ -132,7 +133,9 @@ joined_data <- joined_data |>
   mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "^[. ]+|[. ]+$"),
          `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: ")) |> 
   # Convert to lower case
-  mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`))
+  mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`)) |> 
+  # Removes space at the end
+  mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\s$")) 
 
 ####
 # Tidy "cofactor" column
@@ -143,7 +146,8 @@ joined_data <- joined_data |>
   mutate(cofactor = sapply(cofactor, paste, collapse = "_")) |> 
   separate_longer_delim(col = cofactor, "_") |> 
   mutate(cofactor = na_if(cofactor, "NA")) |> 
-  mutate(cofactor = tolower(cofactor))
+  mutate(cofactor = tolower(cofactor),
+         cofactor = str_remove(cofactor, "\\s$"))
 
 ####
 # Tidy "protein_families" column
@@ -171,7 +175,9 @@ joined_data <- joined_data |>
   # Remove GO numbers
   mutate(GO_molecular_function = str_remove_all(GO_molecular_function, "\\[.*?\\]")) |> 
   # Use delimiter to make data longer
-  separate_longer_delim(GO_molecular_function, delim = " ; ")
+  separate_longer_delim(GO_molecular_function, delim = " ; ") |> 
+  # Removes space at the end
+  mutate(GO_molecular_function = str_remove(GO_molecular_function, "\\s$")) 
 
 ####
 # augment 

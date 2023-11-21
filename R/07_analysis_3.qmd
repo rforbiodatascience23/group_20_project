@@ -7,12 +7,14 @@ editor: visual
 ## Load data
 
 ```{r}
-data_clean <- read_delim(file = "../data/clean_data.tsv", delim = "\t")
+data_clean <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")
 ```
 
 ## Analysis
 
 ### Enzyme class and subcellular location
+
+In our first analysis, we look at the distribution of enzyme classes in the three most populated subcellular locations. These three locations are the cell membrane, the cytoplasm and the nucleus. The distribution of enzyme classes is very similar between human and mice but there are some differences between the three subcellular locations. There are more translocases in the cell membrane and slightly less transferases. The relative high number of translocases in the cell membrane makes great biological sense as they catalyze the transport of molecules and ions across membranes among other things.
 
 ```{r}
 data_clean |>
@@ -27,7 +29,7 @@ data_clean |>
   labs(title = "Enzyme classes in subcellular locations",
        subtitle = "Distribution of the 7 enzyme classes in the three most populated subcellular locations",
        x = "Subcellular location",
-       y = "Count in %",
+       y = "Relative count",
        color = "Enzyme class",
        fill = "Enzyme class") +
   theme_bw() +
@@ -39,14 +41,34 @@ data_clean |>
 
 ```{r}
 # Vector with top 10 molecular functions
-top10_GO_molecular_function <- data_clean |>
+#top10_GO_molecular_function <- 
+data_clean |>
   drop_na(GO_molecular_function) |>
   select(entry, GO_molecular_function) |>
   distinct() |>
   count(GO_molecular_function) |>
-  arrange(desc(`n`)) |>
+  arrange(desc(`n`))
+#pull(GO_molecular_function) |>
+#head(10)
+
+top10_GO_molecular_function <- data_clean |>
+  mutate(GO_molecular_function = str_remove(GO_molecular_function, "\\s$")) |> 
+  drop_na(GO_molecular_function) |>
+  select(entry, GO_molecular_function) |>
+  distinct() |>
+  group_by(GO_molecular_function) |>
+  summarize(count = n()) |>
+  arrange(desc(count)) |>
   pull(GO_molecular_function) |>
   head(10)
+```
+
+```{r}
+data_clean |>
+  drop_na(GO_molecular_function) |>
+  select(entry, GO_molecular_function) |>
+  distinct() |>
+  filter(GO_molecular_function == "RNA binding")
 ```
 
 ```{r}
@@ -60,11 +82,11 @@ data_clean |>
   ggplot(aes(x = `subcellular_location_[cc]`,
              color = GO_molecular_function,
              fill = GO_molecular_function)) +
-  geom_bar(position = "fill") +
+  geom_bar() +
   labs(title = "Molecular functions in subcellular locations",
        subtitle = "Distribution of the top 10 molecular functions in the three most populated subcellular locations",
        x = "Subcellular location",
-       y = "Count",
+       y = "Relative count",
        color = "Molecular function",
        fill = "Molecular function") +
   theme_bw() +
@@ -112,6 +134,7 @@ data_clean |>
 
 ```{r}
 data_clean |>
+  mutate(pathway = str_remove(pathway, "\\s$")) |> 
   drop_na(pathway) |>
   select(entry, pathway) |>
   distinct() |>
