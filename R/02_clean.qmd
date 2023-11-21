@@ -15,7 +15,6 @@ library(tidyverse)
 
 ```{r}
 #| label: Load data
-
 # Loading data
 data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
 data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
