@@ -15,7 +15,6 @@ library(tidyverse)
 
 ```{r}
 #| label: Load data
-
 # Loading data
 data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
 data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
@@ -40,7 +39,7 @@ joined_data <- data_function |>
 ```{r}
 #| label: Clean data
 
-# Finding col_names in data_sequence but not in data_function. These Jeppe are responsible for cleaning
+# Finding col_names in data_sequence but not in data_function.
 setdiff(colnames(data_sequence), colnames(data_function))
 
 # Changing space in column names to "_" and lower case letters
@@ -178,27 +177,6 @@ joined_data <- joined_data |>
   separate_longer_delim(GO_molecular_function, delim = " ; ") |> 
   # Removes space at the end
   mutate(GO_molecular_function = str_remove(GO_molecular_function, "\\s$")) 
-
-####
-# augment 
-# Tidy "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
-####
-joined_data <- joined_data |>
-  # Extract the first digit and create new column
-  # For the few cases with more ec numbers we just look at the first
-  mutate(first_digit = str_extract(ec_number, "^\\d"),
-         # Translate digit to enzyme class using vector
-         enzyme_class = case_when(
-           first_digit == 1  ~ "oxidoreductases",
-           first_digit == 2  ~ "transferases",
-           first_digit == 3  ~ "hydrolases",
-           first_digit == 4  ~ "lysases",
-           first_digit == 5  ~ "isomerases",
-           first_digit == 6  ~ "ligases",
-           first_digit == 7  ~ "translocases",
-         )) |> 
-  select(-first_digit, -ec_number)
-
 
 ####
 # Tidy "pH dependence" column 
