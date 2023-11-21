@@ -70,7 +70,7 @@ aug_data <- aug_data |>
            first_digit == 1  ~ "oxidoreductases",
            first_digit == 2  ~ "transferases",
            first_digit == 3  ~ "hydrolases",
-           first_digit == 4  ~ "lysases",
+           first_digit == 4  ~ "lyases",
            first_digit == 5  ~ "isomerases",
            first_digit == 6  ~ "ligases",
            first_digit == 7  ~ "translocases",

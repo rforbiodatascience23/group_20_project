@@ -210,3 +210,41 @@ data_clean |>
   
   
 ```
+
+### cofactors in subcellular locations
+
+```{r}
+# Vector with top 10 cofactors
+top10_cofactor <- data_clean |>
+  drop_na(cofactor) |>
+  select(entry, cofactor) |>
+  distinct() |>
+  group_by(cofactor) |>
+  summarize(count = n()) |>
+  arrange(desc(count))
+  pull(cofactor) |>
+  head(10)
+```
+
+```{r}
+# Plot of cofactor vs subcellular location
+data_clean |>
+  drop_na(cofactor, `subcellular_location_[cc]`) |>
+  select(entry, cofactor, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         cofactor == top10_cofactor) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             color = cofactor,
+             fill = cofactor)) +
+  geom_bar() +
+  labs(title = "Cofactors in subcellular locations",
+       subtitle = "Distribution of the top 10 cofactors in the three most populated subcellular locations",
+       x = "Subcellular location",
+       y = "Count",
+       color = "Cofactor",
+       fill = "Cofactor") +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  facet_wrap(~organism)
+```
