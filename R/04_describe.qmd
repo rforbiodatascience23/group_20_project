@@ -57,10 +57,6 @@ The dataset describes different genes in Mouse and humans. Orinally the dataset 
 -   enzyme_class
     -   Eg. transferase
 
-```{r}
-data
-```
-
 ### Organism types
 
 ```{r}
@@ -77,22 +73,46 @@ data |> group_by(organism) |>
 ### Unique entries of each variable
 
 ```{r}
-library(qwraps2)
-#options(qwraps2_markup = "quatro")
 
-data |> 
-  select(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway) |> 
-  filter(!is.na(cofactor),
-         !is.na(`subcellular_location_[cc]`),
-         !is.na(GO_molecular_function),
-         !is.na(protein_family),
-         !is.na(enzyme_class),
-         !is.na(pathway)) |>
-  pivot_longer(cols = c(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway),                names_to = "Column", values_to = "Value") |> 
-  group_by(Column) |> 
-  summarise(Unique_Entries = n_distinct(Value)) 
+# Assuming you have already loaded the necessary libraries and created your data frame 'data'
+
+summary_table <- data |>
+  select(
+    cofactor, 
+    `subcellular_location_[cc]`, 
+    GO_molecular_function, 
+    protein_family, 
+    enzyme_class, 
+    pathway
+  ) |>
+  filter(
+    !is.na(cofactor),
+    !is.na(`subcellular_location_[cc]`),
+    !is.na(GO_molecular_function),
+    !is.na(protein_family),
+    !is.na(enzyme_class),
+    !is.na(pathway)
+  ) |>
+  pivot_longer(
+    cols = c(
+      cofactor, 
+      `subcellular_location_[cc]`, 
+      GO_molecular_function, 
+      protein_family, 
+      enzyme_class, 
+      pathway
+    ),
+    names_to = "Column",
+    values_to = "Value"
+  ) |>
+  group_by(Column) |>
+  summarise(Unique_Entries = n_distinct(Value))
+
+
+kable(summary_table)
 ```
 
+#### Illustarted with a bar plot aswell
 ```{r}
 
 library(dplyr) 
@@ -135,50 +155,4 @@ data |>
   coord_flip() +
   theme_bw() +
   labs(title = "Amount of different Enzyme classes")
-```
-
-```{r}
-
-
-# Assuming you have already loaded the necessary libraries and created your data frame 'data'
-
-summary_table <- data |>
-  select(
-    cofactor, 
-    `subcellular_location_[cc]`, 
-    GO_molecular_function, 
-    protein_family, 
-    enzyme_class, 
-    pathway
-  ) |>
-  filter(
-    !is.na(cofactor),
-    !is.na(`subcellular_location_[cc]`),
-    !is.na(GO_molecular_function),
-    !is.na(protein_family),
-    !is.na(enzyme_class),
-    !is.na(pathway)
-  ) |>
-  pivot_longer(
-    cols = c(
-      cofactor, 
-      `subcellular_location_[cc]`, 
-      GO_molecular_function, 
-      protein_family, 
-      enzyme_class, 
-      pathway
-    ),
-    names_to = "Column",
-    values_to = "Value"
-  ) |>
-  group_by(Column) |>
-  summarise(Unique_Entries = n_distinct(Value))
-
-
-kable(summary_table)
-```
-
-```{r}
-
-
 ```
