@@ -36,6 +36,25 @@ aug_data <- clean_data |>
   mutate(logo_seq = ifelse(nchar(logo_seq) != 7, NA, logo_seq))
 ```
 
+## Add count for the number of molecular functions for each protein
+
+```{r}
+####
+# Count the number of molecular functions for each entry
+####
+molecular_function_count <- data |>
+  select(organism, entry, GO_molecular_function, length, mass) |>
+  distinct() |>
+  drop_na() |>
+  count(entry, name = "num_molecular_functions") 
+
+# Join num_molecular_functions
+aug_data <- aug_data |>
+  left_join(molecular_function_count, by = "entry") |>
+  drop_na()
+
+```
+
 ## Save augment data object
 
 ```{r}
