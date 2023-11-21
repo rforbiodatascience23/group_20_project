@@ -4,45 +4,23 @@ format: html
 editor: visual
 ---
 
-## 
+## Load augmented data 
 
 ```{r}
 # Load data
-data <- read_tsv("..//data/clean_data.tsv")
-```
-
-```{r}
-
-####
-# Count the number of molecular functions for each entry (belongs in augment)
-####
-molecular_function_count <- data |>
-  select(organism, entry, GO_molecular_function, length, mass) |>
-  distinct() |>
-  drop_na() |>
-  count(entry)
-# Merge with the original data
-merged_data <- data |>
-  select(organism, entry, length, mass) |>
-  distinct() |>
-  left_join(molecular_function_count, by = "entry")|>
-  drop_na()
-
-
+data <- read_tsv("../data/03_dat_aug.tsv")
 ```
 
 ```{r}
 #####
 # Plot counted number of molecular functions 
 #####
-merged_data |>
-    ggplot(aes(x = length, y = n, fill = organism, colour = organism)) + 
+data |>
+    ggplot(aes(x = length, y = num_molecular_functions, fill = organism, colour = organism)) + 
     geom_point(alpha = 0.5, size = 0.75)+
     labs(title = "Scatter Plot of Length vs. Molecular Function Count",
          x = "Length",
          y = "Molecular Function Count")
-
-
 ```
 
 ```{r}

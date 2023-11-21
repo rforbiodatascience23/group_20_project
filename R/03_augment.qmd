@@ -50,8 +50,7 @@ molecular_function_count <- clean_data |>
 
 # Join num_molecular_functions
 aug_data <- aug_data |>
-  left_join(molecular_function_count, by = "entry") |>
-  drop_na()
+  full_join(molecular_function_count, by = "entry")
 
 ```
 
