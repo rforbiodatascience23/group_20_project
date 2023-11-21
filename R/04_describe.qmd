@@ -13,12 +13,12 @@ library(patchwork)
 
 ```{r, echo=FALSE, message=FALSE}
 ## Loading data
-data <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")  
+data <- read_tsv(file = "../data/03_dat_aug.tsv")  
 ```
 
 ## Descriptive statistics
 
-We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each protein and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function_[cc], temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function_[cc]), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless.
+We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct() ` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function_[cc], temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function_[cc]), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless.
 After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
 
 ### The different variables (columns) in the dataset:
