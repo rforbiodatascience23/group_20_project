@@ -7,7 +7,7 @@ editor: visual
 ## Load data
 
 ```{r}
-data_clean <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")
+data_clean <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
 ```
 
 ## Analysis
@@ -35,7 +35,10 @@ data_clean |>
        color = "Enzyme class",
        fill = "Enzyme class") +
   theme_bw() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 10),
+        plot.subtitle = element_text(size = 10)) +
   guides(fill = guide_legend(nrow = 2, byrow = TRUE),
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
@@ -80,10 +83,16 @@ data_clean |>
        color = "Molecular function",
        fill = "Molecular function") +
   theme_bw() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 10),
+        plot.subtitle = element_text(size = 10)) +
   guides(fill = guide_legend(nrow = 2, byrow = TRUE),
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
+
+ggsave("07_analysis_3_plot2.png",
+       path = "../results")
 ```
 
 ### Pathways in subcellular location
@@ -123,9 +132,13 @@ data_clean |>
        fill = "Pathway") +
   theme_bw() +
   theme(legend.position = "bottom",
-        legend.text = element_text(size = 6),
-        legend.title = element_text(size = 10)) +
+        legend.text = element_text(size = 5),
+        legend.title = element_text(size = 9),
+        plot.subtitle = element_text(size = 10)) +
   guides(fill = guide_legend(nrow = 2, byrow = TRUE),
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
+
+ggsave("07_analysis_3_plot3.png",
+       path = "../results")
 ```
