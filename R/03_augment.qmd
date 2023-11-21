@@ -42,7 +42,7 @@ aug_data <- clean_data |>
 ####
 # Count the number of molecular functions for each entry
 ####
-molecular_function_count <- data |>
+molecular_function_count <- clean_data |>
   select(organism, entry, GO_molecular_function, length, mass) |>
   distinct() |>
   drop_na() |>
