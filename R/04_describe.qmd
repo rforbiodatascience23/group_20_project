@@ -13,7 +13,7 @@ library(patchwork)
 
 ```{r, echo=FALSE, message=FALSE}
 ## Loading data
-data <- read_tsv("../data/02_dat_clean.tsv")  
+data <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")  
 ```
 
 ## Descriptive statistics
@@ -184,3 +184,39 @@ data |>
   theme_bw() +
   labs(title = "Amount of different Enzyme classes")
 ```
+
+```{r}
+
+
+enzymes_Human <- data |>
+  select(enzyme_class, organism) |>
+  drop_na() |> 
+  filter(organism == "Human") |> 
+  group_by(enzyme_class) |>
+  summarise(Amount = n()) |>
+  ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "Amount of different Enzyme classes in Mouse") 
+
+enzyme_Mouse <-  data |>
+  select(enzyme_class, organism) |>
+  drop_na() |> 
+  filter(organism == "Mouse") |> 
+  group_by(enzyme_class) |>
+  summarise(Amount = n()) |>
+  ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "Amount of different Enzyme classes in Human") 
+
+
+enzyme_Mouse / enzymes_Human
+```
+
+
+
