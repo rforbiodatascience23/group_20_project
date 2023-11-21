@@ -55,6 +55,30 @@ aug_data <- aug_data |>
 
 ```
 
+## Convert the first EC number into an enzyme class number
+
+```{r}
+####
+# Tidy "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
+####
+aug_data <- aug_data |>
+  # Extract the first digit and create new column
+  # For the few cases with more ec numbers we just look at the first
+  mutate(first_digit = str_extract(ec_number, "^\\d"),
+         # Translate digit to enzyme class using vector
+         enzyme_class = case_when(
+           first_digit == 1  ~ "oxidoreductases",
+           first_digit == 2  ~ "transferases",
+           first_digit == 3  ~ "hydrolases",
+           first_digit == 4  ~ "lysases",
+           first_digit == 5  ~ "isomerases",
+           first_digit == 6  ~ "ligases",
+           first_digit == 7  ~ "translocases",
+         )) |> 
+  select(-first_digit, -ec_number)
+
+```
+
 ## Save augment data object
 
 ```{r}
