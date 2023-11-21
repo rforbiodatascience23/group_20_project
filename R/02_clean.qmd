@@ -39,7 +39,7 @@ joined_data <- data_function |>
 ```{r}
 #| label: Clean data
 
-# Finding col_names in data_sequence but not in data_function. These Jeppe are responsible for cleaning
+# Finding col_names in data_sequence but not in data_function.
 setdiff(colnames(data_sequence), colnames(data_function))
 
 # Changing space in column names to "_" and lower case letters
