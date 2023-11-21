@@ -4,78 +4,114 @@ format: html
 editor: visual
 ---
 
-### Description of Dataset
-
 ```{r, message=FALSE}
-library(tidyverse) 
-library(readr)
+## Loading libraries
+library(tidyverse)
 library(knitr)
+library(patchwork)
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-
-
-data <- read_tsv("C:/Users/hostp/OneDrive/Documents/group_20_project/data/02_dat_clean.tsv")  
+## Loading data
+data <- read_tsv("../data/02_dat_clean.tsv")  
 ```
 
 ## Descriptive statistics
 
-### The different variables(columns) in the dataset:
+We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each protein and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function_[cc], temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function_[cc]), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless.
+After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
+
+### The different variables (columns) in the dataset:
 
 ```{r}
-data |>  select(-entry, -gene_name) |> colnames() 
+data |> 
+  select(-entry, -gene_name) |> 
+  colnames() 
 ```
 
-The dataset describes different genes in Mouse and humans. Orinally the dataset also contained entries from different rodents and also from neantherthale, these has been removed. The genes are described with 15 different variables(including the species)
+Originally the dataset also contained entries from different rodents and also from neanderthal. These have been removed. The proteins are described with 15 variables (including the species):
 
 -   pathway:
-    -   eg. purine metabolism
+    -   e.g., purine metabolism
 -   cofactor:
-    -   eg. Heme
+    -   e.g., Heme
 -   ph_dependence
--   Subcellular_location\[cc\]
-    -   Eg. cytoplasm
+-   subcellular_location_[cc]
+    -   e.g., cytoplasm
 -   GO_molecular_function
-    -   Eg. Chromatin binding
--   Organism: Mouse or Human
--   lenth
-    -   The lenght of the protein sequence
+    -   e.g., Chromatin binding
+-   organism: 
+    - Mouse or Human
+-   length
+    -   The lenght of the amino acid sequence
 -   mass
-    -   Mass of the protein i Kilo daltons
+    -   Mass of the protein in kilo dalton [kDa]
 -   sequence
-    -   The aminoacid sequence
+    -   The amino acid sequence
 -   active_site
     -   Position of the active site
 -   binding_site_pos
     -   Position of the binding site
--   binfing_site_ligand
-    -   eg. Ca(2+)
+-   binding_site_ligand
+    -   e.g., Ca(2+)
 -   protein_family
-    -   eg. peroxidase
+    -   e.g., peroxidase
 -   family_type
     -   subfamily / family
 -   enzyme_class
-    -   Eg. transferase
+    -   e.g., transferase
 
-### Organism types
+### Protein amount for each organism
+
+We do not see a great difference in the amount of proteins describes for mouse and human. The following plot visualizes how similar the count is.
 
 ```{r}
-data |> group_by(organism) |>   
+data |> 
+  group_by(organism) |>   
   summarise(Amount = n()) |>     
-  ggplot(aes(x=organism, y = Amount, fill = organism)) +
+  ggplot(aes(x=organism, 
+             y = Amount, 
+             fill = organism)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  theme_classic() +
+  theme_bw() +
   theme(legend.position = "none") +
-  labs(title = "Types of organisms in the dataset") 
+  labs(title = "Total count of human and mouse",
+       y = "Count",
+       x = "Organism") 
 ```
+
+The low difference in amount of proteins for mouse and human respectively is illustrating the low difference between mouse and human in general. The following plots shows the difference in length (first plot) and mass (second plot) for mouse and human. It is clear that the density plots for mouse and human respectively are very similar. This indicates that the proteins described in human has a orthologue in mouse why the length and mass does not differ much.
+
+#### Density plot for length of the proteins in the database stratified on mouse and human
+
+```{r}
+## Density plot for the length of the protein stratified on mouse and human
+data |>
+  ggplot(aes(x = length, 
+             fill = organism)) +
+  xlim(0, 2500) +
+  geom_density(alpha = 0.5) +
+  theme_bw() +
+  labs(fill = "Organism")
+```
+
+#### Density plot for the mass of the proteins in the database stratified on mouse and human
+
+```{r}
+data |>
+  ggplot(aes(x = mass, fill = organism)) +
+  xlim(0, 300000) +
+  geom_density(alpha = 0.5) +
+  theme_bw()
+```
+
 
 ### Unique entries of each variable
 
+The variables that we kept have a different count of unique entries, e.g., there are 7 different entries for "enzyme_class" and 538 different "GO_molecular_function".
+
 ```{r}
-
-# Assuming you have already loaded the necessary libraries and created your data frame 'data'
-
 summary_table <- data |>
   select(
     cofactor, 
@@ -108,16 +144,12 @@ summary_table <- data |>
   group_by(Column) |>
   summarise(Unique_Entries = n_distinct(Value))
 
-
 kable(summary_table)
 ```
 
-#### Illustarted with a bar plot aswell
+#### Illustrated with a bar plot as well
+
 ```{r}
-
-library(dplyr) 
-library(tidyr)
-
 data |> 
   select(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway) |> 
   filter(!is.na(cofactor),
@@ -137,15 +169,11 @@ data |>
   ggplot(aes(x=Column, y=Unique_Entries, fill = Column)) +
   geom_bar(stat = "identity") +
   coord_flip() +
-  labs(title = "Amounts of unique entries for the different vairables") +      theme_bw()
-
-### Different enzyme classes and their abundance in the dataset
-
-
+  labs(title = "Amounts of unique entries for the different vairables") + 
+  theme_bw()
 ```
 
 ```{r}
-
 data |>
   select(enzyme_class) |>
   group_by(enzyme_class) |>
