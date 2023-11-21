@@ -1,0 +1,166 @@
+---
+title: "06.analasys_1"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+# Load data
+data <- read_tsv("..//data/clean_data.tsv")
+```
+
+```{r}
+
+####
+# Count the number of molecular functions for each entry (belongs in augment)
+####
+molecular_function_count <- data |>
+  select(organism, entry, GO_molecular_function, length, mass) |>
+  distinct() |>
+  drop_na() |>
+  count(entry)
+# Merge with the original data
+merged_data <- data |>
+  select(organism, entry, length, mass) |>
+  distinct() |>
+  left_join(molecular_function_count, by = "entry")|>
+  drop_na()
+
+
+```
+
+```{r}
+#####
+# Plot counted number of molecular functions 
+#####
+merged_data |>
+    ggplot(aes(x = length, y = n, fill = organism, colour = organism)) + 
+    geom_point(alpha = 0.5, size = 0.75)+
+    labs(title = "Scatter Plot of Length vs. Molecular Function Count",
+         x = "Length",
+         y = "Molecular Function Count")
+
+
+```
+
+```{r}
+#####
+# Plot size vs mass
+#####
+
+# Perform linear regression for each organism
+linear_models <- lm(length ~ mass + organism, data = merged_data)
+
+
+# Create scatter plot with linear regression lines
+ggplot(merged_data, aes(x = mass, y = length, color = organism)) +
+  geom_point(alpha = 0.5, size = 0.75) +
+  geom_smooth(method = "lm", se = TRUE, fullrange = TRUE, formula = y ~ x) +
+  labs(title = "Scatter Plot of Length vs. Mass with Linear Regression",
+       x = "Mass (KDA)",
+       y = "Length") +
+  theme_minimal()
+
+
+
+```
+
+ph Length investigation
+
+```{r}
+####
+# Assemble size-pH
+####
+size_pH_idea <- data|>
+    select(organism,
+           entry,
+           length,
+           mass,
+           ph_dependence)|>
+    distinct()|>
+    drop_na()
+# 368 distinct entries
+
+size_pH_idea |>
+    ggplot(aes(x= length, y = ph_dependence, fill = organism, colour = organism)) + 
+    geom_point(alpha = 0.75, size = 0.75)+
+    labs(title = "Scatter Plot of length vs. pH",
+         x = "Sequence length",
+         y = "pH optimum")
+```
+
+```{r}
+
+####
+# pH by enzyme class test 
+####
+data|>
+    select(organism,
+           entry,
+           length,
+           mass,
+           ph_dependence,
+           enzyme_class) |>
+    distinct() |>
+    drop_na() |>
+    ggplot(aes(y = ph_dependence, fill = enzyme_class, colour = enzyme_class))+
+    geom_boxplot(alpha = 0.75, size = 0.9) +
+    facet_wrap(~organism)
+# 310 distinct entries
+
+
+```
+
+```{r}
+####
+# Size by enzyme class test 
+####
+data|>
+    select(organism,
+           entry,
+           length,
+           mass,
+           enzyme_class) |>
+    distinct() |>
+    drop_na() |>
+    ggplot(aes(y = length, fill = enzyme_class, colour = enzyme_class))+
+    geom_boxplot(alpha = 0.75, size = 0.9) +
+    facet_wrap(~organism) +
+    scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# 310 distinct entries
+```
+
+```{r}
+{r}
+####
+# Size by subcellular location (top 5)
+####
+
+# Count occurrences of each subcellular location and select top 5
+top_locations <- data|>
+  drop_na(`subcellular_location_[cc]`) |>
+  select(entry, `subcellular_location_[cc]`) |>
+  distinct() |>
+  count(`subcellular_location_[cc]`) |>
+  arrange(desc(`n`))|>
+  pull(`subcellular_location_[cc]`) |>
+  head(5)
+
+
+# Plot boxplots for protein sizes in the top 5 subcellular locations
+filtered_data |>
+  ggplot(aes(y = length,
+             fill = `subcellular_location_[cc]`,
+             colour = `subcellular_location_[cc]`)) +
+  geom_boxplot(alpha = 0.75, size = 0.9) +
+  facet_wrap(~organism) +
+  scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+  labs(title = "Boxplot of Protein Sizes in Top 5 Sub-cellular Locations",
+       x = "Sub-cellular Location",
+       y = "Protein Length") +
+  theme(legend.position = "top") +
+  scale_fill_brewer(palette = "Set3")
+```
