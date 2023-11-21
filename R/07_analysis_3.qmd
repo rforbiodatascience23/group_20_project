@@ -39,6 +39,9 @@ data_clean |>
   guides(fill = guide_legend(nrow = 2, byrow = TRUE),
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
+
+ggsave("07_analysis_3_plot1.png",
+       path = "../results")
 ```
 
 ### Molecular function in subcellular location
