@@ -24,14 +24,103 @@ data_clean |>
              color = enzyme_class,
              fill = enzyme_class)) +
   geom_bar(position = "fill") +
-  theme(legend.position = "bottom") +
-  scale_fill_viridis_d() +
-  scale_color_viridis_d() +
   labs(title = "Enzyme classes in subcellular locations",
        subtitle = "Distribution of the 7 enzyme classes in the three most populated subcellular locations",
        x = "Subcellular location",
        y = "Count in %",
        color = "Enzyme class",
-       fill = "Enzyme class")
+       fill = "Enzyme class") +
+  theme_bw() +
+  theme(legend.position = "bottom") +
   facet_wrap(~organism)
+```
+
+### Molecular function in subcellular location
+
+```{r}
+# Vector with top 10 molecular functions
+top10_GO_molecular_function <- data_clean |>
+  drop_na(GO_molecular_function) |>
+  select(entry, GO_molecular_function) |>
+  distinct() |>
+  count(GO_molecular_function) |>
+  arrange(desc(`n`)) |>
+  pull(GO_molecular_function) |>
+  head(10)
+```
+
+```{r}
+# Plot of molecular function vs subcellular location
+data_clean |>
+  drop_na(GO_molecular_function, `subcellular_location_[cc]`) |>
+  select(entry, GO_molecular_function, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         GO_molecular_function == top10_GO_molecular_function) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             color = GO_molecular_function,
+             fill = GO_molecular_function)) +
+  geom_bar(position = "fill") +
+  labs(title = "Molecular functions in subcellular locations",
+       subtitle = "Distribution of the top 10 molecular functions in the three most populated subcellular locations",
+       x = "Subcellular location",
+       y = "Count",
+       color = "Molecular function",
+       fill = "Molecular function") +
+  theme_bw() +
+  facet_wrap(~organism)
+```
+
+### Cofactor in subcellular location
+
+```{r}
+# Vector with top 10 cofactors
+top10_cofactor <- data_clean |>
+  drop_na(cofactor) |>
+  select(entry, cofactor) |>
+  distinct() |>
+  count(cofactor) |>
+  arrange(desc(`n`)) |>
+  pull(cofactor) |>
+  head(10)
+```
+
+```{r}
+# Plot of molecular function vs subcellular location
+data_clean |>
+  drop_na(cofactor, `subcellular_location_[cc]`) |>
+  select(entry, cofactor, organism, `subcellular_location_[cc]`) |>
+  distinct() |>
+  filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
+         cofactor == top10_cofactor) |>
+  ggplot(aes(x = `subcellular_location_[cc]`,
+             color = cofactor,
+             fill = cofactor)) +
+  geom_bar() +
+  labs(title = "Cofactors in subcellular locations",
+       subtitle = "Distribution of the top 10 cofactors in the three most populated subcellular locations",
+       x = "Subcellular location",
+       y = "Count",
+       color = "Cofactor",
+       fill = "Cofactor") +
+  theme_bw() +
+  theme(legend.position = "bottom") +
+  facet_wrap(~organism)
+```
+
+### 
+
+```{r}
+data_clean |>
+  drop_na(pathway) |>
+  select(entry, pathway) |>
+  distinct() |>
+  count(pathway) |>
+  arrange(desc(`n`))
+```
+
+```{r}
+data_clean |>
+  drop_na(pathway) |>
+  distinct(pathway) 
 ```

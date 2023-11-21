@@ -1,0 +1,151 @@
+---
+title: "Logo plot for active sites"
+format: html
+editor: visual
+---
+
+## Load librares
+
+```{r}
+library(ggseqlogo)
+library(patchwork)
+library(tidyverse)
+```
+
+## Load data
+
+```{r}
+aug_data <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
+```
+
+## Identify protein families to look at
+
+```{r}
+# Filter out if no active site info
+logoseq_data <- aug_data |> 
+  drop_na(logo_seq) |> 
+  filter(family_type == "family") |> 
+  select(entry, organism, protein_family, family_type, logo_seq)
+
+# See what protein families are most represented in mouse and human for active site data
+top_prot_fam_mouse <- logoseq_data |>
+  drop_na(protein_family) |> 
+  filter(str_detect(organism, "Mouse")) |> 
+  select(entry, protein_family, logo_seq) |> 
+  distinct() |> 
+  group_by(protein_family) |> 
+  summarize(n_mouse = n()) |>
+  arrange(desc(n_mouse))
+
+top_prot_fam_human <- logoseq_data |>
+  drop_na(protein_family) |> 
+  filter(organism == "Human") |>
+  select(entry, protein_family, logo_seq) |> 
+  distinct() |> 
+  group_by(protein_family) |> 
+  summarize(n_human = n()) |>
+  arrange(desc(n_human))
+
+# Combine mouse and human protein family counts and available active site information
+top_prot_fam <- top_prot_fam_mouse |> 
+  full_join(top_prot_fam_human, by = "protein_family") |> 
+  mutate(n_average = (n_mouse + n_human) /2) |>
+  arrange(desc(n_average))
+
+# Extract names of protein families in arranged order
+top_prot_fam_name_vec <- top_prot_fam |> 
+  pull(protein_family)
+```
+
+## Logo plots for protein fam
+
+```{r}
+### Protein family logo plots ###
+
+# Extract mouse data and filter out if no active site info
+logoseq_data_mouse_prot <- aug_data |> 
+  drop_na(logo_seq, protein_family) |>
+  filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
+  filter(str_detect(organism, "Mouse")) |> 
+  select(entry, organism, protein_family, logo_seq) |> 
+  distinct()
+
+# Extract human data and filter out if no active site info
+logoseq_data_human_prot <- aug_data |> 
+  drop_na(logo_seq, protein_family) |>
+  filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
+  filter(str_detect(organism, "Human")) |> 
+  select(entry, organism, protein_family, logo_seq) |> 
+  distinct()
+
+# Change names manually to fit logo plot (check if names match before changing them)
+logo_list_mouse_prot <- split(logoseq_data_mouse_prot$logo_seq,
+                         logoseq_data_mouse_prot$protein_family)
+names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
+                                 "Peptidase C19 ",
+                                 "Peptidase S1 ",
+                                 "Protein-tyrosine\nphosphatase ",
+                                 "Tyr protein\nkinase ")
+logo_list_human_prot <- split(logoseq_data_human_prot$logo_seq,
+                              logoseq_data_human_prot$protein_family)
+names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
+                                 "Peptidase C19 ",
+                                 "Peptidase S1 ",
+                                 "Protein-tyrosine\nphosphatase ",
+                                 "Tyr protein\nkinase ")
+
+# Making logo plots for protein families
+logo_plot_mouse_prot <- ggseqlogo(logo_list_mouse_prot, ncol=7) +
+  theme(strip.text = element_text(size = 8))
+logo_plot_human_prot <- ggseqlogo(logo_list_human_prot, ncol=7) +
+  theme(strip.text = element_text(size = 8))
+
+logo_comb_prot <- logo_plot_human_prot / logo_plot_mouse_prot #plot_layout(guides = "collect")
+logo_comb_prot
+#ggsave(filename = "../data/result.pdf", logo_comb_prot)
+```
+
+## Logo plots for enzyme class
+
+```{r}
+### Enzyme class logo plots ###
+
+# Extract mouse data and filter out if no active site info
+logoseq_data_mouse_enz <- aug_data |>
+  drop_na(logo_seq, enzyme_class) |>
+  filter(str_detect(organism, "Mouse")) |>
+  select(entry, organism, enzyme_class, logo_seq) |>
+  distinct()
+
+# Extract human data and filter out if no active site info
+logoseq_data_human_enz <- aug_data |>
+  drop_na(logo_seq, enzyme_class) |>
+  filter(str_detect(organism, "Human")) |>
+  select(entry, organism, enzyme_class, logo_seq) |>
+  distinct()
+
+# using facet_wrap
+# Function for logo plot
+
+# Converting data to named list for facet function in ggseqlogo
+logo_list_mouse_enz <- split(logoseq_data_mouse_enz$logo_seq,
+                             logoseq_data_mouse_enz$enzyme_class)
+
+logo_list_human_enz <- split(logoseq_data_human_enz$logo_seq,
+                             logoseq_data_human_enz$enzyme_class)
+
+# Making logo plots for enzyme class
+logo_plot_mouse_enz <- ggseqlogo(logo_list_mouse_enz, ncol=7) +
+  theme(strip.text = element_text(size = 8))
+logo_plot_human_enz <- ggseqlogo(logo_list_human_enz, ncol=7) +
+  theme(strip.text = element_text(size = 8))
+
+# Combining mouse and human logo
+logo_comb_enz <- logo_plot_human_enz / logo_plot_mouse_enz #plot_layout(guides = "collect")
+logo_comb_enz
+#ggsave(filename = "../data/result.pdf", logo_comb)
+```
+
+```{r}
+
+```
