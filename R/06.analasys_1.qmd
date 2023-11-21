@@ -25,15 +25,16 @@ data |>
 
 ```{r}
 #####
-# Plot size vs mass
+# Plot size vs mass (fix the structure to use pipes)
 #####
 
+
 # Perform linear regression for each organism
-linear_models <- lm(length ~ mass + organism, data = merged_data)
+linear_models <- lm(length ~ mass + organism, data = data)
 
 
 # Create scatter plot with linear regression lines
-ggplot(merged_data, aes(x = mass, y = length, color = organism)) +
+ggplot(data, aes(x = mass, y = length, color = organism)) +
   geom_point(alpha = 0.5, size = 0.75) +
   geom_smooth(method = "lm", se = TRUE, fullrange = TRUE, formula = y ~ x) +
   labs(title = "Scatter Plot of Length vs. Mass with Linear Regression",
@@ -106,7 +107,7 @@ data|>
     ggplot(aes(y = length, fill = enzyme_class, colour = enzyme_class))+
     geom_boxplot(alpha = 0.75, size = 0.9) +
     facet_wrap(~organism) +
-    scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+    scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # 310 distinct entries
 ```
@@ -127,7 +128,7 @@ top_locations <- data|>
   pull(`subcellular_location_[cc]`) |>
   head(5)
 
-
+# This needs fixing 
 # Plot boxplots for protein sizes in the top 5 subcellular locations
 filtered_data |>
   ggplot(aes(y = length,
