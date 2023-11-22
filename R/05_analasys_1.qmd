@@ -1,14 +1,15 @@
 ---
-title: "06.analasys_1"
+title: "05_analasys_1"
 format: html
 editor: visual
 ---
 
-## Load augmented data 
+## Load augmented data
 
 ```{r}
+library(tidyverse)
 # Load data
-data <- read_tsv("../data/03_dat_aug.tsv")
+data <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
 ```
 
 ```{r}
@@ -113,7 +114,6 @@ data|>
 ```
 
 ```{r}
-{r}
 ####
 # Size by subcellular location (top 5)
 ####
@@ -128,18 +128,18 @@ top_locations <- data|>
   pull(`subcellular_location_[cc]`) |>
   head(5)
 
-# This needs fixing 
-# Plot boxplots for protein sizes in the top 5 subcellular locations
-filtered_data |>
-  ggplot(aes(y = length,
-             fill = `subcellular_location_[cc]`,
-             colour = `subcellular_location_[cc]`)) +
-  geom_boxplot(alpha = 0.75, size = 0.9) +
-  facet_wrap(~organism) +
-  scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
-  labs(title = "Boxplot of Protein Sizes in Top 5 Sub-cellular Locations",
-       x = "Sub-cellular Location",
-       y = "Protein Length") +
-  theme(legend.position = "top") +
-  scale_fill_brewer(palette = "Set3")
+# # This needs fixing 
+# # Plot boxplots for protein sizes in the top 5 subcellular locations
+# filtered_data |>
+#   ggplot(aes(y = length,
+#              fill = `subcellular_location_[cc]`,
+#              colour = `subcellular_location_[cc]`)) +
+#   geom_boxplot(alpha = 0.75, size = 0.9) +
+#   facet_wrap(~organism) +
+#   scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+#   labs(title = "Boxplot of Protein Sizes in Top 5 Sub-cellular Locations",
+#        x = "Sub-cellular Location",
+#        y = "Protein Length") +
+#   theme(legend.position = "top") +
+#   scale_fill_brewer(palette = "Set3")
 ```
