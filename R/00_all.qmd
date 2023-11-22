@@ -10,7 +10,7 @@ editor: visual
 library(quarto)
 
 # Render all analysis quarto documents
-quarto_render()
+quarto_render(input = "06_logo_plots.qmd")
 
 # {{< include 02_clean.qmd >}}
 # {{< include 03_augment.qmd >}}

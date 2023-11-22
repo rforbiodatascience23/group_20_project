@@ -1,0 +1,10 @@
+project:
+  title: "R"
+  output-dir: ../results
+  
+format:
+  html:
+    embed-resources: true
+editor: visual
+
+

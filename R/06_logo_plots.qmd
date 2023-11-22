@@ -143,7 +143,7 @@ logo_plot_human_enz <- ggseqlogo(logo_list_human_enz, ncol=7) +
 # Combining mouse and human logo
 logo_comb_enz <- logo_plot_human_enz / logo_plot_mouse_enz #plot_layout(guides = "collect")
 logo_comb_enz
-#ggsave(filename = "../data/result.pdf", logo_comb)
+ggsave(filename = "../results/06_logoplot_enz.png", logo_comb_enz)
 ```
 
 ```{r}
