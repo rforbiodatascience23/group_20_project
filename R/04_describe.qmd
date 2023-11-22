@@ -1,5 +1,5 @@
 ---
-title: "Decription of data"
+title: "Decription of the data used in this project"
 format: html
 editor: visual
 ---
@@ -16,9 +16,15 @@ library(patchwork)
 data <- read_tsv(file = "../data/03_dat_aug.tsv")  
 ```
 
+
+We have downloaded the data of all the proteins of mouse and human in the Swiss-Prot database. The Swiss-Prot database is a freely accesible database of manually annotated and non-redundant proteins. The annotations are regularly reviewed to include potentially new findings regarding a specific protein. The same gene from the same species only get one entry in the database to avoid redundancy. All this information about the database makes the data trustworthy which is important for us. The goal is to examine the data to see if it holds anything interesting on a large-scale analysis where we use the general categories. We have decided to focus on mouse and human. We expect the two organisms to show high similarity as they are both mammals and the research of proteins in human and mouse often include the use of ortolog comparison. However, we dug into the data to see if we despite high similarity could extract some differences. Or are we just very much like the mouse?
+The data was fun to work with as it was untidy and required a lot of cleaning before we could start with the analysis. It was a high motivation for us to practice the data wrangling part as much as possible as we saw this part as the most challenging content in the course.
+The following part will show some general descriptive statistics we made to get an overview of the data, we ended up using for our project.
+
+
 ## Descriptive statistics
 
-We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct() ` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function_[cc], temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function_[cc]), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless.
+The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct() ` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to keep. We excluded the variables "reviewed", "function_[cc]", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function_[cc]"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless.
 After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
 
 ### The different variables (columns) in the dataset:
@@ -26,10 +32,10 @@ After some data wrangling (which can be seen in "02_clean.qmd"), we ended up wit
 ```{r}
 data |> 
   select(-entry, -gene_name) |> 
-  colnames() 
+  colnames()
 ```
 
-Originally the dataset also contained entries from different rodents and also from neanderthal. These have been removed. The proteins are described with 15 variables (including the species):
+Originally the dataset also contained entries from other mouse-species and from neanderthal. These have been removed. The proteins are described with 15 variables (including the species):
 
 -   pathway:
     -   e.g., purine metabolism
