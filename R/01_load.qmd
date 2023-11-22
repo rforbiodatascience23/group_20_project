@@ -9,12 +9,14 @@ editor: visual
 ## Load libraries
 
 ```{r}
+#| message: false
 library(tidyverse)
 ```
 
 ## Load data
 
 ```{r}
+#| message: false
 data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
 data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
 ```
