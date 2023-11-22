@@ -11,36 +11,18 @@ editor: visual
 library(tidyverse)
 ```
 
-## Load data
+## Read data
 
 ```{r}
-#| label: Load data
+#| label: Read data
 # Loading data
-data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
-data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
-```
-
-## Join data
-
-```{r}
-#| label: Join Data
-
-# Tidying data: joining data
-joined_data <- data_function |>
-  select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
-  full_join(data_sequence,
-            by = "Entry")
-
-
+joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 ```
 
 ## Clean columns originating from sequence_file.tsv.gz
 
 ```{r}
 #| label: Clean data
-
-# Finding col_names in data_sequence but not in data_function.
-setdiff(colnames(data_sequence), colnames(data_function))
 
 # Changing space in column names to "_" and lower case letters
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
@@ -69,22 +51,19 @@ joined_data <- joined_data |>
   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
   mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
   separate_longer_delim(col = active_site, ",")
+  
 
 ####
 # Tidying "binding site" column
 ####
 joined_data <- joined_data |>
-  mutate(binding_site_pos = ifelse(is.na(binding_site),
-                                   binding_site,
-                                   str_extract_all(binding_site,
-                                                   "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))) |>
-  mutate(binding_site_ligand = ifelse(is.na(binding_site),
-                                   binding_site,
-                                   str_extract_all(binding_site,
-                                                   "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
-  mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";")) |>
-  mutate(binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
-  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |>
+  mutate(binding_site_pos = str_extract_all(binding_site,
+                                                   "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"),
+         binding_site_ligand = str_extract_all(binding_site,
+                                                   "(?<=/ligand=\"\")[^\"]+(?=\")")) |> 
+  mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";"),
+         binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
+  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |> 
   separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
   select(-binding_site)
 
