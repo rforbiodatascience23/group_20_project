@@ -1,6 +1,8 @@
 ---
 title: "Decription of the data used in this project"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
 

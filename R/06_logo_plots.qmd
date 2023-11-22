@@ -1,6 +1,8 @@
 ---
 title: "Logo plot for active sites"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
 
