@@ -5,7 +5,6 @@ editor: visual
 ---
 
 ```{r}
-#| message = FALSE
 
 ## Loading libraries
 library(tidyverse)
@@ -14,9 +13,8 @@ library(patchwork)
 ```
 
 ```{r}
-#| echo = FALSE
-#| message = FALSE
-#| warning = FALSE
+#| echo: false
+#| warning: false
 
 ## Loading data
 data <- read_tsv(file = "../data/03_dat_aug.tsv")  
@@ -68,8 +66,6 @@ Originally the dataset also contained entries from other mouse-species and from 
     -   family / subfamily
 -   enzyme_class
     -   e.g., transferases, hydrolases
-
-
 
 ### Protein amount for each organism
 
@@ -144,8 +140,6 @@ data |>
 ggsave("04_descibe_plot3_density_mass.png",
        path = "../results")
 ```
-
-
 
 ### Unique entries of each variable
 
@@ -236,8 +230,6 @@ data |>
 ggsave("04_descibe_plot4_unique_entries.png",
        path = "../results")
 ```
-
-
 
 ### The unique entries of the variable "enzyme_class"
 

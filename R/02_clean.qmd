@@ -7,22 +7,19 @@ editor: visual
 ## Load libraries
 
 ```{r}
-#| label: Load libraries
 library(tidyverse)
 ```
 
 ## Read data
 
 ```{r}
-#| label: Read data
-# Loading data
+# Reading data
 joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 ```
 
 ## Clean columns originating from sequence_file.tsv.gz
 
 ```{r}
-#| label: Clean data
 
 # Changing space in column names to "_" and lower case letters
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))

@@ -4,21 +4,15 @@ format: html
 editor: visual
 ---
 
-## Quarto
+# Group 20 quarto documents for all analyses
 
 ```{r}
-#| label: load libraries
 library(quarto)
-
-
 ```
 
+{{< include 01_load.qmd >}}
 {{< include 02_clean.qmd >}}
-
-{{< include 02_clean.qmd >}}
-
-```{r}
-#| label: finished statement
-# Now its finished
-# quarto_render("00_all.qmd") run in console
-```
+{{< include 03_augment.qmd >}}
+{{< include 04_describe.qmd >}}
+{{< include 06_logo_plots.qmd >}}
+{{< include 07_analysis_3.qmd >}}

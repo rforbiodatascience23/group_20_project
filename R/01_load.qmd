@@ -7,15 +7,12 @@ editor: visual
 ## Load libraries
 
 ```{r}
-#| label: Load libraries
 library(tidyverse)
 ```
 
 ## Load data
 
 ```{r}
-#| label: Load data
-# Loading data
 data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
 data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
 ```
@@ -23,9 +20,7 @@ data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = 
 ## Join data
 
 ```{r}
-#| label: Join Data
-
-# Tidying data: joining data
+# joining data
 joined_data <- data_function |>
   select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
   full_join(data_sequence,
@@ -37,6 +32,5 @@ joined_data <- data_function |>
 ## Save data
 
 ```{r}
-#| label: Save data
 write_tsv(joined_data, file = "../data/01_dat_load.tsv")
 ```
