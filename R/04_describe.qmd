@@ -91,7 +91,10 @@ data |>
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
   labs(title = "Total count of human and mouse",
        y = "Count",
-       x = "Organism") 
+       x = "Organism")
+
+ggsave("04_descibe_plot1_totalcount.png",
+       path = "../results")
 ```
 
 The low difference in amount of proteins for mouse and human respectively is illustrating the low difference between mouse and human in general. The following plots shows the difference in length (first plot) and mass (second plot) for mouse and human. It is clear that the density plots for mouse and human respectively are very similar. This indicates that the proteins described in human has an ortholog in mouse which explains the low difference in length and mass.
@@ -112,6 +115,9 @@ data |>
        y = "Density",
        x = "Length",
        fill = "Organism")
+
+ggsave("04_descibe_plot2_density_length.png",
+       path = "../results")
 ```
 
 ### Density plot for the mass of the proteins in the database stratified on mouse and human
@@ -134,6 +140,9 @@ data |>
        y = "Density",
        x = "Mass",
        fill = "Organism")
+
+ggsave("04_descibe_plot3_density_mass.png",
+       path = "../results")
 ```
 
 
@@ -223,6 +232,9 @@ data |>
         ) +
   guides(fill = FALSE) +
   labs(title = "Amounts of unique entries for the different vairables")
+
+ggsave("04_descibe_plot4_unique_entries.png",
+       path = "../results")
 ```
 
 
@@ -308,4 +320,7 @@ p <- enzymes_Human +
   plot_annotation("Amount of different enzyme classes in human and mouse",
                   theme=theme(plot.title=element_text(hjust=0.5)))
 plot(p)
+
+ggsave("04_descibe_plot5_different_enzyme_classes.png",
+       path = "../results")
 ```
