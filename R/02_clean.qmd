@@ -9,17 +9,19 @@ editor: visual
 ## Load libraries
 
 ```{r}
+#| message: false
 library(tidyverse)
 ```
 
 ## Read data
 
 ```{r}
+#| message: false
 # Reading data
 joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 ```
 
-## Clean columns originating from sequence_file.tsv.gz
+## Cleaning part 1: Active site and binding site
 
 ```{r}
 
@@ -38,10 +40,6 @@ joined_data <- joined_data |>
          -catalytic_activity,
          -entry_name,
          -transmembrane)
-
-# # Uncomment if testing with less rows
-# joined_data <- joined_data |>
-#   sample_n(10000)
 
 ####
 # Tidying "active site" column
@@ -73,7 +71,7 @@ joined_data <- joined_data |>
   mutate(active_site = na_if(active_site, "NA"))
 ```
 
-## Clean data originating from function_file.tsv.gz
+## Cleaning part 2: Cleaning the remaining columns
 
 ```{r}
 
@@ -201,21 +199,15 @@ joined_data <- joined_data |>
 ###
 joined_data <- joined_data |>
   # Check that there are only Homo sapiens (Human) and Mus musculus (Mouse)
-  filter(organism == c("Homo sapiens (Human)", "Mus musculus (Mouse)")) |>
+  filter(organism == "Homo sapiens (Human)" | organism == "Mus musculus (Mouse)") |>
   # Shorten organism name
   mutate(organism = case_when(
     organism == "Homo sapiens (Human)" ~ "Human",
     organism == "Mus musculus (Mouse)" ~ "Mouse"))
+```
 
+## Save cleaned data object
+
+```{r}
 write_tsv(joined_data, file = "../data/02_dat_clean.tsv")
-
-# # Correct empty columns if any non registered NA's are created by deleting text elements
-# joined_data <- joined_data |>
-#   mutate_all(~ ifelse(. == "", NA, .))
-
-
-## Code to find out what rows are duplicated
-# result <- duplicated(joined_data)
-# duplicated_rows <- subset(joined_data, result)
-
 ```
