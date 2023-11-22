@@ -38,7 +38,7 @@ data |>
 Originally the dataset also contained entries from other mouse-species and from neanderthal. These have been removed. The proteins are described with 15 variables (including the species):
 
 -   pathway:
-    -   e.g., purine metabolism
+    -   e.g., purine metabolism, 
 -   cofactor:
     -   e.g., Heme
 -   ph_dependence
