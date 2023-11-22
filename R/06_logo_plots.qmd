@@ -83,6 +83,7 @@ logoseq_data_human_prot <- aug_data |>
 # Change names manually to fit logo plot (check if names match before changing them)
 logo_list_mouse_prot <- split(logoseq_data_mouse_prot$logo_seq,
                          logoseq_data_mouse_prot$protein_family)
+logo_list_mouse_prot <- map(logo_list_mouse_prot, unique) # Filter out identical sequences
 names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
@@ -90,6 +91,7 @@ names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Tyr protein\nkinase ")
 logo_list_human_prot <- split(logoseq_data_human_prot$logo_seq,
                               logoseq_data_human_prot$protein_family)
+logo_list_human_prot <- map(logo_list_human_prot, unique) # Filter out identical sequences
 names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
@@ -98,13 +100,26 @@ names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
 
 # Making logo plots for protein families
 logo_plot_mouse_prot <- ggseqlogo(logo_list_mouse_prot, ncol=7) +
-  theme(strip.text = element_text(size = 8))
+  ggtitle("Mouse protein families") +
+  theme(plot.title = element_text(hjust = 0.5, size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(
+    breaks = 1:7,  # Existing tick positions
+    labels = -3:3  # Existing tick labels
+  )
+
 logo_plot_human_prot <- ggseqlogo(logo_list_human_prot, ncol=7) +
-  theme(strip.text = element_text(size = 8))
+  ggtitle("Human protein families") +
+  theme(plot.title = element_text(hjust = 0.5, size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(
+    breaks = 1:7,  # Existing tick positions
+    labels = -3:3  # Existing tick labels
+  )
 
 logo_comb_prot <- logo_plot_human_prot / logo_plot_mouse_prot #plot_layout(guides = "collect")
 logo_comb_prot
-#ggsave(filename = "../data/result.pdf", logo_comb_prot)
+ggsave(filename = "../results/06_logoplot_prot_fam.png", logo_comb_prot)
 ```
 
 ## Logo plots for enzyme class
@@ -116,6 +131,8 @@ logo_comb_prot
 logoseq_data_mouse_enz <- aug_data |>
   drop_na(logo_seq, enzyme_class) |>
   filter(str_detect(organism, "Mouse")) |>
+  # Removing translocases because limited data available
+  filter(!enzyme_class == "translocases") |>
   select(entry, organism, enzyme_class, logo_seq) |>
   distinct()
 
@@ -123,6 +140,8 @@ logoseq_data_mouse_enz <- aug_data |>
 logoseq_data_human_enz <- aug_data |>
   drop_na(logo_seq, enzyme_class) |>
   filter(str_detect(organism, "Human")) |>
+  # Removing translocases because limited data available
+  filter(!enzyme_class == "translocases") |>
   select(entry, organism, enzyme_class, logo_seq) |>
   distinct()
 
@@ -132,22 +151,33 @@ logoseq_data_human_enz <- aug_data |>
 # Converting data to named list for facet function in ggseqlogo
 logo_list_mouse_enz <- split(logoseq_data_mouse_enz$logo_seq,
                              logoseq_data_mouse_enz$enzyme_class)
+logo_list_mouse_enz <- map(logo_list_mouse_enz, unique) # Filter out identical sequences
 
 logo_list_human_enz <- split(logoseq_data_human_enz$logo_seq,
                              logoseq_data_human_enz$enzyme_class)
+logo_list_human_enz <- map(logo_list_human_enz, unique) # Filter out identical sequences
 
 # Making logo plots for enzyme class
-logo_plot_mouse_enz <- ggseqlogo(logo_list_mouse_enz, ncol=7) +
-  theme(strip.text = element_text(size = 8))
-logo_plot_human_enz <- ggseqlogo(logo_list_human_enz, ncol=7) +
-  theme(strip.text = element_text(size = 8))
+logo_plot_mouse_enz <- ggseqlogo(logo_list_mouse_enz, ncol=6) +
+  ggtitle("Mouse enzyme classes") +
+  theme(plot.title = element_text(hjust = 0.5, size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(
+    breaks = 1:7,  # Existing tick positions
+    labels = -3:3  # Existing tick labels
+  )
+
+logo_plot_human_enz <- ggseqlogo(logo_list_human_enz, ncol=6) +
+  ggtitle("Human enzyme classes") +
+  theme(plot.title = element_text(hjust = 0.5, size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(
+    breaks = 1:7,  # Existing tick positions
+    labels = -3:3  # Existing tick labels
+  )
 
 # Combining mouse and human logo
 logo_comb_enz <- logo_plot_human_enz / logo_plot_mouse_enz #plot_layout(guides = "collect")
 logo_comb_enz
 ggsave(filename = "../results/06_logoplot_enz.png", logo_comb_enz)
-```
-
-```{r}
-
 ```
