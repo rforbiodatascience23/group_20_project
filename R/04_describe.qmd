@@ -4,32 +4,34 @@ format: html
 editor: visual
 ---
 
-```{r, message=FALSE}
+```{r}
+#| message = FALSE
+
 ## Loading libraries
 library(tidyverse)
 library(knitr)
 library(patchwork)
 ```
 
-```{r, echo=FALSE, message=FALSE}
+```{r}
+#| echo = FALSE
+#| message = FALSE
+#| warning = FALSE
+
 ## Loading data
 data <- read_tsv(file = "../data/03_dat_aug.tsv")  
 ```
 
-
-We have downloaded the data of all the proteins of mouse and human in the Swiss-Prot database. The Swiss-Prot database is a freely accesible database of manually annotated and non-redundant proteins. The annotations are regularly reviewed to include potentially new findings regarding a specific protein. The same gene from the same species only get one entry in the database to avoid redundancy. All this information about the database makes the data trustworthy which is important for us. The goal is to examine the data to see if it holds anything interesting on a large-scale analysis where we use the general categories. We have decided to focus on mouse and human. We expect the two organisms to show high similarity as they are both mammals and the research of proteins in human and mouse often include the use of ortolog comparison. However, we dug into the data to see if we despite high similarity could extract some differences. Or are we just very much like the mouse?
-The data was fun to work with as it was untidy and required a lot of cleaning before we could start with the analysis. It was a high motivation for us to practice the data wrangling part as much as possible as we saw this part as the most challenging content in the course.
-The following part will show some general descriptive statistics we made to get an overview of the data, we ended up using for our project.
-
+We have downloaded the data of all the proteins of mouse and human in the Swiss-Prot database. The Swiss-Prot database is a freely accesible database of manually annotated and non-redundant proteins. The annotations are regularly reviewed to include potentially new findings regarding a specific protein. The same gene from the same species only get one entry in the database to avoid redundancy. All this information about the database makes the data trustworthy which is important for us. The goal is to examine the data to see if it holds anything interesting on a large-scale analysis where we use the general categories. We have decided to focus on mouse and human. We expect the two organisms to show high similarity as they are both mammals and the research of proteins in human and mouse often include the use of ortolog comparison. However, we dug into the data to see if we despite high similarity could extract some differences. Or are we just very much like the mouse? The data was fun to work with as it was untidy and required a lot of cleaning before we could start with the analysis. It was a high motivation for us to practice the data wrangling part as much as possible as we saw this part as the most challenging content in the course. The following part will show some general descriptive statistics we made to get an overview of the data, we ended up using for our project.
 
 ## Descriptive statistics
 
-The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct() ` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to keep. We excluded the variables "reviewed", "function_[cc]", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function_[cc]"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless.
-After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
+The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct()` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables that we did not want to keep. We excluded the variables "reviewed", "function\_\[cc\]", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function\_\[cc\]"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
 
 ### The different variables (columns) in the dataset:
 
 ```{r}
+# Extracting the column names
 data |> 
   select(-entry, -gene_name) |> 
   colnames()
@@ -38,20 +40,20 @@ data |>
 Originally the dataset also contained entries from other mouse-species and from neanderthal. These have been removed. The proteins are described with 15 variables (including the species):
 
 -   pathway:
-    -   e.g., purine metabolism, 
+    -   e.g., purine metabolism, protein modification, protein ubiquitination
 -   cofactor:
-    -   e.g., Heme
+    -   e.g., heme, mg(2+), zn(2+)
 -   ph_dependence
--   subcellular_location_[cc]
-    -   e.g., cytoplasm
+-   subcellular_location\_\[cc\]
+    -   e.g., cytoplasm, nucleus, cell membrane
 -   GO_molecular_function
-    -   e.g., Chromatin binding
--   organism: 
-    - Mouse or Human
+    -   e.g., metal ion binding, ATP binding, G protein-coupled receptor activity
+-   organism:
+    -   Mouse or Human
 -   length
     -   The lenght of the amino acid sequence
 -   mass
-    -   Mass of the protein in kilo dalton [kDa]
+    -   Mass of the protein in kilo dalton \[kDa\]
 -   sequence
     -   The amino acid sequence
 -   active_site
@@ -59,65 +61,90 @@ Originally the dataset also contained entries from other mouse-species and from 
 -   binding_site_pos
     -   Position of the binding site
 -   binding_site_ligand
-    -   e.g., Ca(2+)
+    -   e.g., Ca(2+), heme, ATP
 -   protein_family
-    -   e.g., peroxidase
+    -   e.g., Protein kinase, G-protein coupled receptor 1
 -   family_type
-    -   subfamily / family
+    -   family / subfamily
 -   enzyme_class
-    -   e.g., transferase
+    -   e.g., transferases, hydrolases
+
+
 
 ### Protein amount for each organism
 
-We do not see a great difference in the amount of proteins describes for mouse and human. The following plot visualizes how similar the count is.
+We do not see a great difference in the amount of proteins described for mouse and human. The following plot visualizes how similar the count is.
 
 ```{r}
-data |> 
-  group_by(organism) |>   
-  summarise(Amount = n()) |>     
-  ggplot(aes(x=organism, 
-             y = Amount, 
+## This plot shows the total count of human proteins in the database vs. mouse proteins in the database
+data |>
+  ggplot(mapping = aes(x=organism,
              fill = organism)) +
-  geom_bar(stat = "identity") +
-  coord_flip() +
+  geom_bar() +
   theme_bw() +
-  theme(legend.position = "none") +
+  theme(legend.position = "none",
+        axis.title.y = element_text(angle = 0, 
+                                    vjust = 0.5, 
+                                    size = 10),
+        axis.text.x = element_text(angle = 0, 
+                                   size = 10)) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
   labs(title = "Total count of human and mouse",
        y = "Count",
        x = "Organism") 
 ```
 
-The low difference in amount of proteins for mouse and human respectively is illustrating the low difference between mouse and human in general. The following plots shows the difference in length (first plot) and mass (second plot) for mouse and human. It is clear that the density plots for mouse and human respectively are very similar. This indicates that the proteins described in human has a orthologue in mouse why the length and mass does not differ much.
+The low difference in amount of proteins for mouse and human respectively is illustrating the low difference between mouse and human in general. The following plots shows the difference in length (first plot) and mass (second plot) for mouse and human. It is clear that the density plots for mouse and human respectively are very similar. This indicates that the proteins described in human has an ortholog in mouse which explains the low difference in length and mass.
 
-#### Density plot for length of the proteins in the database stratified on mouse and human
+### Density plot for length of the proteins in the database stratified on mouse and human
 
 ```{r}
-## Density plot for the length of the protein stratified on mouse and human
+#| warning = FALSE
+
+## Density plot for the length of the proteins stratified on mouse and human
 data |>
   ggplot(aes(x = length, 
              fill = organism)) +
   xlim(0, 2500) +
   geom_density(alpha = 0.5) +
   theme_bw() +
-  labs(fill = "Organism")
+  labs(title = "Density plot of the length of the proteins in the database - Human vs. Mouse",
+       y = "Density",
+       x = "Length",
+       fill = "Organism")
 ```
 
-#### Density plot for the mass of the proteins in the database stratified on mouse and human
+### Density plot for the mass of the proteins in the database stratified on mouse and human
 
 ```{r}
+#| warning = FALSE
+
+## Density plot for the mass of the proteins stratified on mouse and human
 data |>
-  ggplot(aes(x = mass, fill = organism)) +
-  xlim(0, 300000) +
+  ggplot(aes(x = mass, 
+             fill = organism)) +
   geom_density(alpha = 0.5) +
-  theme_bw()
+  scale_x_continuous(
+    labels = function(x) format(x, scientific = FALSE),
+    limits = c(0, 300000)
+  ) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  theme_bw() +
+  labs(title = "Density plot of the mass of the proteins in the database - Human vs. Mouse",
+       y = "Density",
+       x = "Mass",
+       fill = "Organism")
 ```
+
 
 
 ### Unique entries of each variable
 
-The variables that we kept have a different count of unique entries, e.g., there are 7 different entries for "enzyme_class" and 538 different "GO_molecular_function".
+The variables that we kept have a different count of unique entries, e.g., there are 7 different entries for "enzyme_class" and 538 different "GO_molecular_function". The following table counts the number of unique entries of each variable.
 
 ```{r}
+## Table of the unique entries of each variable
+
 summary_table <- data |>
   select(
     cofactor, 
@@ -153,11 +180,20 @@ summary_table <- data |>
 kable(summary_table)
 ```
 
+To further improve the overview of the unique entries, we have made a bar plot showing the same as the table:
+
 #### Illustrated with a bar plot as well
 
 ```{r}
+## Bar plot of the unique entries for each variable
+
 data |> 
-  select(cofactor, `subcellular_location_[cc]`, GO_molecular_function, protein_family, enzyme_class, pathway) |> 
+  select(cofactor, 
+         `subcellular_location_[cc]`, 
+         GO_molecular_function, 
+         protein_family, 
+         enzyme_class, 
+         pathway) |> 
   filter(!is.na(cofactor),
          !is.na(`subcellular_location_[cc]`),   
          !is.na(GO_molecular_function),
@@ -172,57 +208,104 @@ data |>
                values_to = "Value") |> 
   group_by(Column) |>
   summarise(Unique_Entries = n_distinct(Value)) |> 
-  ggplot(aes(x=Column, y=Unique_Entries, fill = Column)) +
+  ggplot(aes(x=Column, 
+             y=Unique_Entries, 
+             fill = Column)) +
   geom_bar(stat = "identity") +
-  coord_flip() +
-  labs(title = "Amounts of unique entries for the different vairables") + 
-  theme_bw()
+  theme_bw() +
+  theme(
+    axis.title.y = element_text(angle = 0, 
+                                vjust = 0.5, 
+                                size = 11),
+    axis.text.x = element_text(angle = 40, 
+                               hjust = 1, 
+                               size = 11),
+        ) +
+  guides(fill = FALSE) +
+  labs(title = "Amounts of unique entries for the different vairables")
 ```
+
+
+
+### The unique entries of the variable "enzyme_class"
+
+Now we dig into a specific variable to give an example of how the variables look like. The "enzyme_class" contains seven unique entries. The amount of each entry is shown in the plot below:
 
 ```{r}
 data |>
   select(enzyme_class) |>
+  drop_na() |> 
   group_by(enzyme_class) |>
   summarise(Amount = n()) |>
-  ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +
+  ggplot(aes(x=enzyme_class, 
+             y=Amount, 
+             fill=enzyme_class)) +
   geom_bar(stat = "identity") +
-  coord_flip() +
   theme_bw() +
-  labs(title = "Amount of different Enzyme classes")
+  theme(
+    axis.title.y = element_text(angle = 0, 
+                                vjust = 0.5, 
+                                size = 11),
+    axis.text.x = element_text(angle = 40, 
+                               hjust = 1, 
+                               size = 11),
+        ) +
+  guides(fill = FALSE) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  labs(title = "Amount of different enzyme classes",
+       y = "Amount",
+       x = "Enzyme class")
 ```
 
+In this project, we have primarilt tried to examine a difference between mouse and human. The following plot is an example of how we have dug into the data with the intention to visualized the difference between mouse and human in different categories.
+
 ```{r}
-
-
+## Amount of different enzyme classes in Human
 enzymes_Human <- data |>
   select(enzyme_class, organism) |>
   drop_na() |> 
   filter(organism == "Human") |> 
   group_by(enzyme_class) |>
   summarise(Amount = n()) |>
-  ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +
+  ggplot(aes(x=enzyme_class, 
+             y=Amount, 
+             fill=enzyme_class)) +
   geom_bar(stat = "identity") +
-  coord_flip() +
   theme_bw() +
-  theme(legend.position = "none") +
-  labs(title = "Amount of different Enzyme classes in Mouse") 
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 10),
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Human") +
+  guides(fill = FALSE)
 
+## Amount of different enzyme classes in Mouse
 enzyme_Mouse <-  data |>
-  select(enzyme_class, organism) |>
+  select(enzyme_class, 
+         organism) |>
   drop_na() |> 
   filter(organism == "Mouse") |> 
   group_by(enzyme_class) |>
   summarise(Amount = n()) |>
-  ggplot(aes(x=enzyme_class, y=Amount, fill=enzyme_class)) +
+  ggplot(aes(x=enzyme_class, 
+             y=Amount, 
+             fill=enzyme_class)) +
   geom_bar(stat = "identity") +
-  coord_flip() +
   theme_bw() +
-  theme(legend.position = "none") +
-  labs(title = "Amount of different Enzyme classes in Human") 
+  theme(axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 10),
+        plot.title = element_text(hjust = 0.5)) +
+  labs(title = "Mouse") +
+  guides(fill = FALSE)
 
-
-enzyme_Mouse / enzymes_Human
+## Combining the two plots with patchwork
+p <- enzymes_Human + 
+  enzyme_Mouse +
+  plot_annotation("Amount of different enzyme classes in human and mouse",
+                  theme=theme(plot.title=element_text(hjust=0.5)))
+plot(p)
 ```
-
-
-
