@@ -1,0 +1,40 @@
+---
+title: "Load and join data"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Load libraries
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+## Load data
+
+```{r}
+#| message: false
+data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
+data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
+```
+
+## Join data
+
+```{r}
+# joining data
+joined_data <- data_function |>
+  select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
+  full_join(data_sequence,
+            by = "Entry")
+
+
+```
+
+## Save data
+
+```{r}
+write_tsv(joined_data, file = "../data/01_dat_load.tsv")
+```
