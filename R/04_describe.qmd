@@ -18,8 +18,7 @@ data <- read_tsv(file = "../data/03_dat_aug.tsv")
 
 ## Descriptive statistics
 
-We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct() ` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function_[cc], temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function_[cc]), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless.
-After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
+We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct()` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function\_\[cc\], temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function\_\[cc\]), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
 
 ### The different variables (columns) in the dataset:
 
@@ -36,16 +35,16 @@ Originally the dataset also contained entries from different rodents and also fr
 -   cofactor:
     -   e.g., Heme
 -   ph_dependence
--   subcellular_location_[cc]
+-   subcellular_location\_\[cc\]
     -   e.g., cytoplasm
 -   GO_molecular_function
     -   e.g., Chromatin binding
--   organism: 
-    - Mouse or Human
+-   organism:
+    -   Mouse or Human
 -   length
     -   The lenght of the amino acid sequence
 -   mass
-    -   Mass of the protein in kilo dalton [kDa]
+    -   Mass of the protein in kilo dalton \[kDa\]
 -   sequence
     -   The amino acid sequence
 -   active_site
@@ -105,7 +104,6 @@ data |>
   geom_density(alpha = 0.5) +
   theme_bw()
 ```
-
 
 ### Unique entries of each variable
 
@@ -217,6 +215,3 @@ enzyme_Mouse <-  data |>
 
 enzyme_Mouse / enzymes_Human
 ```
-
-
-
