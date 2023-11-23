@@ -56,6 +56,24 @@ aug_data <- aug_data |>
 
 ```
 
+## Add number of cofactors that binds to each protein
+
+```{r}
+####
+# Count the number of cofactors
+####
+cofactor_count <- clean_data |>
+  select(organism, entry, cofactor, length, mass) |>
+  distinct() |>
+  drop_na() |>
+  count(entry, name = "num_cofactors") 
+
+# Join num_molecular_functions
+aug_data <- aug_data |>
+  full_join(cofactor_count, by = "entry")
+
+```
+
 ## Convert the first EC number into an enzyme class number
 
 ```{r}
