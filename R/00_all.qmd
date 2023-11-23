@@ -36,9 +36,4 @@ file.rename(from = "07_analysis_3.html",
             to = "../results/07_analysis_3.html")
 ```
 
-{{< include 01_load.qmd >}}
-{{< include 02_clean.qmd >}}
-{{< include 03_augment.qmd >}}
-{{< include 04_describe.qmd >}}
-{{< include 06_logo_plots.qmd >}}
-{{< include 07_analysis_3.qmd >}}
+{{< include 01_load.qmd >}} {{< include 02_clean.qmd >}} {{< include 03_augment.qmd >}} {{< include 04_describe.qmd >}} {{< include 06_logo_plots.qmd >}} {{< include 07_analysis_3.qmd >}}
