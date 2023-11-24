@@ -61,10 +61,10 @@ top_prot_fam_mouse <- logoseq_data |>
 
 # See what protein families with active site data occur most often in human
 top_prot_fam_human <- logoseq_data |>
-  drop_na(protein_family) |> 
+  drop_na(protein_family) |>
   filter(organism == "Human") |>
   select(entry, protein_family, logo_seq) |> 
-  distinct() |> 
+  distinct() |>
   group_by(protein_family) |> 
   summarize(n_human = n()) |>
   arrange(desc(n_human))
@@ -97,6 +97,7 @@ The logo plot for mouse and human protein families are very similar, showing tha
 # Extract mouse data and filter out if no active site info
 logoseq_data_mouse_prot <- aug_data |> 
   drop_na(logo_seq, protein_family) |>
+  # In %in% is not the tidverse way
   filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
   filter(str_detect(organism, "Mouse")) |> 
   select(entry,
@@ -108,6 +109,7 @@ logoseq_data_mouse_prot <- aug_data |>
 # Extract human data and filter out if no active site info
 logoseq_data_human_prot <- aug_data |> 
   drop_na(logo_seq, protein_family) |>
+   # In %in% is not the tidverse way
   filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
   filter(str_detect(organism, "Human")) |> 
   select(entry,
@@ -119,6 +121,8 @@ logoseq_data_human_prot <- aug_data |>
 # Change proten family names to get line breaks (check if names match before changing them)
 # Converting data to named list for use with facet function in ggseqlogo
 # For mouse
+
+# Split is base R
 logo_list_mouse_prot <- split(logoseq_data_mouse_prot$logo_seq,
                          logoseq_data_mouse_prot$protein_family) # named list needed to facet
 logo_list_mouse_prot <- map(logo_list_mouse_prot,
@@ -129,6 +133,7 @@ names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Protein-tyrosine\nphosphatase ",
                                  "Tyr protein\nkinase ")
 # For human
+# Split is base R
 logo_list_human_prot <- split(logoseq_data_human_prot$logo_seq,
                               logoseq_data_human_prot$protein_family) # named list needed to facet
 logo_list_human_prot <- map(logo_list_human_prot,
@@ -206,12 +211,14 @@ logoseq_data_human_enz <- aug_data |>
   distinct()
 
 # Converting data to named list for facet function in ggseqlogo: mouse data
+# Split is base R
 logo_list_mouse_enz <- split(logoseq_data_mouse_enz$logo_seq,
                              logoseq_data_mouse_enz$enzyme_class)
 logo_list_mouse_enz <- map(logo_list_mouse_enz,
                            unique) # Filter out identical sequences
 
 # Converting data to named list for facet function in ggseqlogo: human data
+# Split is base R
 logo_list_human_enz <- split(logoseq_data_human_enz$logo_seq,
                              logoseq_data_human_enz$enzyme_class)
 logo_list_human_enz <- map(logo_list_human_enz,

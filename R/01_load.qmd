@@ -1,10 +1,12 @@
 ---
-title: "Load and join data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Load data
 
 ## Load libraries
 
@@ -38,8 +40,9 @@ data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = 
 ## Join data
 
 ```{r}
-# joining data
+# Joining data
 joined_data <- data_function |>
+  # Keep just columns in data_function that don't occur in date_sequence
   select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
   full_join(data_sequence,
             by = "Entry")

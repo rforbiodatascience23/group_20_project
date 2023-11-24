@@ -22,7 +22,9 @@ We wanted to see if proteins with more molecular functions were larger
 #####
 # Plot counted number of molecular functions vs length 
 #####
-data |>
+# Save combined logo plot
+
+mol_func <- data |>
     ggplot(aes(x = length,
                y = num_molecular_functions,
                fill = organism,
@@ -32,6 +34,10 @@ data |>
     labs(title = "Scatter Plot of Length vs. Molecular Function Count",
          x = "Length",
          y = "Molecular Function Count")
+
+# Saving plot
+ggsave(filename = "../results/05_analysis_mol_func.png",
+       mol_func)
 ```
 
 ## Plot boxplot of cofactor vs length
@@ -42,7 +48,7 @@ We wanted to see if proteins that had more cofactors were generally larger. We c
 #####
 # Plot counted number of cofactors functions vs length 
 #####
-data |>
+cofactor_size <- data |>
     # num_cofactors is converted to factor to enable use of boxplot
     ggplot(aes(y = length,
                fill = factor(num_cofactors),
@@ -57,7 +63,8 @@ data |>
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-
+ggsave(filename = "../results/05_analysis_cofactor_size.png",
+       cofactor_size)
 ```
 
 ## Plot size vs mass in KDA
@@ -73,7 +80,7 @@ linear_models <- lm(length ~ mass + organism,
                     data = data)
 
 # Create scatter plot with linear regression lines
-ggplot(data, aes(x = mass,
+size_mass <- ggplot(data, aes(x = mass,
                  y = length,
                  color = organism)) +
   geom_point(alpha = 0.25,
@@ -102,7 +109,8 @@ ggplot(data, aes(x = mass,
   scale_x_continuous(limits = c(0, quantile(data$mass, 0.99)))+
   theme_minimal()
 
-
+ggsave(filename = "../results/05_analysis_size_mass.png",
+       size_mass)
 
 ```
 
@@ -114,7 +122,7 @@ The idea was to see if there was any connection between protein size and the opt
 ####
 # Assemble size-pH
 ####
-data|>
+pH_length <- data|>
   select(organism,
          entry,
          length,
@@ -133,6 +141,9 @@ data|>
   labs(title = "Scatter Plot of length vs. pH",
        x = "Sequence length",
        y = "pH optimum")
+
+ggsave(filename = "../results/05_analysis_pH_length.png",
+       pH_length)
 ```
 
 ## pH enzyme class comparison (needs to be moved)
@@ -140,7 +151,7 @@ data|>
 We decided to test if enzyme classes had varying pH dependencies between humans and mice. We therefore made a boxplot of the pH dependencies on all enzyme classes and stratified on the organism to compare the two.
 
 ```{r}
-# Needs to be moved
+# Wont be presented 
 ####
 # pH by enzyme class test 
 ####
@@ -180,7 +191,7 @@ The idea was to see if mice and human proteins varied in size when looking at sp
 ####
 # Size by enzyme class test 
 ####
-data|>
+class_size <- data|>
     select(organism,
            entry,
            length,
@@ -196,6 +207,9 @@ data|>
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # 310 distinct entries
+
+ggsave(filename = "../results/05_analysis_class_size.png",
+       class_size)
 ```
 
 ## Plotting size by subcellular loaction
@@ -218,7 +232,8 @@ top_locations <- data|>
   head(5)
 
 # Plot boxplots for protein sizes in the top 5 subcellular locations
-data |>
+location_size <- data |>
+  # %in% is not tidyverse
   filter(`subcellular_location_[cc]` %in% top_locations)|>
   ggplot(aes(y = length,
              fill = `subcellular_location_[cc]`,
@@ -231,4 +246,7 @@ data |>
        y = "Protein Length") +
   theme(legend.position = "top") +
   scale_fill_brewer(palette = "Set3")
+
+ggsave(filename = "../results/05_analysis_location_size.png",
+       location_size)
 ```
