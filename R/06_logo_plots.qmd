@@ -61,10 +61,10 @@ top_prot_fam_mouse <- logoseq_data |>
 
 # See what protein families with active site data occur most often in human
 top_prot_fam_human <- logoseq_data |>
-  drop_na(protein_family) |> 
+  drop_na(protein_family) |>
   filter(organism == "Human") |>
   select(entry, protein_family, logo_seq) |> 
-  distinct() |> 
+  distinct() |>
   group_by(protein_family) |> 
   summarize(n_human = n()) |>
   arrange(desc(n_human))
