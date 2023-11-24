@@ -74,7 +74,6 @@ joined_data <- joined_data |>
 ## Cleaning part 2: Cleaning the remaining columns
 
 ```{r}
-
 ###
 # Tidy "pathway" column
 ###
@@ -157,7 +156,7 @@ joined_data <- joined_data |>
 ####
 # Tidy "pH dependence" column 
 ####
-#Function for extracting the optimum pH 
+# Extracting the optimum pH 
 pH_str_search <- "Optimum pH is (\\d+\\.\\d*)-(\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*)|Optimum pH is around (\\d+\\.\\d*)|Optimum pH is about (\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*) to (\\d+\\.\\d*)|Optimum pH is between (\\d+\\.\\d*) and (\\d+\\.\\d*)"
 
 #Function for creating two new columns for pH interval values
