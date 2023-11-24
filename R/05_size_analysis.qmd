@@ -1,5 +1,5 @@
 ---
-title: "05_analasys_1"
+title: "05 Protein size analysis"
 format:
   html:
     embed-resources: true
@@ -41,7 +41,7 @@ data |>
        y = "Number of Molecular Functions") +
   theme_bw()
 
-ggsave("05_analysis_mol_func.png",
+ggsave("05_size_analysis_mol_func.png",
        path = "../results")
 ```
 
@@ -75,7 +75,7 @@ data |>
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-ggsave("05_analysis_cofactor_size.png",
+ggsave("05_size_analysis_cofactor_size.png",
        path = "../results")
 ```
 
@@ -122,7 +122,7 @@ ggplot(data, aes(x = mass,
   scale_x_continuous(limits = c(0, quantile(data$mass, 0.99)))+
   theme_bw()
 
-ggsave("05_analysis_lm_size_length.png",
+ggsave("05_size_analysis_lm_size_length.png",
        path = "../results")
 
 ```
@@ -155,7 +155,7 @@ data|>
        x = "Sequence length",
        y = "pH optimum")
 
-ggsave("05_analysis_pH_length.png",
+ggsave("05_size_analysis_pH_length.png",
        path = "../results")
 ```
 
@@ -229,7 +229,7 @@ data|>
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 # 310 distinct entries
 
-ggsave("05_analysis_class_size.png",
+ggsave("05_size_analysis_class_size.png",
        path = "../results")
 ```
 
@@ -257,6 +257,6 @@ data |>
        color = "Subcellular location") +
   theme(legend.position = "bottom")
 
-ggsave("05_analysis_location_size.png",
+ggsave("05_size_analysis_location_size.png",
        path = "../results")
 ```
