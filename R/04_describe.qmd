@@ -165,6 +165,56 @@ ggsave("04_descibe_plot3_density_mass.png",
        path = "../results")
 ```
 
+```{r}
+## Making a patchwork of the two density plots above
+## Density plot for the length
+length_density_plot <- data |>
+  ggplot(aes(x = length, 
+             fill = organism)) +
+  xlim(0, 2500) +
+  geom_density(alpha = 0.5) +
+  theme_bw() +
+  theme(axis.title.y = element_text(angle = 0, 
+                                    vjust = 0.5, 
+                                    size = 11),
+        axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 11)) +
+  labs(y = "Density",
+       x = "Length") +
+  guides(fill = FALSE)
+
+## Density plot for the mass
+mass_density_plot <- data |>
+  ggplot(aes(x = mass, 
+             fill = organism)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(
+    labels = function(x) format(x, scientific = FALSE),
+    limits = c(0, 300000)
+  ) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 11),
+        axis.title.y = element_blank()) +
+  labs(x = "Mass",
+       fill = "Organism")
+
+## Combine the plots
+combined_length_mass <- length_density_plot + 
+  mass_density_plot
+
+## Print the combined plots
+print(combined_length_mass)
+
+## Saving the plot in results
+ggsave("04_descibe_plot2and3_density_length_and_mass.png",
+       path = "../results")
+```
+
+
 ### Unique entries of each variable
 
 The variables that we kept have a different count of unique entries, e.g., there are 7 different entries for "enzyme_class" and 538 different "GO_molecular_function". The following table counts the number of unique entries of each variable.
