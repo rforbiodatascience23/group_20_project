@@ -1,16 +1,20 @@
 ---
-title: "Presentation"
-format: revealjs
+title: "Differences in protein location, role and more in mice and humans"
+format: 
+  revealjs:
+    scrollable: true
+author: "Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184242)"
 editor: visual
 ---
 
 ## Introduction
 
-![total protein count](../results/04_descibe_plot1_totalcount.png){width="60%"}
+![](../results/04_descibe_plot1_totalcount.png){width="60%"}
 
-## Materials 
+## Materials
 
-Swiss-Prot data of all proteins in human and mouse
+-   The entries was very untidy and had to be wrangeled a lot
+-   This is a example of one of the original datafiles
 
 ```{r, fig.width=2, fig.height=2}
 #| message: false
@@ -23,6 +27,21 @@ untidy |>
   relocate(Entry,`Gene Names`, Organism,`Function [CC]`,`Protein names`,`Gene Ontology (molecular function)`, `Subcellular location [CC]`) |>
   kable()
 ```
+
+## Materials
+
+Swiss-Prot data of all proteins in human and mouse with to following variables/columns:
+
+```{r, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(readr)
+data <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
+```
+
+```{r}
+data |> colnames()
+```
+
 ## and Methods
 
 Logoplots
@@ -31,22 +50,47 @@ Linear modelling
 
 ## Results - Length and Mass
 
+-   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
+
+![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"}
+
+## Results - Length and Mass
+
+- Further investigation into the linear relatioship between the length and mass of the the proteins. A difference in the linear model could mean a difference in the sidechans of the amino acids. 
+
+![](../results/05_analysis_lm_size_length.png){width="60%"}
+
 ## Results - Length, Cofactors and Enzyme Classes
+
+:::{layout-ncol=2}
 
 ![](../results/05_analysis_cofactor_size.png){width="45%"}
 
+
 ![](../results/05_analysis_class_size.png){width="45%"}
+
+
+:::
 
 ## Results - Enzyme Classes
 
 
 
+![](../results/04_descibe_plot5_different_enzyme_classes.png){width="30%"}
+
+![](../results/07_location_analysis_EC.png){width="30%"}
+:::
+
+
 ## Results - Active Sites Enzyme Classes
 
+
+
 ![](../results/06_logoplot_enz){width="45%"}
+
 
 ## Results - Active Sites Protein Families
 
 ## Discussion
 
-Human and mice
+Human and mice are very similar.

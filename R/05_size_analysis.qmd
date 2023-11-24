@@ -1,10 +1,12 @@
 ---
-title: "05 Protein size analysis"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Protein size analysis 
 
 ## Load augmented data
 
@@ -87,44 +89,58 @@ We were wondering if humans used more large side chains than mice. To investigat
 #####
 # Plot size vs mass (fix the structure to use pipes)
 #####
-# Perform linear regression for each organism
-linear_models <- lm(length ~ mass + organism,
-                    data = data)
-
-# Create scatter plot with linear regression lines
-ggplot(data, aes(x = mass,
+data|>
+  select(organism,
+       entry,
+       length,
+       mass)|>
+  distinct()|>
+  drop_na()|>
+  # Create scatter plot with linear regression lines
+  ggplot(aes(x = mass,
                  y = length,
                  color = organism)) +
-  geom_point(alpha = 0.25,
-             size = 0.75) +
-  # Add linear regression line for human
-  geom_smooth(data = data |>
-                filter(organism == "Human"),
-                method = "lm",
-                se = TRUE,
-                formula = y ~ x,
-                linetype = "solid",
-                colour = "red")+
-  # Add linear regression line Mouse
-  geom_smooth(data = data |>
-                filter(organism == "Mouse"),
-                method = "lm",
-                se = TRUE,
-                formula = y ~ x,
-                linetype = "dashed",
-                colour = "blue")+
-  labs(title = "Scatter Plot of Length vs. Mass with Linear Regressions",
-       x = "Mass (kDa)",
-       y = "Length",
-       color = "Organism") +
-  # Extreme outliers are ignored to improove visualization
-  scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
-  scale_x_continuous(limits = c(0, quantile(data$mass, 0.99)))+
-  theme_bw()
+    geom_point(alpha = 0.25,
+               size = 0.75) +
+    # Add linear regression line for human
+    geom_smooth(data = data |>
+                  filter(organism == "Human"),
+                  method = "lm",
+                  se = TRUE,
+                  formula = y ~ x,
+                  linetype = "solid",
+                  colour = "red")+
+    # Add linear regression line Mouse
+    geom_smooth(data = data |>
+                  filter(organism == "Mouse"),
+                  method = "lm",
+                  se = TRUE,
+                  formula = y ~ x,
+                  linetype = "dashed",
+                  colour = "blue")+
+    labs(title = "Scatter Plot of Length vs. Mass with Linear Regressions",
+         x = "Mass (kDa)",
+           y = "Length",
+           color = "Organism") +
+    # Extreme outliers are ignored to improove visualization
+    scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+    scale_x_continuous(labels = function(x) format(x, scientific = FALSE),
+                       limits = c(0, quantile(data$mass, 0.99)))+
+    theme_bw()
 
 ggsave("05_size_analysis_lm_size_length.png",
-       path = "../results")
+      path = "../results")
 
+
+linear_models <- lm(length ~ mass + organism,
+                    data = data|>
+                              select(organism,
+                                   entry,
+                                   length,
+                                   mass)|>
+                              distinct()|>
+                              drop_na())
+  
 ```
 
 ## pH Length investigation
