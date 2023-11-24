@@ -14,7 +14,7 @@ library(tidyverse)
 data <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
 ```
 
-##  Plot number of molecular functions vs length 
+## Plot number of molecular functions vs length
 
 We wanted to see if proteins with more molecular functions were larger
 
@@ -34,7 +34,7 @@ data |>
          y = "Molecular Function Count")
 ```
 
-## Plot boxplot of cofactor vs length 
+## Plot boxplot of cofactor vs length
 
 We wanted to see if proteins that had more cofactors were generally larger. We chose to do this as a boxplot because the maximum number of cofactors was 5 and it was therefore a visually manageable plot that eased visualization substantially. it did however require that the number of cofactors was treated as a factor.
 
@@ -136,7 +136,7 @@ data|>
        y = "pH optimum")
 ```
 
-##  pH enzyme class comparison (needs to be moved)
+## pH enzyme class comparison (needs to be moved)
 
 We decided to test if enzyme classes had varying pH dependencies between humans and mice. We therefore made a boxplot of the pH dependencies on all enzyme classes and stratified on the organism to compare the two.
 
@@ -178,7 +178,7 @@ data|>
 # Only 5 ligases in mice which is not enough to determine anything 
 ```
 
-##   Plotting Length vs enzyme class
+## Plotting Length vs enzyme class
 
 The idea was to see if mice and human proteins varied in size when looking at specific enzyme classes.
 
