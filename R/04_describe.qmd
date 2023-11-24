@@ -231,6 +231,8 @@ data |>
 
 ggsave("04_descibe_plot4_unique_entries.png",
        path = "../results")
+
+
 ```
 
 ### The unique entries of the variable "enzyme_class"
