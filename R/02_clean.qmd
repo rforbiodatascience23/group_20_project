@@ -117,7 +117,7 @@ joined_data <- joined_data |>
 joined_data <- joined_data |>
   # keep only cofactor names in column
   mutate(cofactor = str_extract_all(cofactor, "(?<=Name=)[^;]+")) |> 
-  mutate(cofactor = sapply(cofactor, paste, collapse = "_")) |> 
+  mutate(cofactor = map_chr(cofactor, ~paste(.x, collapse = "_"))) |> 
   separate_longer_delim(col = cofactor, "_") |> 
   mutate(cofactor = na_if(cofactor, "NA")) |> 
   mutate(cofactor = tolower(cofactor),
