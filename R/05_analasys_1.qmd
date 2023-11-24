@@ -55,7 +55,7 @@ cofactor_size <- data |>
                colour = factor(num_cofactors))) + 
     geom_boxplot(alpha = 0.5,
                  size = 0.75)+
-    labs(title = "Scatter Plot of Length vs. Molecular Function Count",
+    labs(title = "Boxplot of length by number of binding cofactors",
          y = "Length",
          x = "number of cofactors that binds to protein") +
     facet_wrap(~organism)+
