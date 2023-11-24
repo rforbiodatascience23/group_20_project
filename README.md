@@ -4,11 +4,16 @@
 
 # Rendering /R/00_all.qmd will render all /R/*.qmd files individually
 
-# Run the following from the terminal to render 00_all.qmd.
-# Should be run with working directory as where the .Rproj file is located
 
-# Render 00_all.qmd
-quarto_render(/R/00_all.qmd)
-# Move 00_all.html file
+
+### Running these lines of code from terminal will run the entire project ###
+# Should be run with working directory where the .Rproj file is located
+# The code will create a data directory and store the raw data there
+dir.create("data")
+dir.create("data/_raw")
+library(quarto)
+quarto_render("R/00_all.qmd")
 file.rename(from = "01_load.html",
             to = "../results/01_load.html")
+            
+            
