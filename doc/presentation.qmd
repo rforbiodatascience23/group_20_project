@@ -9,10 +9,13 @@ editor: visual
 
 ## Introduction
 
-![](../results/04_descibe_plot1_totalcount.png){width="60%"}
+Hvad vil vi undersøge? Humans vs mice
+
+Briefly about UniProt
 
 ## Materials
 
+-   Swiss-Prot data
 -   The entries was very untidy and had to be wrangeled a lot
 -   This is a example of one of the original datafiles
 
@@ -44,6 +47,11 @@ data |> colnames()
 
 ## and Methods
 
+Overview of workflow
+
+![](../doc/Flowdiagram_R_project.png){width="60%"}
+
+
 Logoplots
 
 Linear modelling
@@ -52,13 +60,11 @@ Linear modelling
 
 -   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
 
+:::{layout-ncol=2}
+
 ![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"}
-
-## Results - Length and Mass
-
-- Further investigation into the linear relatioship between the length and mass of the the proteins. A difference in the linear model could mean a difference in the sidechans of the amino acids. 
-
-![](../results/05_analysis_lm_size_length.png){width="60%"}
+![](../results/05_size_analysis_lm_size_length.png){width="60%"}
+:::
 
 ## Results - Length, Cofactors and Enzyme Classes
 
@@ -67,7 +73,7 @@ Linear modelling
 ![](../results/05_analysis_cofactor_size.png){width="45%"}
 
 
-![](../results/05_analysis_class_size.png){width="45%"}
+![](../results/05_size_analysis_class_size.png){width="45%"}
 
 
 :::
@@ -75,10 +81,12 @@ Linear modelling
 ## Results - Enzyme Classes
 
 
+:::{layout-ncol=2}
 
 ![](../results/04_descibe_plot5_different_enzyme_classes.png){width="30%"}
 
 ![](../results/07_location_analysis_EC.png){width="30%"}
+
 :::
 
 
@@ -86,11 +94,11 @@ Linear modelling
 
 
 
-![](../results/06_logoplot_enz){width="45%"}
+![](../results/06_logoplot_enz.png){width="45%"}
 
-
-## Results - Active Sites Protein Families
 
 ## Discussion
 
 Human and mice are very similar.
+
+The process 
