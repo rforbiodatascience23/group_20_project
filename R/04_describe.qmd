@@ -91,6 +91,7 @@ data |>
        y = "Count",
        x = "Organism")
 
+## Saving plot in results "04_descibe_plot1_totalcount.png"
 ggsave("04_descibe_plot1_totalcount.png",
        path = "../results")
 ```
@@ -114,6 +115,7 @@ data |>
        x = "Length",
        fill = "Organism")
 
+## Saving plot in results "04_descibe_plot2_density_length.png"
 ggsave("04_descibe_plot2_density_length.png",
        path = "../results")
 ```
@@ -139,6 +141,7 @@ data |>
        x = "Mass",
        fill = "Organism")
 
+## Saving plot in results "04_descibe_plot3_density_mass.png"
 ggsave("04_descibe_plot3_density_mass.png",
        path = "../results")
 ```
@@ -233,6 +236,7 @@ data |>
   guides(fill = FALSE) +
   labs(title = "Amounts of unique entries for the different vairables")
 
+## Saving plot in results "04_descibe_plot4_unique_entries.png"
 ggsave("04_descibe_plot4_unique_entries.png",
        path = "../results")
 ```
@@ -319,6 +323,7 @@ p <- enzymes_Human +
                   theme=theme(plot.title=element_text(hjust=0.5)))
 plot(p)
 
+## Saving plot in results "04_descibe_plot5_different_enzyme_classes.png"
 ggsave("04_descibe_plot5_different_enzyme_classes.png",
        path = "../results")
 ```
