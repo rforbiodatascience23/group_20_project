@@ -157,16 +157,8 @@ summary_table <- data |>
     GO_molecular_function, 
     protein_family, 
     enzyme_class, 
-    pathway
-  ) |>
-  filter(
-    !is.na(cofactor),
-    !is.na(`subcellular_location_[cc]`),
-    !is.na(GO_molecular_function),
-    !is.na(protein_family),
-    !is.na(enzyme_class),
-    !is.na(pathway)
-  ) |>
+    pathway) |>
+  drop_na() |>
   pivot_longer(
     cols = c(
       cofactor, 
@@ -199,13 +191,8 @@ data |>
          protein_family, 
          enzyme_class, 
          pathway) |> 
-  filter(!is.na(cofactor),
-         !is.na(`subcellular_location_[cc]`),   
-         !is.na(GO_molecular_function),
-         !is.na(protein_family), 
-         !is.na(enzyme_class),     
-         !is.na(pathway)) |> 
-  pivot_longer(cols = c(cofactor,
+   drop_na()|> 
+   pivot_longer(cols = c(cofactor,
                         `subcellular_location_[cc]`,
                         GO_molecular_function, protein_family,
                         enzyme_class, pathway),
