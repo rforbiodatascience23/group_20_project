@@ -32,8 +32,8 @@ file.rename(from = "05_size_analysis.html",
             to = "../results/05_analasys_1.html")
 file.rename(from = "06_logo_plots.html",
             to = "../results/06_logo_plots.html")
-file.rename(from = "07_analysis_3.html",
-            to = "../results/07_analysis_3.html")
+file.rename(from = "07_location_analysis.html",
+            to = "../results/07_location_analysis.html")
 ```
 
 {{< include 01_load.qmd >}}
