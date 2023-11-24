@@ -5,11 +5,13 @@
 <script src="presentation_files/libs/quarto-html/popper.min.js"></script>
 <script src="presentation_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="presentation_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="presentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.475">
+  <meta name="generator" content="quarto-1.3.353">
 
-  <title>Presentation</title>
+  <meta name="author" content="Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184242)">
+  <title>Differences in protein location, role and more in mice and humans</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -24,11 +26,11 @@
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
       width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link rel="stylesheet" href="presentation_files/libs/revealjs/dist/theme/quarto.css">
   <link href="presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -71,44 +73,44 @@
     font-weight: 400;
   }
 
-  .callout.callout-captioned.callout-style-simple .callout-body {
+  .callout.callout-titled.callout-style-simple .callout-body {
     margin-top: 0.2em;
   }
 
-  .callout:not(.callout-captioned) .callout-body {
+  .callout:not(.callout-titled) .callout-body {
       display: flex;
   }
 
-  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
     padding-left: 1.6em;
   }
 
-  .callout.callout-captioned .callout-header {
+  .callout.callout-titled .callout-header {
     padding-top: 0.2em;
     margin-bottom: -0.2em;
   }
 
-  .callout.callout-captioned .callout-caption  p {
+  .callout.callout-titled .callout-title  p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
     
-  .callout.callout-captioned.callout-style-simple .callout-content  p {
+  .callout.callout-titled.callout-style-simple .callout-content  p {
     margin-top: 0;
   }
 
-  .callout.callout-captioned.callout-style-default .callout-content  p {
+  .callout.callout-titled.callout-style-default .callout-content  p {
     margin-top: 0.7em;
   }
 
-  .callout.callout-style-simple div.callout-caption {
+  .callout.callout-style-simple div.callout-title {
     border-bottom: none;
     font-size: .9rem;
     font-weight: 600;
     opacity: 75%;
   }
 
-  .callout.callout-style-default  div.callout-caption {
+  .callout.callout-style-default  div.callout-title {
     border-bottom: none;
     font-weight: 600;
     opacity: 85%;
@@ -140,7 +142,7 @@
     background-size: 0.9rem 0.9rem;
   }
 
-  .callout-caption {
+  .callout-title {
     display: flex
   }
     
@@ -153,16 +155,16 @@
     display: none !important;
   }
 
-  .callout.callout-captioned .callout-body > .callout-content > :last-child {
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
     margin-bottom: 0.5rem;
   }
 
-  .callout.callout-captioned .callout-icon::before {
+  .callout.callout-titled .callout-icon::before {
     margin-top: .5rem;
     padding-right: .5rem;
   }
 
-  .callout:not(.callout-captioned) .callout-icon::before {
+  .callout:not(.callout-titled) .callout-icon::before {
     margin-top: 1rem;
     padding-right: .5rem;
   }
@@ -177,7 +179,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
   }
 
-  div.callout-note.callout-style-default .callout-caption {
+  div.callout-note.callout-style-default .callout-title {
     background-color: #dae6fb
   }
 
@@ -189,7 +191,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
   }
 
-  div.callout-important.callout-style-default .callout-caption {
+  div.callout-important.callout-style-default .callout-title {
     background-color: #f7dddc
   }
 
@@ -201,7 +203,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
   }
 
-  div.callout-warning.callout-style-default .callout-caption {
+  div.callout-warning.callout-style-default .callout-title {
     background-color: #fcefdc
   }
 
@@ -213,7 +215,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
   }
 
-  div.callout-tip.callout-style-default .callout-caption {
+  div.callout-tip.callout-style-default .callout-title {
     background-color: #ccf1e3
   }
 
@@ -225,7 +227,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
   }
 
-  div.callout-caution.callout-style-default .callout-caption {
+  div.callout-caution.callout-style-default .callout-title {
     background-color: #ffe5d0
   }
 
@@ -241,6 +243,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -323,41 +326,49 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Presentation</h1>
+  <h1 class="title">Differences in protein location, role and more in mice and humans</h1>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184242) 
+</div>
+</div>
 </div>
 
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
 
-<img data-src="../results/04_descibe_plot1_totalcount.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p class="caption">total protein count</p></section>
+<img data-src="../results/04_descibe_plot1_totalcount.png" style="width:60.0%" class="r-stretch"></section>
 <section id="materials" class="slide level2">
 <h2>Materials</h2>
-<p>Swiss-Prot data of all proteins in human and mouse</p>
+<ul>
+<li>The entries was very untidy and had to be wrangeled a lot</li>
+<li>This is a example of one of the original datafiles</li>
+</ul>
 <div class="cell">
 <div class="cell-output-display">
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
-<col style="width: 18%">
-<col style="width: 1%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 3%">
-<col style="width: 0%">
-<col style="width: 1%">
+<col style="width: 48%">
+<col style="width: 2%">
+<col style="width: 10%">
+<col style="width: 14%">
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 1%">
+<col style="width: 2%">
 <col style="width: 0%">
-<col style="width: 5%">
-<col style="width: 53%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 6%">
+<col style="width: 12%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -383,207 +394,224 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Q9BVG9</td>
-<td style="text-align: left;">PTDSS2 PSS2</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: Catalyzes a base-exchange reaction in which the polar head group of phosphatidylethanolamine (PE) or phosphatidylcholine (PC) is replaced by L-serine (PubMed:19014349). Catalyzes the conversion of phosphatatidylethanolamine and does not act on phosphatidylcholine (PubMed:19014349). Can utilize both phosphatidylethanolamine (PE) plasmalogen and diacyl PE as substrate and the latter is six times better utilized, indicating the importance of an ester linkage at the sn-1 position (By similarity). Although it shows no sn-1 fatty acyl preference, exhibits significant preference towards docosahexaenoic acid (22:6n-3) compared with 18:1 or 20:4 at the sn-2 position (By similarity). {ECO:0000250|UniProtKB:Q9Z1X2, ECO:0000269|PubMed:19014349}.</td>
-<td style="text-align: left;">Phosphatidylserine synthase 2 (PSS-2) (PtdSer synthase 2) (EC 2.7.8.29) (Serine-exchange enzyme II)</td>
-<td style="text-align: left;">CDP-diacylglycerol-serine O-phosphatidyltransferase activity [GO:0003882]; L-serine-phosphatidylethanolamine phosphatidyltransferase activity [GO:0106245]; transferase activity [GO:0016740]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Endoplasmic reticulum membrane {ECO:0000250|UniProtKB:Q9Z1X2}; Multi-pass membrane protein {ECO:0000255}. Note=Highly enriched in the mitochondria-associated membrane (MAM). {ECO:0000250|UniProtKB:Q9Z1X2}.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">PTSS2_HUMAN</td>
-<td style="text-align: left;">PATHWAY: Phospholipid metabolism; phosphatidylserine biosynthesis.</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">BIOPHYSICOCHEMICAL PROPERTIES: pH dependence: Optimum pH is around 7.5. {ECO:0000269|PubMed:19014349};</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">2.7.8.29</td>
-<td style="text-align: left;">Phosphatidyl serine synthase family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRANSMEM 63..83; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 97..117; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 127..147; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 314..334; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 336..356; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 377..397; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 404..424; /note=“Helical”; /evidence=“ECO:0000255”</td>
-<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=a 1,2-diacyl-sn-glycero-3-phosphoethanolamine + L-serine = a 1,2-diacyl-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:27606, ChEBI:CHEBI:33384, ChEBI:CHEBI:57262, ChEBI:CHEBI:57603, ChEBI:CHEBI:64612; EC=2.7.8.29; Evidence={ECO:0000269|PubMed:19014349}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:27607; Evidence={ECO:0000305|PubMed:19014349}; CATALYTIC ACTIVITY: Reaction=1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41484, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:73007, ChEBI:CHEBI:75029; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41485; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-hexadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-hexadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoserine + ethanolamine; Xref=Rhea:RHEA:41488, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78261, ChEBI:CHEBI:78262; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41489; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-octadecanoyl-2-(5Z,8Z,11Z,14Z)-eicosatetraenoyl-sn-glycero-3-phosphoethanolamine + L-serine = 1-octadecanoyl-2-(5Z,8Z,11Z,14Z)-eicosatetraenoyl-sn-glycero-3-phosphoserine + ethanolamine; Xref=Rhea:RHEA:41500, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78268, ChEBI:CHEBI:78269; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41501; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-octadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-octadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoserine + ethanolamine; Xref=Rhea:RHEA:41492, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78265, ChEBI:CHEBI:78266; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41493; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-(1Z-octadecenyl)-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-(1Z-octadecenyl)-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41496, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78263, ChEBI:CHEBI:78264; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41497; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-octadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-octadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:40795, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:75038, ChEBI:CHEBI:78260; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:40796; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-(1Z-octadecenyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-(1Z-octadecenyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41600, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78340, ChEBI:CHEBI:78341; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41601; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-(1Z-octadecenyl)-2-(5Z,8Z,11Z,14Z- eicosatetraenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-(1Z-octadecenyl)-2-(5Z,8Z,11Z,14Z-eicosatetraenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41604, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78342, ChEBI:CHEBI:78343; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41605; Evidence={ECO:0000250|UniProtKB:Q9Z1X2};</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Q96MR9</td>
-<td style="text-align: left;">ZNF560</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: May be involved in transcriptional regulation.</td>
-<td style="text-align: left;">Zinc finger protein 560</td>
-<td style="text-align: left;">DNA-binding transcription repressor activity, RNA polymerase II-specific [GO:0001227]; metal ion binding [GO:0046872]; RNA polymerase II transcription regulatory region sequence-specific DNA binding [GO:0000977]</td>
+<td style="text-align: left;">Q64249</td>
+<td style="text-align: left;">Nr6a1 Gcnf</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Orphan nuclear receptor. Binds to a response element containing the sequence 5’-TCAAGGTCA-3’. May be involved in the regulation of gene expression in germ cell development during gametogenesis. {ECO:0000269|PubMed:7854358}.</td>
+<td style="text-align: left;">Nuclear receptor subfamily 6 group A member 1 (Germ cell nuclear factor) (GCNF) (mGCNF) (Retinoid receptor-related testis-specific receptor) (RTR)</td>
+<td style="text-align: left;">DNA-binding transcription activator activity, RNA polymerase II-specific [GO:0001228]; estrogen response element binding [GO:0034056]; nuclear receptor activity [GO:0004879]; protein homodimerization activity [GO:0042803]; RNA polymerase II cis-regulatory region sequence-specific DNA binding [GO:0000978]; sequence-specific DNA binding [GO:0043565]; sequence-specific double-stranded DNA binding [GO:1990837]; zinc ion binding [GO:0008270]</td>
 <td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000305}.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">ZN560_HUMAN</td>
+<td style="text-align: left;">NR6A1_MOUSE</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">Krueppel C2H2-type zinc-finger protein family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Q9HAC7</td>
-<td style="text-align: left;">SUGCT C7orf10 DERP13</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: Catalyzes the succinyl-CoA-dependent conversion of glutarate to glutaryl-CoA. Can use different dicarboxylic acids as CoA acceptors, the preferred ones are glutarate, succinate, adipate, and 3-hydroxymethylglutarate. {ECO:0000269|PubMed:23893049}.</td>
-<td style="text-align: left;">Succinate–hydroxymethylglutarate CoA-transferase (EC 2.8.3.13) (Dermal papilla-derived protein 13) (SuccinylCoA:glutarate-CoA transferase)</td>
-<td style="text-align: left;">succinate-hydroxymethylglutarate CoA-transferase activity [GO:0047369]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Mitochondrion {ECO:0000269|PubMed:23893049}.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">SUCHY_HUMAN</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">2.8.3.13</td>
-<td style="text-align: left;">CoA-transferase III family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=3-hydroxy-3-methylglutarate + succinyl-CoA = (3S)-hydroxy-3-methylglutaryl-CoA + succinate; Xref=Rhea:RHEA:12284, ChEBI:CHEBI:17325, ChEBI:CHEBI:30031, ChEBI:CHEBI:43074, ChEBI:CHEBI:57292; EC=2.8.3.13; Evidence={ECO:0000269|PubMed:23893049};</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Q9Y236</td>
-<td style="text-align: left;">OSGIN2 C8orf1</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: May be involved in meiosis or the maturation of germ cells.</td>
-<td style="text-align: left;">Oxidative stress-induced growth inhibitor 2 (hT41)</td>
-<td style="text-align: left;">growth factor activity [GO:0008083]</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">OSGI2_HUMAN</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">OKL38 family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">P61581</td>
-<td style="text-align: left;">ERVK-24</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: May possess a function in tumorigenesis.</td>
-<td style="text-align: left;">Endogenous retrovirus group K member 24 Np9 protein (HERV-K101 Np9 protein) (HERV-K_22q11.21 provirus Np9 protein)</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus. Note=When overexpressed.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">NP24_HUMAN</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Nuclear hormone receptor family, NR6 subfamily</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Q2TB90</td>
-<td style="text-align: left;">HKDC1</td>
+<td style="text-align: left;">P18406</td>
+<td style="text-align: left;">Ccn1 Cyr61 Igfbp10</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Promotes cell proliferation, chemotaxis, angiogenesis and cell adhesion. Appears to play a role in wound healing by up-regulating, in skin fibroblasts, the expression of a number of genes involved in angiogenesis, inflammation and matrix remodeling including VEGA-A, VEGA-C, MMP1, MMP3, TIMP1, uPA, PAI-1 and integrins alpha-3 and alpha-5 (By similarity). CCN1-mediated gene regulation is dependent on heparin-binding (By similarity). Down-regulates the expression of alpha-1 and alpha-2 subunits of collagen type-1 (By similarity). Promotes cell adhesion and adhesive signaling through integrin alpha-6/beta-1, cell migration through integrin alpha-1/beta-5 and cell proliferation through integrin alpha-v/beta-3 (By similarity). {ECO:0000250}.</td>
+<td style="text-align: left;">CCN family member 1 (3CH61) (Cellular communication network factor 1) (Cysteine-rich angiogenic inducer 61) (Insulin-like growth factor-binding protein 10) (IBP-10) (IGF-binding protein 10) (IGFBP-10) (Protein CYR61)</td>
+<td style="text-align: left;">extracellular matrix binding [GO:0050840]; growth factor binding [GO:0019838]; heparin binding [GO:0008201]; integrin binding [GO:0005178]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Secreted.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">CCN1_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">CCN family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Q3UH68</td>
+<td style="text-align: left;">Limch1 Kiaa1102</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Actin stress fibers-associated protein that activates non-muscle myosin IIa. Activates the non-muscle myosin IIa complex by promoting the phosphorylation of its regulatory subunit MRLC/MYL9. Through the activation of non-muscle myosin IIa, positively regulates actin stress fibers assembly and stabilizes focal adhesions. It therefore negatively regulates cell spreading and cell migration. {ECO:0000250|UniProtKB:Q9UPQ0}.</td>
+<td style="text-align: left;">LIM and calponin homology domains-containing protein 1</td>
+<td style="text-align: left;">actin binding [GO:0003779]; metal ion binding [GO:0046872]; myosin II head/neck binding [GO:0032034]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm, cytoskeleton, stress fiber {ECO:0000250|UniProtKB:Q9UPQ0}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">LIMC1_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">LIMCH1 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q9HBX8</td>
+<td style="text-align: left;">LGR6 UNQ6427/PRO21331 VTS20631</td>
 <td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: Catalyzes the phosphorylation of hexose to hexose 6-phosphate, although at very low level compared to other hexokinases (PubMed:30517626). Has low glucose phosphorylating activity compared to other hexokinases (PubMed:30517626). Involved in glucose homeostasis and hepatic lipid accumulation. Required to maintain whole-body glucose homeostasis during pregnancy; however additional evidences are required to confirm this role (By similarity). {ECO:0000250|UniProtKB:Q91W97, ECO:0000269|PubMed:30517626}.</td>
-<td style="text-align: left;">Hexokinase HKDC1 (EC 2.7.1.1) (Hexokinase domain-containing protein 1)</td>
-<td style="text-align: left;">ATP binding [GO:0005524]; fructokinase activity [GO:0008865]; glucokinase activity [GO:0004340]; glucose binding [GO:0005536]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm {ECO:0000269|PubMed:30085091}. Mitochondrion membrane {ECO:0000305|PubMed:30517626}; Peripheral membrane protein {ECO:0000305}. Photoreceptor inner segment {ECO:0000250|UniProtKB:Q91W97}. Note=The mitochondrial-binding peptide (MBP) region promotes association with the mitochondrion. {ECO:0000305|PubMed:30517626}.</td>
+<td style="text-align: left;">FUNCTION: Receptor for R-spondins that potentiates the canonical Wnt signaling pathway and acts as a marker of multipotent stem cells in the epidermis. Upon binding to R-spondins (RSPO1, RSPO2, RSPO3 or RSPO4), associates with phosphorylated LRP6 and frizzled receptors that are activated by extracellular Wnt receptors, triggering the canonical Wnt signaling pathway to increase expression of target genes. In contrast to classical G-protein coupled receptors, does not activate heterotrimeric G-proteins to transduce the signal. May act as a tumor suppressor. {ECO:0000269|PubMed:21727895, ECO:0000269|PubMed:22615920}.</td>
+<td style="text-align: left;">Leucine-rich repeat-containing G-protein coupled receptor 6</td>
+<td style="text-align: left;">heparin binding [GO:0008201]; protein-hormone receptor activity [GO:0016500]; Roundabout binding [GO:0048495]; transmembrane signaling receptor activity [GO:0004888]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cell membrane {ECO:0000269|PubMed:22615920}; Multi-pass membrane protein {ECO:0000269|PubMed:22615920}.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">HKDC1_HUMAN</td>
-<td style="text-align: left;">PATHWAY: Carbohydrate metabolism; hexose metabolism. {ECO:0000305|PubMed:30517626}.; PATHWAY: Carbohydrate degradation; glycolysis; D-glyceraldehyde 3-phosphate and glycerone phosphate from D-glucose: step 1/4. {ECO:0000305|PubMed:30517626}.</td>
+<td style="text-align: left;">LGR6_HUMAN</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">2.7.1.1</td>
-<td style="text-align: left;">Hexokinase family</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=ATP + D-hexose = ADP + D-hexose 6-phosphate + H(+); Xref=Rhea:RHEA:22740, ChEBI:CHEBI:4194, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:61567, ChEBI:CHEBI:456216; EC=2.7.1.1; Evidence={ECO:0000269|PubMed:30517626}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:22741; Evidence={ECO:0000269|PubMed:30517626}; CATALYTIC ACTIVITY: Reaction=ATP + D-glucose = ADP + D-glucose 6-phosphate + H(+); Xref=Rhea:RHEA:17825, ChEBI:CHEBI:4167, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:61548, ChEBI:CHEBI:456216; EC=2.7.1.1; Evidence={ECO:0000269|PubMed:30517626}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:17826; Evidence={ECO:0000269|PubMed:30517626};</td>
+<td style="text-align: left;">G-protein coupled receptor 1 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRANSMEM 568..588; /note=“Helical; Name=1”; /evidence=“ECO:0000255”; TRANSMEM 599..619; /note=“Helical; Name=2”; /evidence=“ECO:0000255”; TRANSMEM 645..665; /note=“Helical; Name=3”; /evidence=“ECO:0000255”; TRANSMEM 688..708; /note=“Helical; Name=4”; /evidence=“ECO:0000255”; TRANSMEM 728..748; /note=“Helical; Name=5”; /evidence=“ECO:0000255”; TRANSMEM 775..795; /note=“Helical; Name=6”; /evidence=“ECO:0000255”; TRANSMEM 810..830; /note=“Helical; Name=7”; /evidence=“ECO:0000255”</td>
+<td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Q9D6Z1</td>
-<td style="text-align: left;">Nop56 Nol5a</td>
+<td style="text-align: left;">Q64705</td>
+<td style="text-align: left;">Usf2</td>
 <td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: Involved in the early to middle stages of 60S ribosomal subunit biogenesis. Core component of box C/D small nucleolar ribonucleoprotein (snoRNP) particles. Required for the biogenesis of box C/D snoRNAs such U3, U8 and U14 snoRNAs. Part of the small subunit (SSU) processome, first precursor of the small eukaryotic ribosomal subunit. During the assembly of the SSU processome in the nucleolus, many ribosome biogenesis factors, an RNA chaperone and ribosomal proteins associate with the nascent pre-rRNA and work in concert to generate RNA folding, modifications, rearrangements and cleavage as well as targeted degradation of pre-ribosomal RNA by the RNA exosome. {ECO:0000250|UniProtKB:O00567}.</td>
-<td style="text-align: left;">Nucleolar protein 56 (Nucleolar protein 5A)</td>
-<td style="text-align: left;">histone methyltransferase binding [GO:1990226]; RNA binding [GO:0003723]; snoRNA binding [GO:0030515]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus, nucleolus {ECO:0000250|UniProtKB:O00567}. Cytoplasm {ECO:0000269|PubMed:21683323}. Nucleus, nucleoplasm {ECO:0000250|UniProtKB:O00567}.</td>
+<td style="text-align: left;">FUNCTION: Transcription factor that binds to a symmetrical DNA sequence (E-boxes) (5’-CACGTG-3’) that is found in a variety of viral and cellular promoters.</td>
+<td style="text-align: left;">Upstream stimulatory factor 2 (Major late transcription factor 2) (Upstream transcription factor 2)</td>
+<td style="text-align: left;">bHLH transcription factor binding [GO:0043425]; DNA binding [GO:0003677]; DNA-binding transcription factor activity [GO:0003700]; DNA-binding transcription factor activity, RNA polymerase II-specific [GO:0000981]; double-stranded DNA binding [GO:0003690]; identical protein binding [GO:0042802]; protein heterodimerization activity [GO:0046982]; protein homodimerization activity [GO:0042803]; protein-containing complex binding [GO:0044877]; RNA polymerase II cis-regulatory region sequence-specific DNA binding [GO:0000978]; sequence-specific DNA binding [GO:0043565]; sequence-specific double-stranded DNA binding [GO:1990837]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">NOP56_MOUSE</td>
+<td style="text-align: left;">USF2_MOUSE</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">NOP5/NOP56 family</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Q8BH66</td>
-<td style="text-align: left;">Atl1 Spg3a</td>
-<td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: GTPase tethering membranes through formation of trans-homooligomers and mediating homotypic fusion of endoplasmic reticulum membranes. Functions in endoplasmic reticulum tubular network biogenesis. May also regulate Golgi biogenesis. May regulate axonal development. {ECO:0000250|UniProtKB:Q8WXF7}.</td>
-<td style="text-align: left;">Atlastin-1 (EC 3.6.5.-) (Spastic paraplegia 3A homolog)</td>
-<td style="text-align: left;">GTP binding [GO:0005525]; GTPase activity [GO:0003924]; identical protein binding [GO:0042802]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Endoplasmic reticulum membrane {ECO:0000250|UniProtKB:Q8WXF7}; Multi-pass membrane protein {ECO:0000250|UniProtKB:Q8WXF7}. Golgi apparatus membrane {ECO:0000250|UniProtKB:Q8WXF7}; Multi-pass membrane protein {ECO:0000250|UniProtKB:Q8WXF7}. Cell projection, axon {ECO:0000250|UniProtKB:Q6PST4}. Note=Localizes to endoplasmic reticulum tubular network. {ECO:0000269|PubMed:24668814}.</td>
+<td style="text-align: left;">Q49AS3</td>
+<td style="text-align: left;">LRRC37A5P C9orf29</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Putative protein LRRC37A5P (Leucine-rich repeat-containing 37 member A5 pseudogene)</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">ATLA1_MOUSE</td>
+<td style="text-align: left;">L37A5_HUMAN</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">3.6.5.-</td>
-<td style="text-align: left;">TRAFAC class dynamin-like GTPase superfamily, GB1/RHD3 GTPase family, GB1 subfamily</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRANSMEM 450..470; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 472..492; /note=“Helical”; /evidence=“ECO:0000255”</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">P54276</td>
-<td style="text-align: left;">Msh6 Gtmbp</td>
+<td style="text-align: left;">Q04887</td>
+<td style="text-align: left;">Sox9 Sox-9</td>
 <td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: Component of the post-replicative DNA mismatch repair system (MMR). Heterodimerizes with MSH2 to form MutS alpha, which binds to DNA mismatches thereby initiating DNA repair. When bound, MutS alpha bends the DNA helix and shields approximately 20 base pairs, and recognizes single base mismatches and dinucleotide insertion-deletion loops (IDL) in the DNA. After mismatch binding, forms a ternary complex with the MutL alpha heterodimer, which is thought to be responsible for directing the downstream MMR events, including strand discrimination, excision, and resynthesis. ATP binding and hydrolysis play a pivotal role in mismatch repair functions. The ATPase activity associated with MutS alpha regulates binding similar to a molecular switch: mismatched DNA provokes ADP–&gt;ATP exchange, resulting in a discernible conformational transition that converts MutS alpha into a sliding clamp capable of hydrolysis-independent diffusion along the DNA backbone. This transition is crucial for mismatch repair. MutS alpha may also play a role in DNA homologous recombination repair. Recruited on chromatin in G1 and early S phase via its PWWP domain that specifically binds trimethylated ‘Lys-36’ of histone H3 (H3K36me3): early recruitment to chromatin to be replicated allowing a quick identification of mismatch repair to initiate the DNA mismatch repair reaction (By similarity). {ECO:0000250|UniProtKB:P52701}.</td>
-<td style="text-align: left;">DNA mismatch repair protein Msh6 (G/T mismatch-binding protein) (GTBP) (GTMBP) (MutS protein homolog 6) (MutS-alpha 160 kDa subunit) (p160)</td>
-<td style="text-align: left;">ADP binding [GO:0043531]; ATP binding [GO:0005524]; ATP-dependent activity, acting on DNA [GO:0008094]; ATP-dependent DNA damage sensor activity [GO:0140664]; chromatin binding [GO:0003682]; damaged DNA binding [GO:0003684]; DNA binding [GO:0003677]; enzyme binding [GO:0019899]; four-way junction DNA binding [GO:0000400]; guanine/thymine mispair binding [GO:0032137]; magnesium ion binding [GO:0000287]; methylated histone binding [GO:0035064]; mismatched DNA binding [GO:0030983]; MutLalpha complex binding [GO:0032405]; oxidized purine DNA binding [GO:0032357]; single guanine insertion binding [GO:0032142]; single thymine insertion binding [GO:0032143]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000250|UniProtKB:P52701}. Chromosome {ECO:0000250|UniProtKB:P52701}. Note=Associates with H3K36me3 via its PWWP domain. {ECO:0000250|UniProtKB:P52701}.</td>
+<td style="text-align: left;">FUNCTION: Transcription factor that plays a key role in chondrocytes differentiation and skeletal development (PubMed:10319868, PubMed:11371614, PubMed:12414734, PubMed:15132997, PubMed:18415932, PubMed:20940257, PubMed:28263186). Specifically binds the 5’-ACAAAG-3’ DNA motif present in enhancers and super-enhancers and promotes expression of genes important for chondrogenesis, including cartilage matrix protein-coding genes COL2A1, COL4A2, COL9A1, COL11A2 and ACAN, SOX5 and SOX6 (PubMed:9119111, PubMed:10805756, PubMed:12414734, PubMed:15694126, PubMed:17525254, PubMed:26146088, PubMed:26150426, PubMed:26910618, PubMed:28263186). Also binds to some promoter regions (PubMed:20940257). Plays a central role in successive steps of chondrocyte differentiation (PubMed:11371614, PubMed:12414734, PubMed:22421045). Absolutely required for precartilaginous condensation, the first step in chondrogenesis during which skeletal progenitors differentiate into prechondrocytes (PubMed:11371614, PubMed:12414734). Together with SOX5 and SOX6, required for overt chondrogenesis when condensed prechondrocytes differentiate into early stage chondrocytes, the second step in chondrogenesis (PubMed:11371614, PubMed:12414734, PubMed:15529345). Later, required to direct hypertrophic maturation and block osteoblast differentiation of growth plate chondrocytes: maintains chondrocyte columnar proliferation, delays prehypertrophy and then prevents osteoblastic differentiation of chondrocytes by lowering beta-catenin (CTNNB1) signaling and RUNX2 expression (PubMed:22421045, PubMed:31121357). Also required for chondrocyte hypertrophy, both indirectly, by keeping the lineage fate of chondrocytes, and directly, by remaining present in upper hypertrophic cells and transactivating COL10A1 along with MEF2C (PubMed:21367821, PubMed:22421045). Low lipid levels are the main nutritional determinant for chondrogenic commitment of skeletal progenitor cells: when lipids levels are low, FOXO (FOXO1 and FOXO3) transcription factors promote expression of SOX9, which induces chondrogenic commitment and suppresses fatty acid oxidation (PubMed:32103177). Mechanistically, helps, but is not required, to remove epigenetic signatures of transcriptional repression and deposit active promoter and enhancer marks at chondrocyte-specific genes (PubMed:30021842). Acts in cooperation with the Hedgehog pathway-dependent GLI (GLI1 and GLI3) transcription factors (PubMed:29659575). In addition to cartilage development, also acts as a regulator of proliferation and differentiation in epithelial stem/progenitor cells: involved in the lung epithelium during branching morphogenesis, by balancing proliferation and differentiation and regulating the extracellular matrix (PubMed:24191021). Controls epithelial branching during kidney development (PubMed:21212101). {ECO:0000269|PubMed:10319868, ECO:0000269|PubMed:10805756, ECO:0000269|PubMed:11371614, ECO:0000269|PubMed:12414734, ECO:0000269|PubMed:15132997, ECO:0000269|PubMed:15529345, ECO:0000269|PubMed:15694126, ECO:0000269|PubMed:17525254, ECO:0000269|PubMed:18415932, ECO:0000269|PubMed:20940257, ECO:0000269|PubMed:21212101, ECO:0000269|PubMed:21367821, ECO:0000269|PubMed:22421045, ECO:0000269|PubMed:24191021, ECO:0000269|PubMed:26146088, ECO:0000269|PubMed:26150426, ECO:0000269|PubMed:26910618, ECO:0000269|PubMed:28263186, ECO:0000269|PubMed:29659575, ECO:0000269|PubMed:30021842, ECO:0000269|PubMed:31121357, ECO:0000269|PubMed:32103177, ECO:0000269|PubMed:9119111}.</td>
+<td style="text-align: left;">Transcription factor SOX-9 (mSox9)</td>
+<td style="text-align: left;">beta-catenin binding [GO:0008013]; bHLH transcription factor binding [GO:0043425]; chromatin binding [GO:0003682]; cis-regulatory region sequence-specific DNA binding [GO:0000987]; DNA binding [GO:0003677]; DNA-binding transcription activator activity, RNA polymerase II-specific [GO:0001228]; DNA-binding transcription factor activity [GO:0003700]; DNA-binding transcription factor activity, RNA polymerase II-specific [GO:0000981]; pre-mRNA intronic binding [GO:0097157]; protein kinase A catalytic subunit binding [GO:0034236]; RNA polymerase II cis-regulatory region sequence-specific DNA binding [GO:0000978]; sequence-specific DNA binding [GO:0043565]; sequence-specific double-stranded DNA binding [GO:1990837]; transcription cis-regulatory region binding [GO:0000976]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000255|PROSITE-ProRule:PRU00267, ECO:0000269|PubMed:10805756, ECO:0000269|PubMed:15694126, ECO:0000269|PubMed:20940257, ECO:0000269|PubMed:21212101, ECO:0000269|PubMed:26910618}.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">MSH6_MOUSE</td>
+<td style="text-align: left;">SOX9_MOUSE</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">DNA mismatch repair MutS family</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Q6PE87</td>
-<td style="text-align: left;">Cfap206</td>
-<td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: [Isoform 1]: Essential for sperm motility and is involved in the regulation of the beating frequency of motile cilia on the epithelial cells of the respiratory tract (PubMed:32376681). Required for the establishment of radial spokes in sperm flagella (PubMed:32376681). {ECO:0000269|PubMed:32376681}.; FUNCTION: [Isoform 2]: Essential for sperm motility and is involved in the regulation of the beating frequency of motile cilia on the epithelial cells of the respiratory tract (PubMed:32376681). Required for the establishment of radial spokes in sperm flagella (PubMed:32376681). {ECO:0000269|PubMed:32376681}.</td>
-<td style="text-align: left;">Cilia- and flagella-associated protein 206</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm, cytoskeleton, cilium axoneme {ECO:0000269|PubMed:32376681}. Cytoplasm, cytoskeleton, cilium basal body {ECO:0000269|PubMed:32376681}.</td>
+<td style="text-align: left;">Q9H165</td>
+<td style="text-align: left;">BCL11A CTIP1 EVI9 KIAA1809 ZNF856</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: Transcription factor (PubMed:16704730, PubMed:29606353). Associated with the BAF SWI/SNF chromatin remodeling complex (PubMed:23644491). Binds to the 5’-TGACCA-3’ sequence motif in regulatory regions of target genes, including a distal promoter of the HBG1 hemoglobin subunit gamma-1 gene (PubMed:29606353). Involved in regulation of the developmental switch from gamma- to beta-globin, probably via direct repression of HBG1; hence indirectly repressing fetal hemoglobin (HbF) level (PubMed:29606353, PubMed:26375765). Involved in brain development (PubMed:27453576). May play a role in hematopoiesis (By similarity). Essential factor in lymphopoiesis required for B-cell formation in fetal liver (By similarity). May function as a modulator of the transcriptional repression activity of NR2F2 (By similarity). {ECO:0000250|UniProtKB:Q9QYE3, ECO:0000269|PubMed:16704730, ECO:0000269|PubMed:23644491, ECO:0000269|PubMed:29606353, ECO:0000303|PubMed:26375765, ECO:0000303|PubMed:27453576}.</td>
+<td style="text-align: left;">B-cell lymphoma/leukemia 11A (BCL-11A) (B-cell CLL/lymphoma 11A) (COUP-TF-interacting protein 1) (Ecotropic viral integration site 9 protein homolog) (EVI-9) (Zinc finger protein 856)</td>
+<td style="text-align: left;">DNA-binding transcription factor activity [GO:0003700]; DNA-binding transcription factor binding [GO:0140297]; DNA-binding transcription repressor activity, RNA polymerase II-specific [GO:0001227]; metal ion binding [GO:0046872]; protein heterodimerization activity [GO:0046982]; protein homodimerization activity [GO:0042803]; protein kinase binding [GO:0019901]; RNA polymerase II cis-regulatory region sequence-specific DNA binding [GO:0000978]; transcription coregulator activity [GO:0003712]; transcription regulatory region nucleic acid binding [GO:0001067]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm {ECO:0000269|PubMed:11161790}. Nucleus {ECO:0000269|PubMed:11161790}. Chromosome {ECO:0000269|PubMed:29606353}. Note=Associates with the nuclear body. Colocalizes with SUMO1 and SENP2 in nuclear speckles (By similarity). {ECO:0000250}.; SUBCELLULAR LOCATION: [Isoform 1]: Nucleus matrix {ECO:0000269|PubMed:16704730}. Note=Colocalizes with BCL6 in nuclear paraspeckles. {ECO:0000269|PubMed:16704730}.; SUBCELLULAR LOCATION: [Isoform 2]: Cytoplasm {ECO:0000269|PubMed:27453576}. Nucleus {ECO:0000269|PubMed:27453576}. Note=Predominantly localized in the nucleus in nuclear paraspeckles. {ECO:0000269|PubMed:27453576}.; SUBCELLULAR LOCATION: [Isoform 3]: Cytoplasm {ECO:0000269|PubMed:27453576}. Nucleus {ECO:0000269|PubMed:27453576}. Note=Predominantly localized in the cytoplasm in the absence of interaction with isoform 1 and isoform 2. In presence of isoform 1 or isoform 2, translocates from the cytoplasm into nuclear paraspeckles. {ECO:0000269|PubMed:27453576}.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">CF206_MOUSE</td>
+<td style="text-align: left;">BC11A_HUMAN</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">CFAP206 family</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Q5SVT3</td>
+<td style="text-align: left;">Etaa1</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Replication stress response protein that accumulates at DNA damage sites and promotes replication fork progression and integrity. Recruited to stalled replication forks via interaction with the RPA complex and directly stimulates ATR kinase activity independently of TOPBP1. Probably only regulates a subset of ATR targets. {ECO:0000250|UniProtKB:Q9NY74}.</td>
+<td style="text-align: left;">Ewing’s tumor-associated antigen 1 homolog</td>
+<td style="text-align: left;">protein serine/threonine kinase activator activity [GO:0043539]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000250|UniProtKB:Q9NY74}. Note=Localizes at sites of DNA damage following replication stress. Recruited to stalled replication forks via interaction with RPA1 and RPA2 subunits of the RPA complex. {ECO:0000250|UniProtKB:Q9NY74}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">ETAA1_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q6QHF9</td>
+<td style="text-align: left;">PAOX PAO UNQ1923/PRO4398</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: Flavoenzyme which catalyzes the oxidation of N(1)-acetylspermine to spermidine and is thus involved in the polyamine back-conversion (PubMed:12477380). Can also oxidize N(1)-acetylspermidine to putrescine. Substrate specificity: N(1)-acetylspermine = N(1)-acetylspermidine &gt; N(1),N(12)-diacylspermine &gt;&gt; spermine. Does not oxidize spermidine. Plays an important role in the regulation of polyamine intracellular concentration and has the potential to act as a determinant of cellular sensitivity to the antitumor polyamine analogs (PubMed:12477380). {ECO:0000269|PubMed:12477380}.</td>
+<td style="text-align: left;">Peroxisomal N(1)-acetyl-spermine/spermidine oxidase (EC 1.5.3.13) (Polyamine oxidase)</td>
+<td style="text-align: left;">N(1),N(12)-diacetylspermine:oxygen oxidoreductase (3-acetamidopropanal-forming) activity [GO:0052899]; N1-acetylspermidine:oxygen oxidoreductase (3-acetamidopropanal-forming) activity [GO:0052904]; N1-acetylspermine:oxygen oxidoreductase (3-acetamidopropanal-forming) activity [GO:0052903]; polyamine oxidase activity [GO:0046592]; spermidine:oxygen oxidoreductase (3-aminopropanal-forming) activity [GO:0052902]; spermine:oxygen oxidoreductase (spermidine-forming) activity [GO:0052901]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Peroxisome {ECO:0000250}. Cytoplasm {ECO:0000250}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">PAOX_HUMAN</td>
+<td style="text-align: left;">PATHWAY: Amine and polyamine metabolism; spermine metabolism. {ECO:0000269|PubMed:12477380}.</td>
+<td style="text-align: left;">COFACTOR: Name=FAD; Xref=ChEBI:CHEBI:57692; Evidence={ECO:0000250|UniProtKB:Q8C0L6}; Note=Binds 1 FAD per subunit. {ECO:0000250|UniProtKB:Q8C0L6};</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">1.5.3.13</td>
+<td style="text-align: left;">Flavin monoamine oxidase family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=H2O + N(1)-acetylspermine + O2 = 3-acetamidopropanal + H2O2 + spermidine; Xref=Rhea:RHEA:25800, ChEBI:CHEBI:15377, ChEBI:CHEBI:15379, ChEBI:CHEBI:16240, ChEBI:CHEBI:30322, ChEBI:CHEBI:57834, ChEBI:CHEBI:58101; EC=1.5.3.13; Evidence={ECO:0000269|PubMed:12477380}; CATALYTIC ACTIVITY: Reaction=H2O + N(1)-acetylspermidine + O2 = 3-acetamidopropanal + H2O2 + putrescine; Xref=Rhea:RHEA:25812, ChEBI:CHEBI:15377, ChEBI:CHEBI:15379, ChEBI:CHEBI:16240, ChEBI:CHEBI:30322, ChEBI:CHEBI:58324, ChEBI:CHEBI:326268; EC=1.5.3.13; Evidence={ECO:0000269|PubMed:12477380}; CATALYTIC ACTIVITY: Reaction=H2O + N(1),N(12)-diacetylspermine + O2 = 3-acetamidopropanal + H2O2 + N(1)-acetylspermidine; Xref=Rhea:RHEA:25868, ChEBI:CHEBI:15377, ChEBI:CHEBI:15379, ChEBI:CHEBI:16240, ChEBI:CHEBI:30322, ChEBI:CHEBI:58324, ChEBI:CHEBI:58550; EC=1.5.3.13; Evidence={ECO:0000269|PubMed:12477380};</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</section>
+<section id="materials-1" class="slide level2">
+<h2>Materials</h2>
+<p>Swiss-Prot data of all proteins in human and mouse with to following variables/columns:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Entry"                              "Reviewed"                          
+ [3] "Entry Name"                         "Gene Names"                        
+ [5] "Pathway"                            "Cofactor"                          
+ [7] "Function [CC]"                      "pH dependence"                     
+ [9] "Temperature dependence"             "EC number"                         
+[11] "Subcellular location [CC]"          "Protein families"                  
+[13] "Organism"                           "Protein names"                     
+[15] "Intramembrane"                      "Gene Ontology (molecular function)"
+[17] "Transmembrane"                      "Catalytic activity"                </code></pre>
 </div>
 </div>
 </section>
@@ -592,19 +620,48 @@
 <p>Logoplots</p>
 <p>Linear modelling</p>
 </section>
-<section id="results---size-and-mass" class="slide level2">
-<h2>Results - Size and Mass</h2>
+<section id="results---length-and-mass" class="slide level2">
+<h2>Results - Length and Mass</h2>
+<ul>
+<li>Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.</li>
+</ul>
+
+<img data-src="../results/04_descibe_plot2and3_density_length_and_mass.png" style="width:60.0%" class="r-stretch"></section>
+<section id="results---length-and-mass-1" class="slide level2">
+<h2>Results - Length and Mass</h2>
+<ul>
+<li>Further investigation into the linear relatioship between the length and mass of the the proteins. A difference in the linear model could mean a difference in the sidechans of the amino acids.</li>
+</ul>
+
+<img data-src="../results/05_analysis_lm_size_length.png" style="width:60.0%" class="r-stretch"></section>
+<section id="results---length-cofactors-and-enzyme-classes" class="slide level2">
+<h2>Results - Length, Cofactors and Enzyme Classes</h2>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="../results/05_analysis_cofactor_size.png"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="../results/05_analysis_class_size.png"></p>
+</div>
+</div>
+</div>
 </section>
 <section id="results---enzyme-classes" class="slide level2">
 <h2>Results - Enzyme Classes</h2>
+<p><img data-src="../results/04_descibe_plot5_different_enzyme_classes.png" style="width:30.0%"></p>
+<p><img data-src="../results/07_location_analysis_EC.png" style="width:30.0%"> :::</p>
 </section>
-<section id="results---active-sites" class="slide level2">
-<h2>Results - Active sites</h2>
-<p><img data-src="../results/06_logoplot_enz.png" style="width:45.0%"> <img data-src="../results/06_logoplot_prot_fam.png" style="width:45.0%"></p>
+<section id="results---active-sites-enzyme-classes" class="slide level2">
+<h2>Results - Active Sites Enzyme Classes</h2>
+
+<img data-src="../results/06_logoplot_enz.png" style="width:45.0%" class="r-stretch"></section>
+<section id="results---active-sites-protein-families" class="slide level2">
+<h2>Results - Active Sites Protein Families</h2>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
-<p>Human and mice</p>
+<p>Human and mice are very similar.</p>
 <div class="footer footer-default">
 
 </div>
@@ -640,7 +697,7 @@
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -882,9 +939,23 @@
       tabsets.forEach(function(tabset) {
         const tabby = new Tabby('#' + tabset.id);
       });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
       const clipboard = new window.ClipboardJS('.code-copy-button', {
-        target: function(trigger) {
-          return trigger.previousElementSibling;
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
         }
       });
       clipboard.on('success', function(e) {
@@ -932,7 +1003,7 @@
           },
           interactive: true,
           interactiveBorder: 10,
-          theme: 'quarto-reveal',
+          theme: 'light-border',
           placement: 'bottom-start'
         };
           config['offset'] = [0,0];
