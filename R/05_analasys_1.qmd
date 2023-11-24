@@ -59,9 +59,10 @@ cofactor_size <- data |>
                  size = 0.75)+
     labs(title = "Boxplot of length by number of binding cofactors",
          y = "Length",
-         x = "number of cofactors that binds to protein") +
+         fill = "Number of cofactors",
+         color = "Number of cofactors") +
     facet_wrap(~organism)+
-    # Extreme outliers are ignored to improove visualization
+    # Extreme outliers are ignored to improve visualization
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
@@ -168,8 +169,13 @@ data|>
   distinct() |>
   drop_na() |>
   # Plot the results  
-  ggplot(aes(y = ph_dependence, fill = enzyme_class, colour = enzyme_class))+
+  ggplot(aes(y = ph_dependence, 
+             fill = enzyme_class, 
+             colour = enzyme_class)) +
   geom_boxplot(alpha = 0.75, size = 0.9) +
+  labs(color = "Enzyme class",
+       fill = "Enzyme class",
+       y = "pH optimum") +
   facet_wrap(~organism)
    
 # 310 distinct entries
@@ -182,7 +188,7 @@ data|>
          enzyme_class == "ligases")|>
   drop_na()|>
   distinct(entry)
-# Only 5 mice in ligases which is not enough to determine anything 
+# Only 5 ligases in mice which is not enough to determine anything 
 ```
 
 ## Plotting Length vs enzyme class
@@ -203,8 +209,10 @@ class_size <- data|>
     drop_na() |>
     ggplot(aes(y = length,
                fill = enzyme_class,
-               colour = enzyme_class))+
+               colour = enzyme_class)) +
     geom_boxplot(alpha = 0.75, size = 0.9) +
+    labs(color = "Enzyme class",
+       fill = "Enzyme class") + 
     facet_wrap(~organism) +
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -243,10 +251,11 @@ location_size <- data |>
   geom_boxplot(alpha = 0.75, size = 0.9) +
   facet_wrap(~organism) +
   scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
-  labs(title = "Boxplot of Protein Sizes in Top 5 Sub-cellular Locations",
-       x = "Sub-cellular Location",
-       y = "Protein Length") +
-  theme(legend.position = "top") +
+  labs(title = "Boxplot of Protein Sizes in Top 5 Subcellular Locations",
+       y = "Protein Length",
+       fill = "Subcellular location",
+       color = "Subcellular location") +
+  theme(legend.position = "bottom") +
   scale_fill_brewer(palette = "Set3")
 
 ggsave(filename = "../results/05_analysis_location_size.png",

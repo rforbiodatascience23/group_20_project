@@ -29,15 +29,23 @@ Logoplots
 
 Linear modelling
 
-## Results - Size and Mass
+## Results - Length and Mass
 
+## Results - Length, Cofactors and Enzyme Classes
+
+![](../results/05_analysis_cofactor_size.png){width="45%"}
+
+![](../results/05_analysis_class_size.png){width="45%"}
 
 ## Results - Enzyme Classes
 
-## Results - Active sites
+
+
+## Results - Active Sites Enzyme Classes
 
 ![](../results/06_logoplot_enz){width="45%"}
-![](../results/06_logoplot_prot_fam){width="45%"}
+
+## Results - Active Sites Protein Families
 
 ## Discussion
 
