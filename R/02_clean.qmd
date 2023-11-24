@@ -20,7 +20,8 @@ library(tidyverse)
 ```{r}
 #| message: false
 # Reading data
-joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
+joined_data <- read_delim(file = "../data/01_dat_load.tsv",
+                          delim = "\t")
 ```
 
 ## Cleaning part 1: Active site and binding site
@@ -28,7 +29,9 @@ joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 ```{r}
 
 # Changing space in column names to "_" and lower case letters
-colnames(joined_data) <- str_replace_all(colnames(joined_data), " ", "_")
+colnames(joined_data) <- str_replace_all(colnames(joined_data),
+                                         " ",
+                                         "_")
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
 
 #####
@@ -47,8 +50,10 @@ joined_data <- joined_data |>
 # Tidying "active site" column
 ####
 joined_data <- joined_data |>
-  mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
-  mutate(active_site = map_chr(active_site, ~paste(.x, collapse = ","))) |>
+  mutate(active_site = str_extract_all(active_site,
+                                       "(?<=ACT_SITE )\\d+")) |>
+  mutate(active_site = map_chr(active_site, ~paste(.x,
+                                                   collapse = ","))) |>
   separate_longer_delim(col = active_site, ",")
 
 
@@ -60,10 +65,14 @@ joined_data <- joined_data |>
                                                    "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"),
          binding_site_ligand = str_extract_all(binding_site,
                                                    "(?<=/ligand=\"\")[^\"]+(?=\")")) |> 
-  mutate(binding_site_pos = map_chr(binding_site_pos, ~paste(.x, collapse = ";")),
-         binding_site_ligand = map_chr(binding_site_ligand, ~paste(.x, collapse = ";"))) |>
+  mutate(binding_site_pos = map_chr(binding_site_pos,
+                                    ~paste(.x, collapse = ";")),
+         binding_site_ligand = map_chr(binding_site_ligand,
+                                       ~paste(.x, collapse = ";"))) |>
   filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |> 
-  separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
+  separate_longer_delim(col = c(binding_site_pos,
+                                binding_site_ligand),
+                        ";") |> 
   select(-binding_site)
 
 # Converting to proper NA values
