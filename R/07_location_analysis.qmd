@@ -6,11 +6,12 @@ format:
 editor: visual
 ---
 
-# Analysis_3
+# Location Analysis
 
 ## Load data
 
 ```{r}
+#| message: false 
 library(tidyverse)
 data_clean <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
 ```
@@ -48,7 +49,7 @@ data_clean |>
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
 
-ggsave("07_analysis_3_plot1.png",
+ggsave("07_location_analysis_EC.png",
        path = "../results")
 ```
 
@@ -96,7 +97,7 @@ data_clean |>
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
 
-ggsave("07_analysis_3_plot2.png",
+ggsave("07_location_analysis_mol_func.png",
        path = "../results")
 ```
 
@@ -144,6 +145,6 @@ data_clean |>
          color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
 
-ggsave("07_analysis_3_plot3.png",
+ggsave("07_location_analysis_pathways.png",
        path = "../results")
 ```
