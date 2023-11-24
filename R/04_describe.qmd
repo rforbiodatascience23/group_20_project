@@ -6,8 +6,6 @@ format:
 editor: visual
 ---
 
-Hej
-
 ```{r}
 
 ## Loading libraries
