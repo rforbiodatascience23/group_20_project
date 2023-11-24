@@ -1,0 +1,52 @@
+---
+title: "Presentation"
+format: revealjs
+editor: visual
+---
+
+## Introduction
+
+![total protein count](../results/04_descibe_plot1_totalcount.png){width="60%"}
+
+## Materials 
+
+Swiss-Prot data of all proteins in human and mouse
+
+```{r, fig.width=2, fig.height=2}
+#| message: false
+library(tidyverse)
+library(knitr)
+untidy <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t") 
+
+untidy |> 
+  sample_n(10) |> 
+  relocate(Entry,`Gene Names`, Organism,`Function [CC]`,`Protein names`,`Gene Ontology (molecular function)`, `Subcellular location [CC]`) |>
+  kable()
+```
+## and Methods
+
+Logoplots
+
+Linear modelling
+
+## Results - Length and Mass
+
+## Results - Length, Cofactors and Enzyme Classes
+
+![](../results/05_analysis_cofactor_size.png){width="45%"}
+
+![](../results/05_analysis_class_size.png){width="45%"}
+
+## Results - Enzyme Classes
+
+
+
+## Results - Active Sites Enzyme Classes
+
+![](../results/06_logoplot_enz){width="45%"}
+
+## Results - Active Sites Protein Families
+
+## Discussion
+
+Human and mice

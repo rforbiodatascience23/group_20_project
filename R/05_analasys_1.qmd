@@ -1,0 +1,243 @@
+---
+title: "05_analasys_1"
+format:
+  html:
+    embed-resources: true
+editor: visual
+---
+
+## Load augmented data
+
+```{r}
+library(tidyverse)
+# Load data
+data <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
+```
+
+## Plot number of molecular functions vs length
+
+We wanted to see if proteins with more molecular functions were larger
+
+```{r}
+#####
+# Plot counted number of molecular functions vs length 
+#####
+data |>
+    ggplot(aes(x = length,
+               y = num_molecular_functions,
+               fill = organism,
+               colour = organism)) + 
+    geom_point(alpha = 0.5,
+               size = 0.75)+
+    labs(title = "Scatter Plot of Length vs. Molecular Function Count",
+         x = "Length",
+         y = "Molecular Function Count")
+```
+
+## Plot boxplot of cofactor vs length
+
+We wanted to see if proteins that had more cofactors were generally larger. We chose to do this as a boxplot because the maximum number of cofactors was 5 and it was therefore a visually manageable plot that eased visualization substantially. it did however require that the number of cofactors was treated as a factor.
+
+```{r}
+#####
+# Plot counted number of cofactors functions vs length 
+#####
+data |>
+    # num_cofactors is converted to factor to enable use of boxplot
+    ggplot(aes(y = length,
+               fill = factor(num_cofactors),
+               colour = factor(num_cofactors))) + 
+    geom_boxplot(alpha = 0.5,
+                 size = 0.75)+
+    labs(title = "Boxplot of length by number of binding cofactors",
+         y = "Length",
+         fill = "Number of cofactors",
+         color = "Number of cofactors") +
+    facet_wrap(~organism)+
+    # Extreme outliers are ignored to improve visualization
+    scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+## Plot size vs mass in KDA
+
+We were wondering if humans used more large side chains than mice. To investigate this we plotted length vs mass and performed linear regression. We made one linear model for each organism and plotted the 95% confidence interval as to enable easy visualization to check if they were significantly different from each other. Should this be the case it would indicate that the two species do in fact have differences in the size of their amino acid side chains.
+
+```{r}
+#####
+# Plot size vs mass (fix the structure to use pipes)
+#####
+# Perform linear regression for each organism
+linear_models <- lm(length ~ mass + organism,
+                    data = data)
+
+# Create scatter plot with linear regression lines
+ggplot(data, aes(x = mass,
+                 y = length,
+                 color = organism)) +
+  geom_point(alpha = 0.25,
+             size = 0.75) +
+  # Add linear regression line for human
+  geom_smooth(data = data |>
+                filter(organism == "Human"),
+                method = "lm",
+                se = TRUE,
+                formula = y ~ x,
+                linetype = "dashed",
+                colour = "black")+
+  # Add linear regression line Mouse
+  geom_smooth(data = data |>
+                filter(organism == "Mouse"),
+                method = "lm",
+                se = TRUE,
+                formula = y ~ x,
+                linetype = "twodash",
+                colour = "green")+
+  labs(title = "Scatter Plot of Length vs. Mass with Linear Regressions",
+       x = "Mass (KDA)",
+       y = "Length") +
+  # Extreme outliers are ignored to improove visualization
+  scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+  scale_x_continuous(limits = c(0, quantile(data$mass, 0.99)))+
+  theme_minimal()
+
+
+
+```
+
+## pH Length investigation
+
+The idea was to see if there was any connection between protein size and the optimal pH for the protein. The datapoints are coloured by organism to see if there are any clear differences between mice and humans.
+
+```{r}
+####
+# Assemble size-pH
+####
+data|>
+  select(organism,
+         entry,
+         length,
+         mass,
+         ph_dependence)|>
+  distinct()|>
+  drop_na()|>
+  # 368 distinct entries
+  # Plot a scatter plot of the 
+  ggplot(aes(x= length,
+             y = ph_dependence,
+             fill = organism,
+             colour = organism)) + 
+  geom_point(alpha = 0.75,
+             size = 0.75)+
+  labs(title = "Scatter Plot of length vs. pH",
+       x = "Sequence length",
+       y = "pH optimum")
+```
+
+## pH enzyme class comparison (needs to be moved)
+
+We decided to test if enzyme classes had varying pH dependencies between humans and mice. We therefore made a boxplot of the pH dependencies on all enzyme classes and stratified on the organism to compare the two.
+
+```{r}
+# Needs to be moved
+####
+# pH by enzyme class test 
+####
+data|>
+  # Filter remoove unwanted columns and rows from data
+  select(organism,
+         entry,
+         length,
+         mass,
+         ph_dependence,
+         enzyme_class) |>
+  distinct() |>
+  drop_na() |>
+  # Plot the results  
+  ggplot(aes(y = ph_dependence, 
+             fill = enzyme_class, 
+             colour = enzyme_class)) +
+  geom_boxplot(alpha = 0.75, size = 0.9) +
+  labs(color = "Enzyme class",
+       fill = "Enzyme class",
+       y = "pH optimum") +
+  facet_wrap(~organism)
+   
+# 310 distinct entries
+data|>
+  select(organism,
+         entry,
+         ph_dependence,
+         enzyme_class)|>
+  filter(organism == "Mouse",
+         enzyme_class == "ligases")|>
+  drop_na()|>
+  distinct(entry)
+# Only 5 ligases in mice which is not enough to determine anything 
+```
+
+## Plotting Length vs enzyme class
+
+The idea was to see if mice and human proteins varied in size when looking at specific enzyme classes.
+
+```{r}
+####
+# Size by enzyme class test 
+####
+data|>
+    select(organism,
+           entry,
+           length,
+           mass,
+           enzyme_class) |>
+    distinct() |>
+    drop_na() |>
+    ggplot(aes(y = length,
+               fill = enzyme_class,
+               colour = enzyme_class)) +
+    geom_boxplot(alpha = 0.75, size = 0.9) +
+    labs(color = "Enzyme class",
+       fill = "Enzyme class") + 
+    facet_wrap(~organism) +
+    scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+# 310 distinct entries
+```
+
+## Plotting size by subcellular loaction
+
+The idea was to see if protein sizes varied in subcellular locations and to check if there were any differences between mice and humans.
+
+```{r}
+####
+# Size by subcellular location (top 5)
+####
+
+# Count occurrences of each subcellular location and select top 5
+top_locations <- data|>
+  drop_na(`subcellular_location_[cc]`) |>
+  select(entry, `subcellular_location_[cc]`) |>
+  distinct() |>
+  count(`subcellular_location_[cc]`) |>
+  arrange(desc(`n`))|>
+  pull(`subcellular_location_[cc]`) |>
+  head(5)
+
+# Plot boxplots for protein sizes in the top 5 subcellular locations
+data |>
+  filter(`subcellular_location_[cc]` %in% top_locations)|>
+  ggplot(aes(y = length,
+             fill = `subcellular_location_[cc]`,
+             colour = `subcellular_location_[cc]`)) +
+  geom_boxplot(alpha = 0.75, size = 0.9) +
+  facet_wrap(~organism) +
+  scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+  labs(title = "Boxplot of Protein Sizes in Top 5 Subcellular Locations",
+       y = "Protein Length",
+       fill = "Subcellular location",
+       color = "Subcellular location") +
+  theme(legend.position = "bottom") +
+  scale_fill_brewer(palette = "Set3")
+```

@@ -1,50 +1,32 @@
 ---
 title: "Clean and join data"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
 
 ## Load libraries
 
 ```{r}
-#| label: Load libraries
+#| message: false
 library(tidyverse)
 ```
 
-## Load data
+## Read data
 
 ```{r}
-#| label: Load data
-
-# Loading data
-data_function <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
-data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = "\t")
+#| message: false
+# Reading data
+joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 ```
 
-## Join data
+## Cleaning part 1: Active site and binding site
 
 ```{r}
-#| label: Join Data
-
-# Tidying data: joining data
-joined_data <- data_function |>
-  select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
-  full_join(data_sequence,
-            by = "Entry")
-
-
-```
-
-## Clean columns originating from sequence_file.tsv.gz
-
-```{r}
-#| label: Clean data
-
-# Finding col_names in data_sequence but not in data_function. These Jeppe are responsible for cleaning
-setdiff(colnames(data_sequence), colnames(data_function))
 
 # Changing space in column names to "_" and lower case letters
-colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
+colnames(joined_data) <- str_replace_all(colnames(joined_data), " ", "_")
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
 
 #####
@@ -59,33 +41,26 @@ joined_data <- joined_data |>
          -entry_name,
          -transmembrane)
 
-# # Uncomment if testing with less rows
-# joined_data <- joined_data |>
-#   sample_n(10000)
-
 ####
 # Tidying "active site" column
 ####
 joined_data <- joined_data |>
   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
-  mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
+  mutate(active_site = map_chr(active_site, ~paste(.x, collapse = ","))) |>
   separate_longer_delim(col = active_site, ",")
+
 
 ####
 # Tidying "binding site" column
 ####
 joined_data <- joined_data |>
-  mutate(binding_site_pos = ifelse(is.na(binding_site),
-                                   binding_site,
-                                   str_extract_all(binding_site,
-                                                   "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"))) |>
-  mutate(binding_site_ligand = ifelse(is.na(binding_site),
-                                   binding_site,
-                                   str_extract_all(binding_site,
-                                                   "(?<=/ligand=\")[^\"]+(?=\")"))) |> 
-  mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";")) |>
-  mutate(binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
-  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |>
+  mutate(binding_site_pos = str_extract_all(binding_site,
+                                                   "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"),
+         binding_site_ligand = str_extract_all(binding_site,
+                                                   "(?<=/ligand=\"\")[^\"]+(?=\")")) |> 
+  mutate(binding_site_pos = map_chr(binding_site_pos, ~paste(.x, collapse = ";")),
+         binding_site_ligand = map_chr(binding_site_ligand, ~paste(.x, collapse = ";"))) |>
+  filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |> 
   separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
   select(-binding_site)
 
@@ -96,10 +71,9 @@ joined_data <- joined_data |>
   mutate(active_site = na_if(active_site, "NA"))
 ```
 
-## Clean data originating from function_file.tsv.gz
+## Cleaning part 2: Cleaning the remaining columns
 
 ```{r}
-
 ###
 # Tidy "pathway" column
 ###
@@ -180,30 +154,9 @@ joined_data <- joined_data |>
   mutate(GO_molecular_function = str_remove(GO_molecular_function, "\\s$")) 
 
 ####
-# augment 
-# Tidy "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
-####
-joined_data <- joined_data |>
-  # Extract the first digit and create new column
-  # For the few cases with more ec numbers we just look at the first
-  mutate(first_digit = str_extract(ec_number, "^\\d"),
-         # Translate digit to enzyme class using vector
-         enzyme_class = case_when(
-           first_digit == 1  ~ "oxidoreductases",
-           first_digit == 2  ~ "transferases",
-           first_digit == 3  ~ "hydrolases",
-           first_digit == 4  ~ "lysases",
-           first_digit == 5  ~ "isomerases",
-           first_digit == 6  ~ "ligases",
-           first_digit == 7  ~ "translocases",
-         )) |> 
-  select(-first_digit, -ec_number)
-
-
-####
 # Tidy "pH dependence" column 
 ####
-#Function for extracting the optimum pH 
+# Extracting the optimum pH 
 pH_str_search <- "Optimum pH is (\\d+\\.\\d*)-(\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*)|Optimum pH is around (\\d+\\.\\d*)|Optimum pH is about (\\d+\\.\\d*)|Optimum pH is (\\d+\\.\\d*) to (\\d+\\.\\d*)|Optimum pH is between (\\d+\\.\\d*) and (\\d+\\.\\d*)"
 
 #Function for creating two new columns for pH interval values
@@ -245,21 +198,15 @@ joined_data <- joined_data |>
 ###
 joined_data <- joined_data |>
   # Check that there are only Homo sapiens (Human) and Mus musculus (Mouse)
-  filter(organism == c("Homo sapiens (Human)", "Mus musculus (Mouse)")) |>
+  filter(organism == "Homo sapiens (Human)" | organism == "Mus musculus (Mouse)") |>
   # Shorten organism name
   mutate(organism = case_when(
     organism == "Homo sapiens (Human)" ~ "Human",
     organism == "Mus musculus (Mouse)" ~ "Mouse"))
+```
 
+## Save cleaned data object
+
+```{r}
 write_tsv(joined_data, file = "../data/02_dat_clean.tsv")
-
-# # Correct empty columns if any non registered NA's are created by deleting text elements
-# joined_data <- joined_data |>
-#   mutate_all(~ ifelse(. == "", NA, .))
-
-
-## Code to find out what rows are duplicated
-# result <- duplicated(joined_data)
-# duplicated_rows <- subset(joined_data, result)
-
 ```

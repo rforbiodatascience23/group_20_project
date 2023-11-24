@@ -1,20 +1,25 @@
 ---
 title: "Analysis_3"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
 
 ## Load data
 
 ```{r}
-data_clean <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")
+library(tidyverse)
+data_clean <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
 ```
 
 ## Analysis
 
+We will look at the distribution of enzyme classes, molecular functions and pathways in the three most populated subcellular locations to see if they are differently distributed. These three locations are the cell membrane, the cytoplasm and the nucleus.
+
 ### Enzyme class and subcellular location
 
-In our first analysis, we look at the distribution of enzyme classes in the three most populated subcellular locations. These three locations are the cell membrane, the cytoplasm and the nucleus. The distribution of enzyme classes is very similar between human and mice but there are some differences between the three subcellular locations. There are more translocases in the cell membrane and slightly less transferases. The relative high number of translocases in the cell membrane makes great biological sense as they catalyze the transport of molecules and ions across membranes among other things.
+There are 7 enzyme classes representing 7 types of enzyme catalyzed reactions. The distribution of enzyme classes is very similar between human and mice but there are some subtle differences between the three subcellular locations. There are more translocases in the cell membrane than in the other subcellular locations. The high relative number of translocases in the cell membrane makes great biological sense as they catalyze the transport of molecules and ions across membranes among other things.
 
 ```{r}
 data_clean |>
@@ -27,32 +32,31 @@ data_clean |>
              fill = enzyme_class)) +
   geom_bar(position = "fill") +
   labs(title = "Enzyme classes in subcellular locations",
-       subtitle = "Distribution of the 7 enzyme classes in the three most populated subcellular locations",
+       subtitle = "Distribution of the 7 enzyme classes in three subcellular locations",
        x = "Subcellular location",
        y = "Relative count",
        color = "Enzyme class",
        fill = "Enzyme class") +
   theme_bw() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 10),
+        plot.subtitle = element_text(size = 10)) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE),
+         color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
+
+ggsave("07_analysis_3_plot1.png",
+       path = "../results")
 ```
 
 ### Molecular function in subcellular location
 
-```{r}
-# Vector with top 10 molecular functions
-#top10_GO_molecular_function <- 
-data_clean |>
-  drop_na(GO_molecular_function) |>
-  select(entry, GO_molecular_function) |>
-  distinct() |>
-  count(GO_molecular_function) |>
-  arrange(desc(`n`))
-#pull(GO_molecular_function) |>
-#head(10)
+The molecular functions are very equally distributed in human and mice but there are differences between the three subcellular locations. There are many more DNA binding proteins in the nucleus where DNA is stored. There are more ATP binding proteins in the cell membrane and cytoplasm compared to the nucleus. There are also more identical protein binding proteins in the cell membrane i.e. it appears that homogeneous protein-protein interactions are more common in the cell membrane than in the two other subcellular locations.
 
-top10_GO_molecular_function <- data_clean |>
-  mutate(GO_molecular_function = str_remove(GO_molecular_function, "\\s$")) |> 
+```{r}
+# Vector with top 5 molecular functions
+top5_GO_molecular_function <- data_clean |>
   drop_na(GO_molecular_function) |>
   select(entry, GO_molecular_function) |>
   distinct() |>
@@ -60,15 +64,7 @@ top10_GO_molecular_function <- data_clean |>
   summarize(count = n()) |>
   arrange(desc(count)) |>
   pull(GO_molecular_function) |>
-  head(10)
-```
-
-```{r}
-data_clean |>
-  drop_na(GO_molecular_function) |>
-  select(entry, GO_molecular_function) |>
-  distinct() |>
-  filter(GO_molecular_function == "RNA binding")
+  head(5)
 ```
 
 ```{r}
@@ -78,72 +74,74 @@ data_clean |>
   select(entry, GO_molecular_function, organism, `subcellular_location_[cc]`) |>
   distinct() |>
   filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
-         GO_molecular_function == top10_GO_molecular_function) |>
+         GO_molecular_function == top5_GO_molecular_function) |>
   ggplot(aes(x = `subcellular_location_[cc]`,
              color = GO_molecular_function,
              fill = GO_molecular_function)) +
-  geom_bar() +
+  geom_bar(position = "fill") +
   labs(title = "Molecular functions in subcellular locations",
-       subtitle = "Distribution of the top 10 molecular functions in the three most populated subcellular locations",
+       subtitle = "Distribution of the top 5 molecular functions in three subcellular locations",
        x = "Subcellular location",
        y = "Relative count",
        color = "Molecular function",
        fill = "Molecular function") +
   theme_bw() +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 7),
+        legend.title = element_text(size = 10),
+        plot.subtitle = element_text(size = 10)) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE),
+         color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
+
+ggsave("07_analysis_3_plot2.png",
+       path = "../results")
 ```
 
-### Cofactor in subcellular location
+### Pathways in subcellular location
+
+Compared to the molecular functions and enzyme classes, there is a greater difference between the pathways in human and mice. However, there is also less data about the pathways in the three subcellular locations which might be the reason behind this apparent difference between organisms. In human, proteins involved in amino acid biosynthesis and degradation are found in the cytoplasm but none of these are found in mice. Mice obviously also have amino acid metabolism which ought to take place in the cytoplasm like it does in human. Greater annotation of the proteins is needed to be able to compare the pathways in human and mice.
 
 ```{r}
-# Vector with top 10 cofactors
-top10_cofactor <- data_clean |>
-  drop_na(cofactor) |>
-  select(entry, cofactor) |>
+# Vector with top 10 pathways
+top10_pathway <- data_clean |>
+  drop_na(pathway) |>
+  select(entry, pathway) |>
   distinct() |>
-  count(cofactor) |>
-  arrange(desc(`n`)) |>
-  pull(cofactor) |>
+  group_by(pathway) |>
+  summarize(count = n()) |>
+  arrange(desc(count)) |>
+  pull(pathway) |> 
   head(10)
 ```
 
 ```{r}
-# Plot of molecular function vs subcellular location
+# Plot of pathway vs subcellular location
 data_clean |>
-  drop_na(cofactor, `subcellular_location_[cc]`) |>
-  select(entry, cofactor, organism, `subcellular_location_[cc]`) |>
+  drop_na(pathway, `subcellular_location_[cc]`) |>
+  select(entry, pathway, organism, `subcellular_location_[cc]`) |>
   distinct() |>
   filter(`subcellular_location_[cc]` == c("nucleus", "cytoplasm", "cell membrane"),
-         cofactor == top10_cofactor) |>
+         pathway == top10_pathway) |>
   ggplot(aes(x = `subcellular_location_[cc]`,
-             color = cofactor,
-             fill = cofactor)) +
+             color = pathway,
+             fill = pathway)) +
   geom_bar() +
-  labs(title = "Cofactors in subcellular locations",
-       subtitle = "Distribution of the top 10 cofactors in the three most populated subcellular locations",
+  labs(title = "Pathways in subcellular locations",
+       subtitle = "Distribution of the top 10 pathways in three subcellular locations",
        x = "Subcellular location",
        y = "Count",
-       color = "Cofactor",
-       fill = "Cofactor") +
+       color = "Pathway",
+       fill = "Pathway") +
   theme_bw() +
-  theme(legend.position = "bottom") +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 5),
+        legend.title = element_text(size = 9),
+        plot.subtitle = element_text(size = 10)) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE),
+         color = guide_legend(nrow = 2, byrow = TRUE)) +
   facet_wrap(~organism)
-```
 
-### 
-
-```{r}
-data_clean |>
-  mutate(pathway = str_remove(pathway, "\\s$")) |> 
-  drop_na(pathway) |>
-  select(entry, pathway) |>
-  distinct() |>
-  count(pathway) |>
-  arrange(desc(`n`))
-```
-
-```{r}
-data_clean |>
-  drop_na(pathway) |>
-  distinct(pathway) 
+ggsave("07_analysis_3_plot3.png",
+       path = "../results")
 ```

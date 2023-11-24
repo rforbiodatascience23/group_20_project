@@ -1,12 +1,15 @@
 ---
 title: "Augmentation of data"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
 
 ## Load librares
 
 ```{r}
+#| message: false
 library(tidyverse)
 ```
 
@@ -33,7 +36,67 @@ get_logo_seq <- function(x, y) {
 aug_data <- clean_data |>
   mutate(logo_seq = get_logo_seq(sequence, active_site)) |>
   # Filtereing out k-mers not covering 7 AA's
-  mutate(logo_seq = ifelse(nchar(logo_seq) != 7, NA, logo_seq))
+  mutate(logo_seq = if_else(nchar(logo_seq) != 7, NA, logo_seq))
+```
+
+## Add count for the number of molecular functions for each protein
+
+```{r}
+####
+# Count the number of molecular functions for each entry
+####
+molecular_function_count <- clean_data |>
+  select(organism, entry, GO_molecular_function, length, mass) |>
+  distinct() |>
+  drop_na() |>
+  count(entry, name = "num_molecular_functions") 
+
+# Join num_molecular_functions
+aug_data <- aug_data |>
+  full_join(molecular_function_count, by = "entry")
+
+```
+
+## Add number of cofactors that binds to each protein
+
+```{r}
+####
+# Count the number of cofactors
+####
+cofactor_count <- clean_data |>
+  select(organism, entry, cofactor, length, mass) |>
+  distinct() |>
+  drop_na() |>
+  count(entry, name = "num_cofactors") 
+
+# Join num_molecular_functions
+aug_data <- aug_data |>
+  full_join(cofactor_count, by = "entry")
+
+```
+
+## Convert the first EC number into an enzyme class number
+
+```{r}
+####
+# Change "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
+####
+aug_data <- aug_data |>
+  # Extract the first digit and create new column
+  # For the few cases with more ec numbers we just look at the first
+  mutate(first_digit = str_extract(ec_number, "^\\d"),
+         # Translate digit to enzyme class using vector
+         enzyme_class = case_when(
+           first_digit == 1  ~ "oxidoreductases",
+           first_digit == 2  ~ "transferases",
+           first_digit == 3  ~ "hydrolases",
+           first_digit == 4  ~ "lyases",
+           first_digit == 5  ~ "isomerases",
+           first_digit == 6  ~ "ligases",
+           first_digit == 7  ~ "translocases",
+         )) |> 
+  select(-first_digit, -ec_number)
+
 ```
 
 ## Save augment data object

@@ -1,42 +1,65 @@
 ---
 title: "Logo plot for active sites"
-format: html
+format:
+  html:
+    embed-resources: true
 editor: visual
 ---
+
+# Sequence logo plots for peptides around active site
+
+In this analysis we will create and compare logo plots for human- and mouse-entries with available "active site" information in uniprot.\
+\
+We do so first building sequence logo plots for different protein families. Later we zoom out and look at enzyme classes instead, as defined by the first digit of the EC number (see data augmentation steps).
 
 ## Load librares
 
 ```{r}
+#| message: false
 library(ggseqlogo)
 library(patchwork)
 library(tidyverse)
+library(knitr)
 ```
 
 ## Load data
 
 ```{r}
-aug_data <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
+#| message: false
+aug_data <- read_delim(file = "../data/03_dat_aug.tsv",
+                       delim = "\t")
 ```
 
 ## Identify protein families to look at
+
+The purpose of this step is to identify the protein families where most information is available.\
+The table in the output message will show the 10 most frequently observed protein families as an average across human and mice.
 
 ```{r}
 # Filter out if no active site info
 logoseq_data <- aug_data |> 
   drop_na(logo_seq) |> 
   filter(family_type == "family") |> 
-  select(entry, organism, protein_family, family_type, logo_seq)
+  select(entry,
+         organism,
+         protein_family,
+         family_type,
+         logo_seq)
 
-# See what protein families are most represented in mouse and human for active site data
+# See what protein families with active site data occur most often in mouse
 top_prot_fam_mouse <- logoseq_data |>
   drop_na(protein_family) |> 
-  filter(str_detect(organism, "Mouse")) |> 
-  select(entry, protein_family, logo_seq) |> 
+  filter(str_detect(organism,
+                    "Mouse")) |> 
+  select(entry,
+         protein_family,
+         logo_seq) |> 
   distinct() |> 
   group_by(protein_family) |> 
   summarize(n_mouse = n()) |>
   arrange(desc(n_mouse))
 
+# See what protein families with active site data occur most often in human
 top_prot_fam_human <- logoseq_data |>
   drop_na(protein_family) |> 
   filter(organism == "Human") |>
@@ -48,26 +71,38 @@ top_prot_fam_human <- logoseq_data |>
 
 # Combine mouse and human protein family counts and available active site information
 top_prot_fam <- top_prot_fam_mouse |> 
-  full_join(top_prot_fam_human, by = "protein_family") |> 
+  full_join(top_prot_fam_human,
+            by = "protein_family") |> 
   mutate(n_average = (n_mouse + n_human) /2) |>
   arrange(desc(n_average))
 
-# Extract names of protein families in arranged order
+top_prot_fam |> 
+  slice(1:10)|> knitr::kable()
+
+# Extract names of protein families in arranged order, to use for further analysis
 top_prot_fam_name_vec <- top_prot_fam |> 
   pull(protein_family)
 ```
 
-## Logo plots for protein fam
+## Logo plots for protein families
+
+Here we use ggseqlogo() to visualize peptide sequences for each of the top 5 most frequently observed protein families as logo plots. The logo plots will be stitched together using both the inbuilt facet function of gggseqlogo() and patchwork.
+
+The logo plot for mouse and human protein families are very similar, showing that mouse and human homologs very similar around the active sites. In addition, this analysis show how uniprot data can be utilized to gain knowledge about active sites for specific protein families.
 
 ```{r}
 ### Protein family logo plots ###
+# In this code chunk we work with the top 5 most frequently observed protein families
 
 # Extract mouse data and filter out if no active site info
 logoseq_data_mouse_prot <- aug_data |> 
   drop_na(logo_seq, protein_family) |>
   filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
   filter(str_detect(organism, "Mouse")) |> 
-  select(entry, organism, protein_family, logo_seq) |> 
+  select(entry,
+         organism,
+         protein_family,
+         logo_seq) |> 
   distinct()
 
 # Extract human data and filter out if no active site info
@@ -75,37 +110,71 @@ logoseq_data_human_prot <- aug_data |>
   drop_na(logo_seq, protein_family) |>
   filter(protein_family %in% top_prot_fam_name_vec[1:5]) |> 
   filter(str_detect(organism, "Human")) |> 
-  select(entry, organism, protein_family, logo_seq) |> 
+  select(entry,
+         organism,
+         protein_family,
+         logo_seq) |> 
   distinct()
 
-# Change names manually to fit logo plot (check if names match before changing them)
+# Change proten family names to get line breaks (check if names match before changing them)
+# Converting data to named list for use with facet function in ggseqlogo
+# For mouse
 logo_list_mouse_prot <- split(logoseq_data_mouse_prot$logo_seq,
-                         logoseq_data_mouse_prot$protein_family)
+                         logoseq_data_mouse_prot$protein_family) # named list needed to facet
+logo_list_mouse_prot <- map(logo_list_mouse_prot,
+                            unique) # Filter out identical sequences
 names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",
                                  "Tyr protein\nkinase ")
+# For human
 logo_list_human_prot <- split(logoseq_data_human_prot$logo_seq,
-                              logoseq_data_human_prot$protein_family)
+                              logoseq_data_human_prot$protein_family) # named list needed to facet
+logo_list_human_prot <- map(logo_list_human_prot,
+                            unique) # Filter out identical sequences
 names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",
                                  "Tyr protein\nkinase ")
 
-# Making logo plots for protein families
-logo_plot_mouse_prot <- ggseqlogo(logo_list_mouse_prot, ncol=7) +
-  theme(strip.text = element_text(size = 8))
-logo_plot_human_prot <- ggseqlogo(logo_list_human_prot, ncol=7) +
-  theme(strip.text = element_text(size = 8))
+# Making logo plot for mouse protein families
+logo_plot_mouse_prot <- ggseqlogo(logo_list_mouse_prot,
+                                  ncol=7) +
+  ggtitle("Mouse protein families") +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(breaks = 1:7,  # Existing tick positions
+                     labels = -3:3  # Existing tick labels
+  )
 
-logo_comb_prot <- logo_plot_human_prot / logo_plot_mouse_prot #plot_layout(guides = "collect")
+# Making logo plot for human protein families
+logo_plot_human_prot <- ggseqlogo(logo_list_human_prot,
+                                  ncol=7) +
+  ggtitle("Human protein families") +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(breaks = 1:7,  # Existing tick positions
+                     labels = -3:3  # Existing tick labels
+  )
+
+# Combining mouse and human logo plot for protein families
+logo_comb_prot <- logo_plot_human_prot / logo_plot_mouse_prot
 logo_comb_prot
-#ggsave(filename = "../data/result.pdf", logo_comb_prot)
+
+# Save combined logo plot as png
+ggsave(filename = "../results/06_logoplot_prot_fam.png",
+       logo_comb_prot)
 ```
 
 ## Logo plots for enzyme class
+
+Here we use ggseqlogo() to visualize peptide sequences for different types of enzyme classes according to the first digit in their EC number. We filtered out "translocases", because very few entries very observed for this enzyme class resulting in an artifically high information content. The logo plots will be stitched together using both the inbuilt facet function of gggseqlogo() and patchwork.
+
+Just as for the protein family logo plots, the logo plots for mouse and human enzyme classes are very similar. Enzyme classes are less specific than protein families, and thus we naturally observe lower information content in general. However we thought that "zooming out", might reveal some differences between human and mice enzymes in general, but this was not the case.
 
 ```{r}
 ### Enzyme class logo plots ###
@@ -113,39 +182,68 @@ logo_comb_prot
 # Extract mouse data and filter out if no active site info
 logoseq_data_mouse_enz <- aug_data |>
   drop_na(logo_seq, enzyme_class) |>
-  filter(str_detect(organism, "Mouse")) |>
-  select(entry, organism, enzyme_class, logo_seq) |>
+  filter(str_detect(organism,
+                    "Mouse")) |>
+  # Removing translocases because limited data available
+  filter(!enzyme_class == "translocases") |>
+  select(entry,
+         organism,
+         enzyme_class,
+         logo_seq) |>
   distinct()
 
 # Extract human data and filter out if no active site info
 logoseq_data_human_enz <- aug_data |>
   drop_na(logo_seq, enzyme_class) |>
-  filter(str_detect(organism, "Human")) |>
-  select(entry, organism, enzyme_class, logo_seq) |>
+  filter(str_detect(organism,
+                    "Human")) |>
+  # Removing translocases because limited data available
+  filter(!enzyme_class == "translocases") |>
+  select(entry,
+         organism,
+         enzyme_class,
+         logo_seq) |>
   distinct()
 
-# using facet_wrap
-# Function for logo plot
-
-# Converting data to named list for facet function in ggseqlogo
+# Converting data to named list for facet function in ggseqlogo: mouse data
 logo_list_mouse_enz <- split(logoseq_data_mouse_enz$logo_seq,
                              logoseq_data_mouse_enz$enzyme_class)
+logo_list_mouse_enz <- map(logo_list_mouse_enz,
+                           unique) # Filter out identical sequences
 
+# Converting data to named list for facet function in ggseqlogo: human data
 logo_list_human_enz <- split(logoseq_data_human_enz$logo_seq,
                              logoseq_data_human_enz$enzyme_class)
+logo_list_human_enz <- map(logo_list_human_enz,
+                           unique) # Filter out identical sequences
 
-# Making logo plots for enzyme class
-logo_plot_mouse_enz <- ggseqlogo(logo_list_mouse_enz, ncol=7) +
-  theme(strip.text = element_text(size = 8))
-logo_plot_human_enz <- ggseqlogo(logo_list_human_enz, ncol=7) +
-  theme(strip.text = element_text(size = 8))
+# Making logo plots for mouse enzyme classses
+logo_plot_mouse_enz <- ggseqlogo(logo_list_mouse_enz,
+                                 ncol=6) +
+  ggtitle("Mouse enzyme classes") +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(breaks = 1:7,  # Existing tick positions
+                     labels = -3:3  # Existing tick labels
+  )
 
-# Combining mouse and human logo
-logo_comb_enz <- logo_plot_human_enz / logo_plot_mouse_enz #plot_layout(guides = "collect")
+# Making logo plots for human enzyme classses
+logo_plot_human_enz <- ggseqlogo(logo_list_human_enz,
+                                 ncol=6) +
+  ggtitle("Human enzyme classes") +
+  theme(plot.title = element_text(hjust = 0.5,
+                                  size = 12),
+        strip.text = element_text(size = 8)) +
+  scale_x_continuous(breaks = 1:7,  # Existing tick positions
+                     labels = -3:3  # Existing tick labels
+  )
+
+# Combining mouse and human logo plots for enzyme classes
+logo_comb_enz <- logo_plot_human_enz / logo_plot_mouse_enz
 logo_comb_enz
-#ggsave(filename = "../data/result.pdf", logo_comb)
-```
 
-```{r}
-
+# Save combined logo plot
+ggsave(filename = "../results/06_logoplot_enz.png",
+       logo_comb_enz)
 ```
