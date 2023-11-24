@@ -13,7 +13,7 @@ dir.create("data")
 dir.create("data/_raw")
 library(quarto)
 quarto_render("R/00_all.qmd")
-file.rename(from = "01_load.html",
-            to = "../results/01_load.html")
+file.rename(from = "00_all.html",
+            to = "../results/00_all.html")
             
             
