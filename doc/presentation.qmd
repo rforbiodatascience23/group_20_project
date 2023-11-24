@@ -51,7 +51,6 @@ Overview of workflow
 
 ![](../doc/Flowdiagram_R_project.png){width="60%"}
 
-
 Logoplots
 
 Linear modelling
@@ -60,45 +59,72 @@ Linear modelling
 
 -   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
 
-:::{layout-ncol=2}
-
-![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"}
-![](../results/05_size_analysis_lm_size_length.png){width="60%"}
+::: {layout-ncol="2"}
+![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"} ![](../results/05_size_analysis_lm_size_length.png){width="60%"}
 :::
 
 ## Results - Length, Cofactors and Enzyme Classes
 
-:::{layout-ncol=2}
-
+::: {layout-ncol="2"}
 ![](../results/05_analysis_cofactor_size.png){width="45%"}
 
-
 ![](../results/05_size_analysis_class_size.png){width="45%"}
-
-
-:::
-
-## Results - Enzyme Classes
-
-
-:::{layout-ncol=2}
-
-![](../results/04_descibe_plot5_different_enzyme_classes.png){width="30%"}
-
-![](../results/07_location_analysis_EC.png){width="30%"}
-
 :::
 
 
-## Results - Active Sites Enzyme Classes
+## Almost identical logo plots for mouse and human enzymes
+
+::: columns
+::: {.column width="30%"}
+```{=html}
+<style>
+table {
+  font-size: 40%
+}
+</style>
+```
+| entry  | organism | enzyme_class | logo_seq |
+|:------:|:--------:|:------------:|:--------:|
+| O95278 |  human   | transferase  | QGDSGGP  |
+|  ...   |   ...    |     ...      |   ...    |
+| P27708 |  human   |  hydrolase   | STYEKHL  |
+| Q2L4Q9 |  human   |    lyase     | AIVDKRV  |
+
+::: {style="font-size: 35%;"}
+Table: Organism == human & enzyme_class != NA
+:::
+
+<!-- Add a blank line for space -->
+&nbsp;
+
+```{=html}
+<style>
+table {
+  font-size: 40%
+}
+</style>
+```
 
 
+| entry  | organism |  enzymeclass  | logo_seq |
+|:------:|:--------:|:-------------:|:--------:|
+| Q8K0D2 |  mouse   | isomerase     | QGDSGGP  |
+|  ...   |   ...    |      ...      |   ...    |
+| Q91ZA3 |  mouse   |   hydrolase   | STYEKHL  |
+| Q9EQW8 |  mouse   |  transferase  | AIVDKRV  |
 
-![](../results/06_logoplot_enz.png){width="45%"}
+::: {style="font-size: 35%;"}
+Table: Organism == mouse & enzyme_class != NA
+:::
+:::
 
+::: {.column width="70%"}
+![](../results/06_logoplot_enz.png){width="95%"}
+:::
+:::
 
 ## Discussion
 
 Human and mice are very similar.
 
-The process 
+The process

@@ -8,7 +8,7 @@
 <link href="presentation_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="presentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.353">
+  <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184242)">
   <title>Differences in protein location, role and more in mice and humans</title>
@@ -339,36 +339,38 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 </section>
 <section id="introduction" class="slide level2">
 <h2>Introduction</h2>
-
-<img data-src="../results/04_descibe_plot1_totalcount.png" style="width:60.0%" class="r-stretch"></section>
+<p>Hvad vil vi undersøge? Humans vs mice</p>
+<p>Briefly about UniProt</p>
+</section>
 <section id="materials" class="slide level2">
 <h2>Materials</h2>
 <ul>
+<li>Swiss-Prot data</li>
 <li>The entries was very untidy and had to be wrangeled a lot</li>
 <li>This is a example of one of the original datafiles</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
-<col style="width: 51%">
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 15%">
+<col style="width: 40%">
+<col style="width: 5%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 5%">
+<col style="width: 16%">
+<col style="width: 0%">
+<col style="width: 3%">
+<col style="width: 0%">
+<col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 1%">
-<col style="width: 0%">
-<col style="width: 9%">
-<col style="width: 0%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -381,128 +383,48 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 <th style="text-align: left;">Subcellular location [CC]</th>
 <th style="text-align: left;">Reviewed</th>
 <th style="text-align: left;">Entry Name</th>
-<th style="text-align: left;">Pathway</th>
 <th style="text-align: left;">Cofactor</th>
-<th style="text-align: left;">pH dependence</th>
-<th style="text-align: left;">Temperature dependence</th>
-<th style="text-align: left;">EC number</th>
-<th style="text-align: left;">Protein families</th>
-<th style="text-align: left;">Intramembrane</th>
-<th style="text-align: left;">Transmembrane</th>
 <th style="text-align: left;">Catalytic activity</th>
+<th style="text-align: left;">pH dependence</th>
+<th style="text-align: left;">Pathway</th>
+<th style="text-align: left;">EC number</th>
+<th style="text-align: left;">Temperature dependence</th>
+<th style="text-align: left;">Transmembrane</th>
+<th style="text-align: left;">Intramembrane</th>
+<th style="text-align: left;">Protein families</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Q8TF17</td>
-<td style="text-align: left;">SH3TC2 KIAA1985 PP12494</td>
+<td style="text-align: left;">Q922Y1</td>
+<td style="text-align: left;">Ubxn1 D19Ertd721e Saks1</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Ubiquitin-binding protein that plays a role in the modulation of innate immune response. Blocks both the RIG-I-like receptors (RLR) and NF-kappa-B pathways. Following viral infection, UBXN1 is induced and recruited to the RLR component MAVS. In turn, interferes with MAVS oligomerization, and disrupts the MAVS/TRAF3/TRAF6 signalosome. This function probably serves as a brake to prevent excessive RLR signaling. Interferes with the TNFalpha-triggered NF-kappa-B pathway by interacting with cellular inhibitors of apoptosis proteins (cIAPs) and thereby inhibiting their recruitment to TNFR1. Prevents also the activation of NF-kappa-B by associating with CUL1 and thus inhibiting NF-kappa-B inhibitor alpha/NFKBIA degradation that remains bound to NF-kappa-B. Interacts with the BRCA1-BARD1 heterodimer and regulates its activity. Specifically binds ‘Lys-6’-linked polyubiquitin chains. Interaction with autoubiquitinated BRCA1 leads to the inhibition of the E3 ubiquitin-protein ligase activity of the BRCA1-BARD1 heterodimer. Component of a complex required to couple deglycosylation and proteasome-mediated degradation of misfolded proteins in the endoplasmic reticulum that are retrotranslocated in the cytosol. {ECO:0000250|UniProtKB:Q04323, ECO:0000269|PubMed:16709668}.</td>
+<td style="text-align: left;">UBX domain-containing protein 1 (Protein 2B28) (SAPK substrate protein 1) (UBA/UBX 33.3 kDa protein) (mY33K)</td>
+<td style="text-align: left;">ATPase binding [GO:0051117]; K48-linked polyubiquitin modification-dependent protein binding [GO:0036435]; K6-linked polyubiquitin modification-dependent protein binding [GO:0071796]; polyubiquitin modification-dependent protein binding [GO:0031593]; proteasome regulatory particle binding [GO:1904855]; ubiquitin binding [GO:0043130]; ubiquitin protein ligase binding [GO:0031625]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm {ECO:0000269|PubMed:15944415}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">UBXN1_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A1L168</td>
+<td style="text-align: left;">C20orf202</td>
 <td style="text-align: left;">Homo sapiens (Human)</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">SH3 domain and tetratricopeptide repeat-containing protein 2</td>
+<td style="text-align: left;">Uncharacterized protein C20orf202</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">S3TC2_HUMAN</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Q61234</td>
-<td style="text-align: left;">Snta1 Snt1</td>
-<td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: Adapter protein that binds to and probably organizes the subcellular localization of a variety of membrane proteins. May link various receptors to the actin cytoskeleton and the extracellular matrix via the dystrophin glycoprotein complex. Plays an important role in synapse formation and in the organization of UTRN and acetylcholine receptors at the neuromuscular synapse. Binds to phosphatidylinositol 4,5-bisphosphate.</td>
-<td style="text-align: left;">Alpha-1-syntrophin (59 kDa dystrophin-associated protein A1 acidic component 1) (Syntrophin-1)</td>
-<td style="text-align: left;">actin binding [GO:0003779]; ATPase binding [GO:0051117]; calmodulin binding [GO:0005516]; nitric-oxide synthase binding [GO:0050998]; PDZ domain binding [GO:0030165]; sodium channel regulator activity [GO:0017080]; structural molecule activity [GO:0005198]; transmembrane transporter binding [GO:0044325]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Cell membrane, sarcolemma {ECO:0000269|PubMed:9214383}; Peripheral membrane protein {ECO:0000269|PubMed:9214383}; Cytoplasmic side {ECO:0000269|PubMed:9214383}. Cell junction {ECO:0000269|PubMed:9214383}. Cytoplasm, cytoskeleton {ECO:0000269|PubMed:9214383}. Note=In skeletal muscle, it localizes at the cytoplasmic side of the sarcolemmal membrane and at neuromuscular junctions.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">SNTA1_MOUSE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Syntrophin family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Q96EA4</td>
-<td style="text-align: left;">SPDL1 CCDC99</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: Required for the localization of dynein and dynactin to the mitotic kintochore. Dynein is believed to control the initial lateral interaction between the kinetochore and spindle microtubules and to facilitate the subsequent formation of end-on kinetochore-microtubule attachments mediated by the NDC80 complex. Also required for correct spindle orientation. Does not appear to be required for the removal of spindle assembly checkpoint (SAC) proteins from the kinetochore upon bipolar spindle attachment (PubMed:17576797, PubMed:19468067). Acts as an adapter protein linking the dynein motor complex to various cargos and converts dynein from a non-processive to a highly processive motor in the presence of dynactin. Facilitates the interaction between dynein and dynactin and activates dynein processivity (the ability to move along a microtubule for a long distance without falling off the track) (PubMed:25035494). Plays a role in cell migration (PubMed:30258100). {ECO:0000255|HAMAP-Rule:MF_03041, ECO:0000269|PubMed:17576797, ECO:0000269|PubMed:19468067, ECO:0000269|PubMed:25035494, ECO:0000269|PubMed:30258100}.</td>
-<td style="text-align: left;">Protein Spindly (hSpindly) (Arsenite-related gene 1 protein) (Coiled-coil domain-containing protein 99) (Rhabdomyosarcoma antigen MU-RMS-40.4A) (Spindle apparatus coiled-coil domain-containing protein 1)</td>
-<td style="text-align: left;">enzyme binding [GO:0019899]; kinetochore binding [GO:0043515]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm, cytoskeleton, microtubule organizing center, centrosome. Chromosome, centromere, kinetochore. Nucleus. Cytoplasm, cytoskeleton, spindle pole. Note=Localizes to the nucleus in interphase and to the kinetochore in early prometaphase. Relocalizes to the mitotic spindle pole before metaphase and is subsequently lost from the spindle poles after chromosome congression is completed. Removal of this protein from the kinetochore requires the dynein/dynactin complex.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">SPDLY_HUMAN</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Spindly family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Q80UG1</td>
-<td style="text-align: left;">Fads6</td>
-<td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Fatty acid desaturase 6 (EC 1.14.19.-)</td>
-<td style="text-align: left;">oxidoreductase activity, acting on paired donors, with oxidation of a pair of donors resulting in the reduction of molecular oxygen to two molecules of water [GO:0016717]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Membrane {ECO:0000305}; Multi-pass membrane protein {ECO:0000305}.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">FADS6_MOUSE</td>
-<td style="text-align: left;">PATHWAY: Lipid metabolism; fatty acid metabolism.</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">1.14.19.-</td>
-<td style="text-align: left;">Fatty acid desaturase type 1 family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRANSMEM 39..59; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 63..83; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 100..120; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 151..171; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 185..205; /note=“Helical”; /evidence=“ECO:0000255”</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Q91VK1</td>
-<td style="text-align: left;">Bzw2 5mp1</td>
-<td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: Translation initiation regulator which represses non-AUG initiated translation and repeat-associated non-AUG (RAN) initiated translation by acting as a competitive inhibitor of eukaryotic translation initiation factor 5 (EIF5) function (By similarity). Increases the accuracy of translation initiation by impeding EIF5-dependent translation from non-AUG codons by competing with it for interaction with EIF2S2 within the 43S pre-initiation complex (PIC) in an EIF3C-binding dependent manner (By similarity). {ECO:0000250|UniProtKB:Q9Y6E2}.</td>
-<td style="text-align: left;">eIF5-mimic protein 1 (Basic leucine zipper and W2 domain-containing protein 2)</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm {ECO:0000250|UniProtKB:Q9Y6E2}.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">5MP1_MOUSE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">BZW family</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Q7JJ13</td>
-<td style="text-align: left;">Brd2 Fsrg1 Kiaa4005 Ring3</td>
-<td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">FUNCTION: Binds hyperacetylated chromatin and plays a role in the regulation of transcription, probably by chromatin remodeling. Regulates transcription of the CCND1 gene. Plays a role in nucleosome assembly (By similarity). May play a role in spermatogenesis or folliculogenesis. {ECO:0000250, ECO:0000269|PubMed:9693039, ECO:0000269|PubMed:9811568}.</td>
-<td style="text-align: left;">Bromodomain-containing protein 2 (Female sterile homeotic-related protein 1) (Fsrg-1) (Protein RING3)</td>
-<td style="text-align: left;">chromatin binding [GO:0003682]; lysine-acetylated histone binding [GO:0070577]; protein serine/threonine kinase activity [GO:0004674]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000269|PubMed:9693039, ECO:0000269|PubMed:9811568}. Note=Detected on chromatin and nucleosomes. {ECO:0000250}.</td>
-<td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">BRD2_MOUSE</td>
+<td style="text-align: left;">CT202_HUMAN</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -514,15 +436,95 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Q3UW41</td>
-<td style="text-align: left;">Wfdc9</td>
+<td style="text-align: left;">Q07133</td>
+<td style="text-align: left;">H1-6 H1f6 H1ft H1t Hist1h1t</td>
 <td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Protein WFDC9</td>
-<td style="text-align: left;">serine-type endopeptidase inhibitor activity [GO:0004867]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Secreted {ECO:0000305}.</td>
+<td style="text-align: left;">FUNCTION: Testis-specific histone H1 that forms less compacted chromatin compared to other H1 histone subtypes. Formation of more relaxed chromatin may be required to promote chromatin architecture required for proper chromosome regulation during meiosis, such as homologous recombination. Histones H1 act as linkers that bind to nucleosomes and compact polynucleosomes into a higher-order chromatin configuration. {ECO:0000250|UniProtKB:P22492}.</td>
+<td style="text-align: left;">Histone H1t (Testicular H1 histone)</td>
+<td style="text-align: left;">DNA binding [GO:0003677]; double-stranded DNA binding [GO:0003690]; nucleosomal DNA binding [GO:0031492]; structural constituent of chromatin [GO:0030527]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000305}. Chromosome {ECO:0000305}.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">WFDC9_MOUSE</td>
+<td style="text-align: left;">H1T_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Histone H1/H5 family</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q86T29</td>
+<td style="text-align: left;">ZNF605</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: May be involved in transcriptional regulation.</td>
+<td style="text-align: left;">Zinc finger protein 605</td>
+<td style="text-align: left;">DNA-binding transcription factor activity, RNA polymerase II-specific [GO:0000981]; metal ion binding [GO:0046872]; RNA polymerase II cis-regulatory region sequence-specific DNA binding [GO:0000978]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000305}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">ZN605_HUMAN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Krueppel C2H2-type zinc-finger protein family</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P70336</td>
+<td style="text-align: left;">Rock2</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Protein kinase which is a key regulator of actin cytoskeleton and cell polarity. Involved in regulation of smooth muscle contraction, actin cytoskeleton organization, stress fiber and focal adhesion formation, neurite retraction, cell adhesion and motility via phosphorylation of ADD1, BRCA2, CNN1, EZR, DPYSL2, EP300, MSN, MYL9/MLC2, NPM1, RDX, PPP1R12A and VIM. Phosphorylates SORL1 and IRF4. Acts as a negative regulator of VEGF-induced angiogenic endothelial cell activation. Positively regulates the activation of p42/MAPK1-p44/MAPK3 and of p90RSK/RPS6KA1 during myogenic differentiation. Plays an important role in the timely initiation of centrosome duplication. Inhibits keratinocyte terminal differentiation. May regulate closure of the eyelids and ventral body wall through organization of actomyosin bundles. Plays a critical role in the regulation of spine and synaptic properties in the hippocampus. Plays a role in placental homeostasis during the perinatal period. Plays an important role in generating the circadian rhythm of the aortic myofilament Ca(2+) sensitivity and vascular contractility by modulating the myosin light chain phosphorylation. {ECO:0000269|PubMed:12832488, ECO:0000269|PubMed:18718479, ECO:0000269|PubMed:19181962, ECO:0000269|PubMed:20697158, ECO:0000269|PubMed:23172836}.</td>
+<td style="text-align: left;">Rho-associated protein kinase 2 (EC 2.7.11.1) (Rho-associated, coiled-coil-containing protein kinase 2) (Rho-associated, coiled-coil-containing protein kinase II) (ROCK-II) (p164 ROCK-2)</td>
+<td style="text-align: left;">ATP binding [GO:0005524]; metal ion binding [GO:0046872]; protein kinase activity [GO:0004672]; protein serine kinase activity [GO:0106310]; protein serine/threonine kinase activity [GO:0004674]; Rho-dependent protein serine/threonine kinase activity [GO:0072518]; small GTPase binding [GO:0031267]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: [Isoform 1]: Cytoplasm. Cell membrane; Peripheral membrane protein. Nucleus {ECO:0000250}. Cytoplasm, cytoskeleton, microtubule organizing center, centrosome {ECO:0000250}. Note=Cytoplasmic, and associated with actin microfilaments and the plasma membrane. {ECO:0000250}.; SUBCELLULAR LOCATION: [Isoform 2]: Cytoplasm. Cell membrane; Peripheral membrane protein.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">ROCK2_MOUSE</td>
+<td style="text-align: left;">COFACTOR: Name=Mg(2+); Xref=ChEBI:CHEBI:18420; Evidence={ECO:0000250};</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=ATP + L-seryl-[protein] = ADP + H(+) + O-phospho-L-seryl-[protein]; Xref=Rhea:RHEA:17989, Rhea:RHEA-COMP:9863, Rhea:RHEA-COMP:11604, ChEBI:CHEBI:15378, ChEBI:CHEBI:29999, ChEBI:CHEBI:30616, ChEBI:CHEBI:83421, ChEBI:CHEBI:456216; EC=2.7.11.1; CATALYTIC ACTIVITY: Reaction=ATP + L-threonyl-[protein] = ADP + H(+) + O-phospho-L-threonyl-[protein]; Xref=Rhea:RHEA:46608, Rhea:RHEA-COMP:11060, Rhea:RHEA-COMP:11605, ChEBI:CHEBI:15378, ChEBI:CHEBI:30013, ChEBI:CHEBI:30616, ChEBI:CHEBI:61977, ChEBI:CHEBI:456216; EC=2.7.11.1;</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2.7.11.1</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Protein kinase superfamily, AGC Ser/Thr protein kinase family</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q9NWX6</td>
+<td style="text-align: left;">THG1L ICF45</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: Adds a GMP to the 5’-end of tRNA(His) after transcription and RNase P cleavage. This step is essential for proper recognition of the tRNA and for the fidelity of protein synthesis (Probable). Also functions as a guanyl-nucleotide exchange factor/GEF for the MFN1 and MFN2 mitofusins thereby regulating mitochondrial fusion (PubMed:25008184, PubMed:27307223). By regulating both mitochondrial dynamics and bioenergetic function, it contributes to cell survival following oxidative stress (PubMed:25008184, PubMed:27307223). {ECO:0000269|PubMed:25008184, ECO:0000269|PubMed:27307223, ECO:0000305|PubMed:21059936}.</td>
+<td style="text-align: left;">Probable tRNA(His) guanylyltransferase (EC 2.7.7.79) (Induced in high glucose-1) (IHG-1) (Interphase cytoplasmic foci protein 45) (tRNA-histidine guanylyltransferase)</td>
+<td style="text-align: left;">ATP binding [GO:0005524]; GTP binding [GO:0005525]; guanyl-nucleotide exchange factor activity [GO:0005085]; identical protein binding [GO:0042802]; magnesium ion binding [GO:0000287]; nucleotidyltransferase activity [GO:0016779]; tRNA binding [GO:0000049]; tRNA guanylyltransferase activity [GO:0008193]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm {ECO:0000269|PubMed:15459185}. Mitochondrion outer membrane {ECO:0000305|PubMed:25008184}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">THG1_HUMAN</td>
+<td style="text-align: left;">COFACTOR: Name=Mg(2+); Xref=ChEBI:CHEBI:18420; Evidence={ECO:0000269|PubMed:21059936}; Note=Binds 2 magnesium ions per subunit. {ECO:0000269|PubMed:21059936};</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=a 5’-end ribonucleotide-tRNA(His) + ATP + GTP + H2O = a 5’-end phospho-guanosine-ribonucleotide-tRNA(His) + AMP + 2 diphosphate + H(+); Xref=Rhea:RHEA:54564, Rhea:RHEA-COMP:14193, Rhea:RHEA-COMP:14917, ChEBI:CHEBI:15377, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:33019, ChEBI:CHEBI:37565, ChEBI:CHEBI:138282, ChEBI:CHEBI:141847, ChEBI:CHEBI:456215; EC=2.7.7.79; Evidence={ECO:0000269|PubMed:21059936};</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2.7.7.79</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRNA(His) guanylyltransferase family</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Q8BIJ7</td>
+<td style="text-align: left;">Rufy1 Rabip4</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Binds phospholipid vesicles containing phosphatidylinositol 3-phosphate and participates in early endosomal trafficking. {ECO:0000269|PubMed:11172003, ECO:0000269|PubMed:16522682}.</td>
+<td style="text-align: left;">RUN and FYVE domain-containing protein 1 (Rab4-interacting protein)</td>
+<td style="text-align: left;">identical protein binding [GO:0042802]; lipid binding [GO:0008289]; metal ion binding [GO:0046872]; SH2 domain binding [GO:0042169]; SH3 domain binding [GO:0017124]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm. Early endosome membrane; Peripheral membrane protein.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">RUFY1_MOUSE</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -534,55 +536,55 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Q9DCU6</td>
-<td style="text-align: left;">Mrpl4 MNCb-3848</td>
+<td style="text-align: left;">Q80VJ6</td>
+<td style="text-align: left;">Zscan4c Gm397</td>
 <td style="text-align: left;">Mus musculus (Mouse)</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Large ribosomal subunit protein uL4m (39S ribosomal protein L4, mitochondrial) (L4mt) (MRP-L4)</td>
-<td style="text-align: left;">structural constituent of ribosome [GO:0003735]</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Mitochondrion {ECO:0000250|UniProtKB:Q9BYD3}.</td>
+<td style="text-align: left;">FUNCTION: Embryonic stem (ES) cell-specific transcription factor required to regulate ES cell pluripotency. Binds telomeres and plays a key role in genomic stability in ES cells by regulating telomere elongation. Acts as an activator of spontaneous telomere sister chromatid exchange (T-SCE) and telomere elongation in undifferentiated ES cells. {ECO:0000269|PubMed:17553482, ECO:0000269|PubMed:19350676, ECO:0000269|PubMed:20336070}.</td>
+<td style="text-align: left;">Zinc finger and SCAN domain containing protein 4C</td>
+<td style="text-align: left;">DNA-binding transcription factor activity, RNA polymerase II-specific [GO:0000981]; metal ion binding [GO:0046872]; RNA polymerase II cis-regulatory region sequence-specific DNA binding [GO:0000978]; sequence-specific double-stranded DNA binding [GO:1990837]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000255|PROSITE-ProRule:PRU00187, ECO:0000269|PubMed:20336070}. Chromosome, telomere {ECO:0000269|PubMed:20336070}.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">RM04_MOUSE</td>
+<td style="text-align: left;">ZSC4C_MOUSE</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">Universal ribosomal protein uL4 family</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Q9P2V4</td>
-<td style="text-align: left;">LRIT1 LRRC21 PAL</td>
+<td style="text-align: left;">P00338</td>
+<td style="text-align: left;">LDHA PIG19</td>
 <td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: Possible role in phototransduction. {ECO:0000303|PubMed:10777785}.</td>
-<td style="text-align: left;">Leucine-rich repeat, immunoglobulin-like domain and transmembrane domain-containing protein 1 (Leucine-rich repeat-containing protein 21) (Photoreceptor-associated LRR superfamily protein) (Retina-specific protein PAL)</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Endoplasmic reticulum membrane {ECO:0000250|UniProtKB:Q9JMH2}; Single-pass type I membrane protein {ECO:0000250}.</td>
+<td style="text-align: left;">FUNCTION: Interconverts simultaneously and stereospecifically pyruvate and lactate with concomitant interconversion of NADH and NAD(+). {ECO:0000269|PubMed:11276087}.</td>
+<td style="text-align: left;">L-lactate dehydrogenase A chain (LDH-A) (EC 1.1.1.27) (Cell proliferation-inducing gene 19 protein) (LDH muscle subunit) (LDH-M) (Renal carcinoma antigen NY-REN-59)</td>
+<td style="text-align: left;">cadherin binding [GO:0045296]; identical protein binding [GO:0042802]; L-lactate dehydrogenase activity [GO:0004459]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">LRIT1_HUMAN</td>
+<td style="text-align: left;">LDHA_HUMAN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=(S)-lactate + NAD(+) = H(+) + NADH + pyruvate; Xref=Rhea:RHEA:23444, ChEBI:CHEBI:15361, ChEBI:CHEBI:15378, ChEBI:CHEBI:16651, ChEBI:CHEBI:57540, ChEBI:CHEBI:57945; EC=1.1.1.27; Evidence={ECO:0000269|PubMed:11276087}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:23445; Evidence={ECO:0000269|PubMed:11276087}; PhysiologicalDirection=right-to-left; Xref=Rhea:RHEA:23446; Evidence={ECO:0000269|PubMed:11276087};</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">PATHWAY: Fermentation; pyruvate fermentation to lactate; (S)-lactate from pyruvate: step 1/1. {ECO:0000305|PubMed:11276087}.</td>
+<td style="text-align: left;">1.1.1.27</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRANSMEM 527..547; /note=“Helical”; /evidence=“ECO:0000255”</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">LDH/MDH superfamily, LDH family</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">A0A0B4J277</td>
-<td style="text-align: left;">TRAV22</td>
-<td style="text-align: left;">Homo sapiens (Human)</td>
-<td style="text-align: left;">FUNCTION: V region of the variable domain of T cell receptor (TR) alpha chain that participates in the antigen recognition (PubMed:24600447). Alpha-beta T cell receptors are antigen specific receptors which are essential to the immune response and are present on the cell surface of T lymphocytes. Recognize peptide-major histocompatibility (MH) (pMH) complexes that are displayed by antigen presenting cells (APC), a prerequisite for efficient T cell adaptive immunity against pathogens (PubMed:25493333). Binding of alpha-beta TR to pMH complex initiates TR-CD3 clustering on the cell surface and intracellular activation of LCK that phosphorylates the ITAM motifs of CD3G, CD3D, CD3E and CD247 enabling the recruitment of ZAP70. In turn ZAP70 phosphorylates LAT, which recruits numerous signaling molecules to form the LAT signalosome. The LAT signalosome propagates signal branching to three major signaling pathways, the calcium, the mitogen-activated protein kinase (MAPK) kinase and the nuclear factor NF-kappa-B (NF-kB) pathways, leading to the mobilization of transcription factors that are critical for gene expression and essential for T cell growth and differentiation (PubMed:23524462). The T cell repertoire is generated in the thymus, by V-(D)-J rearrangement. This repertoire is then shaped by intrathymic selection events to generate a peripheral T cell pool of self-MH restricted, non-autoaggressive T cells. Post-thymic interaction of alpha-beta TR with the pMH complexes shapes TR structural and functional avidity (PubMed:15040585). {ECO:0000303|PubMed:15040585, ECO:0000303|PubMed:23524462, ECO:0000303|PubMed:24600447, ECO:0000303|PubMed:25493333}.</td>
-<td style="text-align: left;">T cell receptor alpha variable 22</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">SUBCELLULAR LOCATION: Cell membrane {ECO:0000303|PubMed:20452950}.</td>
+<td style="text-align: left;">Q8C6P8</td>
+<td style="text-align: left;">Zfp57</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Transcription regulator required to maintain maternal and paternal gene imprinting, a process by which gene expression is restricted in a parent of origin-specific manner by epigenetic modification of genomic DNA and chromatin, including DNA methylation. Acts by controlling DNA methylation during the earliest multicellular stages of development at multiple imprinting control regions (ICRs) (PubMed:15070898, PubMed:18854139, PubMed:23059534, PubMed:30602440). Acts together with ZNF445, but ZFP57 plays the predominant role in imprinting maintenance. In contrast, in humans, ZNF445 seems to be the major factor early embryonic imprinting maintenance (PubMed:30602440). Required for the establishment of maternal methylation imprints at SNRPN locus. Acts as a transcriptional repressor in Schwann cells. Binds to a 5’-TGCCGC-3’ consensus sequence and recognizes the methylated CpG within this element (PubMed:15070898, PubMed:18854139, PubMed:23059534). {ECO:0000269|PubMed:15070898, ECO:0000269|PubMed:18854139, ECO:0000269|PubMed:23059534, ECO:0000269|PubMed:30602440}.</td>
+<td style="text-align: left;">Zinc finger protein 57 (Zfp-57)</td>
+<td style="text-align: left;">chromatin binding [GO:0003682]; DNA binding [GO:0003677]; double-stranded methylated DNA binding [GO:0010385]; metal ion binding [GO:0046872]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000269|PubMed:15070898, ECO:0000269|PubMed:18854139, ECO:0000269|PubMed:8120052}. Note=Binds various differentially methylated regions (DMR), including the Snrpn DMR.</td>
 <td style="text-align: left;">reviewed</td>
-<td style="text-align: left;">TVA22_HUMAN</td>
+<td style="text-align: left;">ZFP57_MOUSE</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
@@ -591,7 +593,7 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Krueppel C2H2-type zinc-finger protein family</td>
 </tr>
 </tbody>
 </table>
@@ -605,13 +607,13 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Entry"                              "Reviewed"                          
  [3] "Entry Name"                         "Gene Names"                        
- [5] "Pathway"                            "Cofactor"                          
- [7] "Function [CC]"                      "pH dependence"                     
- [9] "Temperature dependence"             "EC number"                         
-[11] "Subcellular location [CC]"          "Protein families"                  
-[13] "Organism"                           "Protein names"                     
-[15] "Intramembrane"                      "Gene Ontology (molecular function)"
-[17] "Transmembrane"                      "Catalytic activity"                </code></pre>
+ [5] "Organism"                           "Protein names"                     
+ [7] "Cofactor"                           "Catalytic activity"                
+ [9] "pH dependence"                      "Pathway"                           
+[11] "Function [CC]"                      "EC number"                         
+[13] "Temperature dependence"             "Gene Ontology (molecular function)"
+[15] "Subcellular location [CC]"          "Transmembrane"                     
+[17] "Intramembrane"                      "Protein families"                  </code></pre>
 </div>
 </div>
 </section>
@@ -648,29 +650,111 @@ Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184
 </div>
 </div>
 </section>
-<section id="results---enzyme-classes" class="slide level2">
-<h2>Results - Enzyme Classes</h2>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="../results/04_descibe_plot5_different_enzyme_classes.png"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="../results/07_location_analysis_EC.png"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="results---active-sites-enzyme-classes" class="slide level2">
-<h2>Results - Active Sites Enzyme Classes</h2>
+<section id="almost-identical-logo-plots-for-mouse-and-human-enzymes" class="slide level2">
+<h2>Almost identical logo plots for mouse and human enzymes</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
 
-<img data-src="../results/06_logoplot_enz.png" style="width:45.0%" class="r-stretch"></section>
-<section id="results---active-sites-protein-families" class="slide level2">
-<h2>Results - Active Sites Protein Families</h2>
+<style>
+table {
+  font-size: 40%
+}
+</style>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">entry</th>
+<th style="text-align: center;">organism</th>
+<th style="text-align: center;">enzyme_class</th>
+<th style="text-align: center;">logo_seq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">O95278</td>
+<td style="text-align: center;">human</td>
+<td style="text-align: center;">transferase</td>
+<td style="text-align: center;">QGDSGGP</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">P27708</td>
+<td style="text-align: center;">human</td>
+<td style="text-align: center;">hydrolase</td>
+<td style="text-align: center;">STYEKHL</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Q2L4Q9</td>
+<td style="text-align: center;">human</td>
+<td style="text-align: center;">lyase</td>
+<td style="text-align: center;">AIVDKRV</td>
+</tr>
+</tbody>
+</table>
+<div style="font-size: 35%;">
+<p>Table: Organism == human &amp; enzyme_class != NA</p>
+</div>
+<!-- Add a blank line for space -->
+<p>&nbsp;</p>
+
+<style>
+table {
+  font-size: 40%
+}
+</style>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">entry</th>
+<th style="text-align: center;">organism</th>
+<th style="text-align: center;">enzymeclass</th>
+<th style="text-align: center;">logo_seq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Q8K0D2</td>
+<td style="text-align: center;">mouse</td>
+<td style="text-align: center;">isomerase</td>
+<td style="text-align: center;">QGDSGGP</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+<td style="text-align: center;">…</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Q91ZA3</td>
+<td style="text-align: center;">mouse</td>
+<td style="text-align: center;">hydrolase</td>
+<td style="text-align: center;">STYEKHL</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Q9EQW8</td>
+<td style="text-align: center;">mouse</td>
+<td style="text-align: center;">transferase</td>
+<td style="text-align: center;">AIVDKRV</td>
+</tr>
+</tbody>
+</table>
+<div style="font-size: 35%;">
+<p>Table: Organism == mouse &amp; enzyme_class != NA</p>
+</div>
+</div><div class="column" style="width:70%;">
+<p><img data-src="../results/06_logoplot_enz.png" style="width:95.0%"></p>
+</div>
+</div>
 </section>
 <section id="discussion" class="slide level2">
 <h2>Discussion</h2>
 <p>Human and mice are very similar.</p>
+<p>The process</p>
 <div class="footer footer-default">
 
 </div>
