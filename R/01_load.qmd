@@ -1,10 +1,12 @@
 ---
-title: "Load and join data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Load and join data
 
 ## Load libraries
 
@@ -14,6 +16,20 @@ library(tidyverse)
 ```
 
 ## Load data
+
+### Loading raw data
+
+```{r}
+## function_file:
+curl::curl_download(url = "https://rest.uniprot.org/uniprotkb/stream?compressed=true&fields=accession%2Creviewed%2Cid%2Cgene_names%2Corganism_name%2Cprotein_name%2Ccc_cofactor%2Ccc_catalytic_activity%2Cph_dependence%2Ccc_pathway%2Ccc_function%2Cec%2Ctemp_dependence%2Cgo_f%2Ccc_subcellular_location%2Cft_transmem%2Cft_intramem%2Cprotein_families&format=tsv&query=%28%28taxonomy_id%3A9606%29+OR+%28taxonomy_id%3A10090%29%29+AND+%28reviewed%3Atrue%29",
+                    destfile = "../data/_raw/function_file.tsv.gz")
+
+## sequence_file:
+curl::curl_download(url = "https://rest.uniprot.org/uniprotkb/stream?compressed=true&fields=accession%2Creviewed%2Cid%2Cgene_names%2Corganism_name%2Cprotein_name%2Clength%2Cmass%2Csequence%2Cft_act_site%2Cft_binding&format=tsv&query=%28%28taxonomy_id%3A9606%29+OR+%28taxonomy_id%3A10090%29%29+AND+%28reviewed%3Atrue%29",
+                    destfile = "../data/_raw/sequence_file.tsv.gz")
+```
+
+### Reading raw data
 
 ```{r}
 #| message: false
@@ -29,8 +45,6 @@ joined_data <- data_function |>
   select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
   full_join(data_sequence,
             by = "Entry")
-
-
 ```
 
 ## Save data

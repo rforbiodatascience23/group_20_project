@@ -1,5 +1,5 @@
 ---
-title: "Logo plot for active sites"
+title: ""
 format:
   html:
     embed-resources: true
@@ -91,6 +91,8 @@ Here we use ggseqlogo() to visualize peptide sequences for each of the top 5 mos
 The logo plot for mouse and human protein families are very similar, showing that mouse and human homologs very similar around the active sites. In addition, this analysis show how uniprot data can be utilized to gain knowledge about active sites for specific protein families.
 
 ```{r}
+#| message: false
+
 ### Protein family logo plots ###
 # In this code chunk we work with the top 5 most frequently observed protein families
 
@@ -119,21 +121,26 @@ logoseq_data_human_prot <- aug_data |>
 # Change proten family names to get line breaks (check if names match before changing them)
 # Converting data to named list for use with facet function in ggseqlogo
 # For mouse
-logo_list_mouse_prot <- split(logoseq_data_mouse_prot$logo_seq,
-                         logoseq_data_mouse_prot$protein_family) # named list needed to facet
-logo_list_mouse_prot <- map(logo_list_mouse_prot,
-                            unique) # Filter out identical sequences
+logo_list_mouse_prot <- logoseq_data_mouse_prot |>
+  select(logo_seq, protein_family) |>
+  group_split(protein_family) |> 
+  map(~ pull(.x, logo_seq)) |> 
+  map(unique)  # Filter out identical sequences
+
 names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",
                                  "Tyr protein\nkinase ")
+
 # For human
-logo_list_human_prot <- split(logoseq_data_human_prot$logo_seq,
-                              logoseq_data_human_prot$protein_family) # named list needed to facet
-logo_list_human_prot <- map(logo_list_human_prot,
-                            unique) # Filter out identical sequences
-names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
+logo_list_human_prot <- logoseq_data_human_prot |>
+  select(logo_seq, protein_family) |>
+  group_split(protein_family) |> 
+  map(~ pull(.x, logo_seq)) |> 
+  map(unique)  # Filter out identical sequences
+
+names(logoseq_data_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",
@@ -177,6 +184,8 @@ Here we use ggseqlogo() to visualize peptide sequences for different types of en
 Just as for the protein family logo plots, the logo plots for mouse and human enzyme classes are very similar. Enzyme classes are less specific than protein families, and thus we naturally observe lower information content in general. However we thought that "zooming out", might reveal some differences between human and mice enzymes in general, but this was not the case.
 
 ```{r}
+#| message: false
+
 ### Enzyme class logo plots ###
 
 # Extract mouse data and filter out if no active site info
@@ -206,16 +215,32 @@ logoseq_data_human_enz <- aug_data |>
   distinct()
 
 # Converting data to named list for facet function in ggseqlogo: mouse data
-logo_list_mouse_enz <- split(logoseq_data_mouse_enz$logo_seq,
-                             logoseq_data_mouse_enz$enzyme_class)
-logo_list_mouse_enz <- map(logo_list_mouse_enz,
-                           unique) # Filter out identical sequences
+logo_list_mouse_enz <- logoseq_data_mouse_enz |>
+  select(logo_seq, enzyme_class) |>
+  group_split(enzyme_class) |> 
+  map(~ pull(.x, logo_seq)) |> 
+  map(unique)  # Filter out identical sequences
+
+names(logo_list_mouse_enz) <- c("Hydrolases",
+                                 "Isomerases",
+                                 "Ligases",
+                                 "Lyases",
+                                 "Oxidoreductases",
+                                 "Transferases")
 
 # Converting data to named list for facet function in ggseqlogo: human data
-logo_list_human_enz <- split(logoseq_data_human_enz$logo_seq,
-                             logoseq_data_human_enz$enzyme_class)
-logo_list_human_enz <- map(logo_list_human_enz,
-                           unique) # Filter out identical sequences
+logo_list_human_enz <- logoseq_data_human_enz |>
+  select(logo_seq, enzyme_class) |>
+  group_split(enzyme_class) |> 
+  map(~ pull(.x, logo_seq)) |> 
+  map(unique)  # Filter out identical sequences
+
+names(logo_list_human_enz) <- c("Hydrolases",
+                                 "Isomerases",
+                                 "Ligases",
+                                 "Lyases",
+                                 "Oxidoreductases",
+                                 "Transferases")
 
 # Making logo plots for mouse enzyme classses
 logo_plot_mouse_enz <- ggseqlogo(logo_list_mouse_enz,

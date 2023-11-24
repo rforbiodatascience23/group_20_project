@@ -1,18 +1,23 @@
 ---
-title: "Decription of the data used in this project"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
 
-```{r}
+# Decription of the data used in this project
 
+## Loading libraries
+
+```{r}
 ## Loading libraries
 library(tidyverse)
 library(knitr)
 library(patchwork)
 ```
+
+## Loading data
 
 ```{r}
 #| echo: false
@@ -22,11 +27,13 @@ library(patchwork)
 data <- read_tsv(file = "../data/03_dat_aug.tsv")  
 ```
 
-We have downloaded the data of all the proteins of mouse and human in the Swiss-Prot database. The Swiss-Prot database is a freely accesible database of manually annotated and non-redundant proteins. The annotations are regularly reviewed to include potentially new findings regarding a specific protein. The same gene from the same species only get one entry in the database to avoid redundancy. All this information about the database makes the data trustworthy which is important for us. The goal is to examine the data to see if it holds anything interesting on a large-scale analysis where we use the general categories. We have decided to focus on mouse and human. We expect the two organisms to show high similarity as they are both mammals and the research of proteins in human and mouse often include the use of ortolog comparison. However, we dug into the data to see if we despite high similarity could extract some differences. Or are we just very much like the mouse? The data was fun to work with as it was untidy and required a lot of cleaning before we could start with the analysis. It was a high motivation for us to practice the data wrangling part as much as possible as we saw this part as the most challenging content in the course. The following part will show some general descriptive statistics we made to get an overview of the data, we ended up using for our project.
+## Introduction
+
+We have downloaded the data of all the proteins of mouse and human in the Swiss-Prot database. The Swiss-Prot database is a freely accessible database of manually annotated and non-redundant proteins. The annotations are regularly reviewed to include potentially new findings regarding a specific protein. The same gene from the same species only get one entry in the database to avoid redundancy. All this information about the database makes the data trustworthy which is important for us. The goal is to examine the data to see if it holds anything interesting on a large-scale analysis where we use the general categories. We have decided to focus on mouse and human. We expect the two organisms to show high similarity as they are both mammals and the research of proteins in human and mouse often include the use of ortolog comparison. However, we dug into the data to see if we despite high similarity could extract some differences. Or are we just very much like the mouse? The data was fun to work with as it was untidy and required a lot of cleaning before we could start with the analysis. It was a high motivation for us to practice the data wrangling part as much as possible as we saw this part as the most challenging content in the course. The following part will show some general descriptive statistics we made to get an overview of the data, we ended up using for our project.
 
 ## Descriptive statistics
 
-We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct()` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function, temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables: The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct()` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables that we did not want to keep. We excluded the variables "reviewed", "function", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
+The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct()` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function, temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables: The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct()` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables that we did not want to keep. We excluded the variables "reviewed", "function", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
 
 ### The different variables (columns) in the dataset:
 
@@ -91,6 +98,7 @@ data |>
        y = "Count",
        x = "Organism")
 
+## Saving the plot in results
 ggsave("04_descibe_plot1_totalcount.png",
        path = "../results")
 ```
@@ -109,11 +117,18 @@ data |>
   xlim(0, 2500) +
   geom_density(alpha = 0.5) +
   theme_bw() +
-  labs(title = "Density plot of the length of the proteins in the database - Human vs. Mouse",
+  theme(axis.title.y = element_text(angle = 0, 
+                                    vjust = 0.5, 
+                                    size = 11),
+        axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 11)) +
+  labs(title = "Density plot of the length of the proteins in the database",
        y = "Density",
        x = "Length",
        fill = "Organism")
 
+## Saving the plot in results
 ggsave("04_descibe_plot2_density_length.png",
        path = "../results")
 ```
@@ -134,14 +149,71 @@ data |>
   ) +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
   theme_bw() +
-  labs(title = "Density plot of the mass of the proteins in the database - Human vs. Mouse",
+  theme(axis.title.y = element_text(angle = 0, 
+                                    vjust = 0.5, 
+                                    size = 11),
+        axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 11)) +
+  labs(title = "Density plot of the mass of the proteins in the database",
        y = "Density",
        x = "Mass",
        fill = "Organism")
 
+## Saving the plot in results
 ggsave("04_descibe_plot3_density_mass.png",
        path = "../results")
 ```
+
+```{r}
+## Making a patchwork of the two density plots above
+## Density plot for the length
+length_density_plot <- data |>
+  ggplot(aes(x = length, 
+             fill = organism)) +
+  xlim(0, 2500) +
+  geom_density(alpha = 0.5) +
+  theme_bw() +
+  theme(axis.title.y = element_text(angle = 0, 
+                                    vjust = 0.5, 
+                                    size = 11),
+        axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 11)) +
+  labs(y = "Density",
+       x = "Length") +
+  guides(fill = FALSE)
+
+## Density plot for the mass
+mass_density_plot <- data |>
+  ggplot(aes(x = mass, 
+             fill = organism)) +
+  geom_density(alpha = 0.5) +
+  scale_x_continuous(
+    labels = function(x) format(x, scientific = FALSE),
+    limits = c(0, 300000)
+  ) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 40, 
+                                   hjust = 1, 
+                                   size = 11),
+        axis.title.y = element_blank()) +
+  labs(x = "Mass",
+       fill = "Organism")
+
+## Combine the plots
+combined_length_mass <- length_density_plot + 
+  mass_density_plot
+
+## Print the combined plots
+print(combined_length_mass)
+
+## Saving the plot in results
+ggsave("04_descibe_plot2and3_density_length_and_mass.png",
+       path = "../results")
+```
+
 
 ### Unique entries of each variable
 
@@ -174,6 +246,7 @@ summary_table <- data |>
   group_by(Column) |>
   summarise(Unique_Entries = n_distinct(Value))
 
+# Using kable() to make the table
 kable(summary_table)
 ```
 
@@ -214,12 +287,14 @@ data |>
                                size = 11),
         ) +
   guides(fill = FALSE) +
-  labs(title = "Amounts of unique entries for the different vairables")
+  labs(title = "Amounts of unique entries for the different variables",
+       x = "Variable",
+       y = "Unique entries")
 
+
+## Saving the plot in results
 ggsave("04_descibe_plot4_unique_entries.png",
        path = "../results")
-
-
 ```
 
 ### The unique entries of the variable "enzyme_class"
@@ -272,6 +347,7 @@ enzymes_Human <- data |>
                                    hjust = 1, 
                                    size = 10),
         plot.title = element_text(hjust = 0.5)) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
   labs(title = "Human") +
   guides(fill = FALSE)
 
@@ -294,6 +370,7 @@ enzyme_Mouse <-  data |>
                                    hjust = 1, 
                                    size = 10),
         plot.title = element_text(hjust = 0.5)) +
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
   labs(title = "Mouse") +
   guides(fill = FALSE)
 
@@ -304,6 +381,7 @@ p <- enzymes_Human +
                   theme=theme(plot.title=element_text(hjust=0.5)))
 p
 
+## Saving the plot in results
 ggsave("04_descibe_plot5_different_enzyme_classes.png",
        path = "../results")
 ```
