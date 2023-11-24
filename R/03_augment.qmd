@@ -18,6 +18,7 @@ library(tidyverse)
 ## Load clean data
 
 ```{r}
+#| message: false
 clean_data <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")
 ```
 

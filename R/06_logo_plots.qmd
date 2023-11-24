@@ -140,7 +140,7 @@ logo_list_human_prot <- logoseq_data_human_prot |>
   map(~ pull(.x, logo_seq)) |> 
   map(unique)  # Filter out identical sequences
 
-names(logoseq_data_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
+names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",

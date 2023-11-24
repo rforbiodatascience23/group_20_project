@@ -20,8 +20,7 @@ library(patchwork)
 ## Loading data
 
 ```{r}
-#| echo: false
-#| warning: false
+#| message: false
 
 ## Loading data
 data <- read_tsv(file = "../data/03_dat_aug.tsv")  
@@ -213,7 +212,6 @@ print(combined_length_mass)
 ggsave("04_descibe_plot2and3_density_length_and_mass.png",
        path = "../results")
 ```
-
 
 ### Unique entries of each variable
 
