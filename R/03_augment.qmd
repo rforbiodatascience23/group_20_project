@@ -9,6 +9,7 @@ editor: visual
 ## Load librares
 
 ```{r}
+#| message: false
 library(tidyverse)
 ```
 
@@ -78,7 +79,7 @@ aug_data <- aug_data |>
 
 ```{r}
 ####
-# Tidy "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
+# Change "EC" column (we have decided only to work with the first digit but we are aware that the others have information aswell)
 ####
 aug_data <- aug_data |>
   # Extract the first digit and create new column
