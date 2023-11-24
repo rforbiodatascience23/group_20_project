@@ -1,10 +1,12 @@
 ---
-title: "Load and join data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Load and join data
 
 ## Load libraries
 
