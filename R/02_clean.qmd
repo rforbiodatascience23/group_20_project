@@ -1,10 +1,12 @@
 ---
-title: "Clean and join data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Clean and join data
 
 ## Load libraries
 
@@ -24,7 +26,6 @@ joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 ## Cleaning part 1: Active site and binding site
 
 ```{r}
-
 # Changing space in column names to "_" and lower case letters
 colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
@@ -46,6 +47,7 @@ joined_data <- joined_data |>
 ####
 joined_data <- joined_data |>
   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
+  # sapply is not tidy verse
   mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
   separate_longer_delim(col = active_site, ",")
   
@@ -58,6 +60,8 @@ joined_data <- joined_data |>
                                                    "(?<=BINDING\\s)\\d+(\\.\\.\\d+)?"),
          binding_site_ligand = str_extract_all(binding_site,
                                                    "(?<=/ligand=\"\")[^\"]+(?=\")")) |> 
+  
+  # sapply is not tidyverse 
   mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";"),
          binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
   filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |> 
@@ -107,7 +111,7 @@ joined_data <- joined_data |>
   mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "^[. ]+|[. ]+$"),
          `subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\: ")) |> 
   # Convert to lower case
-  mutate(`subcellular_location_[cc]` = tolower(`subcellular_location_[cc]`)) |> 
+  mutate(`subcellular_location_[cc]` = str_to_lower(`subcellular_location_[cc]`)) |> 
   # Removes space at the end
   mutate(`subcellular_location_[cc]` = str_remove(`subcellular_location_[cc]`, "\\s$")) 
 
@@ -117,10 +121,11 @@ joined_data <- joined_data |>
 joined_data <- joined_data |>
   # keep only cofactor names in column
   mutate(cofactor = str_extract_all(cofactor, "(?<=Name=)[^;]+")) |> 
+  # sapply is not tidyverse
   mutate(cofactor = sapply(cofactor, paste, collapse = "_")) |> 
   separate_longer_delim(col = cofactor, "_") |> 
   mutate(cofactor = na_if(cofactor, "NA")) |> 
-  mutate(cofactor = tolower(cofactor),
+  mutate(cofactor = str_to_lower(cofactor),
          cofactor = str_remove(cofactor, "\\s$"))
 
 ####
