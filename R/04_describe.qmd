@@ -1,12 +1,10 @@
 ---
-title: ""
+title: "Decription of the data used in this project"
 format:
   html:
     embed-resources: true
 editor: visual
 ---
-
-# Decription of the data used in this project
 
 ```{r}
 
@@ -28,7 +26,7 @@ We have downloaded the data of all the proteins of mouse and human in the Swiss-
 
 ## Descriptive statistics
 
-The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct()` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables that we did not want to keep. We excluded the variables "reviewed", "function\_\[cc\]", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function\_\[cc\]"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
+We have downloaded all the data of proteins of mouse and human from the Swiss-Prot database. The data includes information about the function of each of the `r data |> select(gene_name) |> n_distinct()` proteins and the sequence and much more. For a start, we merge the two raw data files (function and sequence) into one. From this point, we started excluding variables which we did not want to continue with. We excluded the variables reviewed, function, temperature_dependence, protein_names, intramembrane, catalytic_activity, entry_name, and transmembrane. These columns were not informative as some of them were just long text descriptions, (e.g., function), reaction equations (e.g., catalytic_activity), redundant (entry_name), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables: The data includes information about the function, the sequence, and much more of each of the `r data |> select(gene_name) |> n_distinct()` proteins. For a start, we merged the two raw data files (function and sequence) into one. From this point, we started excluding variables that we did not want to keep. We excluded the variables "reviewed", "function", "temperature_dependence", "protein_names", "intramembrane", "catalytic_activity", "entry_name", and "transmembrane". These columns were not informative as some of them were just long text descriptions, (e.g., "function"), reaction equations (e.g., "catalytic_activity"), redundant ("entry_name"), or useless. After some data wrangling (which can be seen in "02_clean.qmd"), we ended up with the following variables:
 
 ### The different variables (columns) in the dataset:
 
@@ -93,7 +91,6 @@ data |>
        y = "Count",
        x = "Organism")
 
-## Saving plot in results "04_descibe_plot1_totalcount.png"
 ggsave("04_descibe_plot1_totalcount.png",
        path = "../results")
 ```
@@ -117,7 +114,6 @@ data |>
        x = "Length",
        fill = "Organism")
 
-## Saving plot in results "04_descibe_plot2_density_length.png"
 ggsave("04_descibe_plot2_density_length.png",
        path = "../results")
 ```
@@ -143,7 +139,6 @@ data |>
        x = "Mass",
        fill = "Organism")
 
-## Saving plot in results "04_descibe_plot3_density_mass.png"
 ggsave("04_descibe_plot3_density_mass.png",
        path = "../results")
 ```
@@ -164,16 +159,14 @@ summary_table <- data |>
     enzyme_class, 
     pathway
   ) |>
-  # is.na is not tidyverse
-  #filter(
-  #  !is.na(cofactor),
-  #  !is.na(`subcellular_location_[cc]`),
-  #  !is.na(GO_molecular_function),
-  #  !is.na(protein_family),
-  #  !is.na(enzyme_class),
-  #  !is.na(pathway)
-  #)
-  drop_na()|>
+  filter(
+    !is.na(cofactor),
+    !is.na(`subcellular_location_[cc]`),
+    !is.na(GO_molecular_function),
+    !is.na(protein_family),
+    !is.na(enzyme_class),
+    !is.na(pathway)
+  ) |>
   pivot_longer(
     cols = c(
       cofactor, 
@@ -206,14 +199,12 @@ data |>
          protein_family, 
          enzyme_class, 
          pathway) |> 
-  # is.na is not tidyverse
-  #filter(!is.na(cofactor),
-  #       !is.na(`subcellular_location_[cc]`),   
-  #       !is.na(GO_molecular_function),
-  #       !is.na(protein_family), 
-  #       !is.na(enzyme_class),     
-  #       !is.na(pathway)) |> 
-  drop_na()|>
+  filter(!is.na(cofactor),
+         !is.na(`subcellular_location_[cc]`),   
+         !is.na(GO_molecular_function),
+         !is.na(protein_family), 
+         !is.na(enzyme_class),     
+         !is.na(pathway)) |> 
   pivot_longer(cols = c(cofactor,
                         `subcellular_location_[cc]`,
                         GO_molecular_function, protein_family,
@@ -238,9 +229,10 @@ data |>
   guides(fill = FALSE) +
   labs(title = "Amounts of unique entries for the different vairables")
 
-## Saving plot in results "04_descibe_plot4_unique_entries.png"
 ggsave("04_descibe_plot4_unique_entries.png",
        path = "../results")
+
+
 ```
 
 ### The unique entries of the variable "enzyme_class"
@@ -323,9 +315,8 @@ p <- enzymes_Human +
   enzyme_Mouse +
   plot_annotation("Amount of different enzyme classes in human and mouse",
                   theme=theme(plot.title=element_text(hjust=0.5)))
-plot(p)
+p
 
-## Saving plot in results "04_descibe_plot5_different_enzyme_classes.png"
 ggsave("04_descibe_plot5_different_enzyme_classes.png",
        path = "../results")
 ```
