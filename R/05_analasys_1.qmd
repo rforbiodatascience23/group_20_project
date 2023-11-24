@@ -1,10 +1,12 @@
 ---
-title: "05_analasys_1"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# 05_analasys_1
 
 ## Load augmented data
 

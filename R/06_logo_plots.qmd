@@ -1,10 +1,12 @@
 ---
-title: "Logo plot for active sites"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Logo plot for active sites
 
 # Sequence logo plots for peptides around active site
 
