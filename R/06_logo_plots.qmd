@@ -119,21 +119,26 @@ logoseq_data_human_prot <- aug_data |>
 # Change proten family names to get line breaks (check if names match before changing them)
 # Converting data to named list for use with facet function in ggseqlogo
 # For mouse
-logo_list_mouse_prot <- split(logoseq_data_mouse_prot$logo_seq,
-                         logoseq_data_mouse_prot$protein_family) # named list needed to facet
-logo_list_mouse_prot <- map(logo_list_mouse_prot,
-                            unique) # Filter out identical sequences
+logo_list_mouse_prot <- logoseq_data_mouse_prot |>
+  select(logo_seq, protein_family) |>
+  group_split(protein_family) |> 
+  map(~ pull(.x, logo_seq)) |> 
+  map(unique)  # Filter out identical sequences
+
 names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",
                                  "Tyr protein\nkinase ")
+
 # For human
-logo_list_human_prot <- split(logoseq_data_human_prot$logo_seq,
-                              logoseq_data_human_prot$protein_family) # named list needed to facet
-logo_list_human_prot <- map(logo_list_human_prot,
-                            unique) # Filter out identical sequences
-names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
+logo_list_human_prot <- logoseq_data_human_prot |>
+  select(logo_seq, protein_family) |>
+  group_split(protein_family) |> 
+  map(~ pull(.x, logo_seq)) |> 
+  map(unique)  # Filter out identical sequences
+
+names(logoseq_data_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
                                  "Peptidase S1 ",
                                  "Protein-tyrosine\nphosphatase ",
