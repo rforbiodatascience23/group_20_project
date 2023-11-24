@@ -159,6 +159,7 @@ summary_table <- data |>
     enzyme_class, 
     pathway
   ) |>
+  # is.na is not tidyverse
   filter(
     !is.na(cofactor),
     !is.na(`subcellular_location_[cc]`),
@@ -199,6 +200,7 @@ data |>
          protein_family, 
          enzyme_class, 
          pathway) |> 
+  # is.na is not tidyverse
   filter(!is.na(cofactor),
          !is.na(`subcellular_location_[cc]`),   
          !is.na(GO_molecular_function),

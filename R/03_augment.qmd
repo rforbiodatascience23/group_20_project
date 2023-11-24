@@ -36,6 +36,7 @@ get_logo_seq <- function(x, y) {
 aug_data <- clean_data |>
   mutate(logo_seq = get_logo_seq(sequence, active_site)) |>
   # Filtereing out k-mers not covering 7 AA's
+  # tidyverse uses if_else not ifelse
   mutate(logo_seq = ifelse(nchar(logo_seq) != 7, NA, logo_seq))
 ```
 

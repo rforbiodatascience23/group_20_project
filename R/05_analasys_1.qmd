@@ -219,6 +219,7 @@ top_locations <- data|>
 
 # Plot boxplots for protein sizes in the top 5 subcellular locations
 data |>
+  # %in% is not tidyverse
   filter(`subcellular_location_[cc]` %in% top_locations)|>
   ggplot(aes(y = length,
              fill = `subcellular_location_[cc]`,
