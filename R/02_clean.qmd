@@ -1,10 +1,12 @@
 ---
-title: "Clean and join data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Clean and join data
 
 ## Load libraries
 
@@ -25,7 +27,7 @@ joined_data <- read_delim(file = "../data/01_dat_load.tsv", delim = "\t")
 
 ```{r}
 # Changing space in column names to "_" and lower case letters
-colnames(joined_data) <- gsub(" ", "_", colnames(joined_data))
+colnames(joined_data) <- str_replace_all(colnames(joined_data), " ", "_")
 colnames(joined_data) <- str_to_lower(colnames(joined_data))
 
 #####
@@ -45,10 +47,9 @@ joined_data <- joined_data |>
 ####
 joined_data <- joined_data |>
   mutate(active_site = str_extract_all(active_site, "(?<=ACT_SITE )\\d+")) |>
-  # sapply is not tidy verse
-  mutate(active_site = sapply(active_site, paste, collapse = ",")) |>
+  mutate(active_site = map_chr(active_site, ~paste(.x, collapse = ","))) |>
   separate_longer_delim(col = active_site, ",")
-  
+
 
 ####
 # Tidying "binding site" column
@@ -60,8 +61,8 @@ joined_data <- joined_data |>
                                                    "(?<=/ligand=\"\")[^\"]+(?=\")")) |> 
   
   # sapply is not tidyverse 
-  mutate(binding_site_pos = sapply(binding_site_pos, paste, collapse = ";"),
-         binding_site_ligand = sapply(binding_site_ligand, paste, collapse = ";")) |>
+  mutate(binding_site_pos = map_chr(binding_site_pos, ~paste(.x, collapse = ";")),
+         binding_site_ligand = map_chr(binding_site_ligand, ~paste(.x, collapse = ";"))) |>
   filter(str_count(binding_site_pos, ";") == str_count(binding_site_ligand, ";")) |> 
   separate_longer_delim(col = c(binding_site_pos, binding_site_ligand), ";") |> 
   select(-binding_site)

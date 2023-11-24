@@ -1,10 +1,12 @@
 ---
-title: "Augmentation of data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Augmentation of data
 
 ## Load librares
 

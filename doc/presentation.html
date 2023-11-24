@@ -329,26 +329,282 @@
 </div>
 
 </section>
-<section id="quarto" class="slide level2">
-<h2>Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <a href="https://quarto.org/docs/presentations/" class="uri">https://quarto.org/docs/presentations/</a>.</p>
-</section>
-<section id="bullets" class="slide level2">
-<h2>Bullets</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes:</p>
-<ul>
-<li>Content authored with markdown</li>
-<li>Output from executable code</li>
-</ul>
-</section>
-<section id="code" class="slide level2">
-<h2>Code</h2>
-<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
+
+<img data-src="../results/04_descibe_plot1_totalcount.png" style="width:60.0%" class="r-stretch quarto-figure-center"><p class="caption">total protein count</p></section>
+<section id="materials" class="slide level2">
+<h2>Materials</h2>
+<p>Swiss-Prot data of all proteins in human and mouse</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="cell-output-display">
+<table style="width:100%;">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 18%">
+<col style="width: 1%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 3%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 0%">
+<col style="width: 5%">
+<col style="width: 53%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Entry</th>
+<th style="text-align: left;">Gene Names</th>
+<th style="text-align: left;">Organism</th>
+<th style="text-align: left;">Function [CC]</th>
+<th style="text-align: left;">Protein names</th>
+<th style="text-align: left;">Gene Ontology (molecular function)</th>
+<th style="text-align: left;">Subcellular location [CC]</th>
+<th style="text-align: left;">Reviewed</th>
+<th style="text-align: left;">Entry Name</th>
+<th style="text-align: left;">Pathway</th>
+<th style="text-align: left;">Cofactor</th>
+<th style="text-align: left;">pH dependence</th>
+<th style="text-align: left;">Temperature dependence</th>
+<th style="text-align: left;">EC number</th>
+<th style="text-align: left;">Protein families</th>
+<th style="text-align: left;">Intramembrane</th>
+<th style="text-align: left;">Transmembrane</th>
+<th style="text-align: left;">Catalytic activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Q9BVG9</td>
+<td style="text-align: left;">PTDSS2 PSS2</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: Catalyzes a base-exchange reaction in which the polar head group of phosphatidylethanolamine (PE) or phosphatidylcholine (PC) is replaced by L-serine (PubMed:19014349). Catalyzes the conversion of phosphatatidylethanolamine and does not act on phosphatidylcholine (PubMed:19014349). Can utilize both phosphatidylethanolamine (PE) plasmalogen and diacyl PE as substrate and the latter is six times better utilized, indicating the importance of an ester linkage at the sn-1 position (By similarity). Although it shows no sn-1 fatty acyl preference, exhibits significant preference towards docosahexaenoic acid (22:6n-3) compared with 18:1 or 20:4 at the sn-2 position (By similarity). {ECO:0000250|UniProtKB:Q9Z1X2, ECO:0000269|PubMed:19014349}.</td>
+<td style="text-align: left;">Phosphatidylserine synthase 2 (PSS-2) (PtdSer synthase 2) (EC 2.7.8.29) (Serine-exchange enzyme II)</td>
+<td style="text-align: left;">CDP-diacylglycerol-serine O-phosphatidyltransferase activity [GO:0003882]; L-serine-phosphatidylethanolamine phosphatidyltransferase activity [GO:0106245]; transferase activity [GO:0016740]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Endoplasmic reticulum membrane {ECO:0000250|UniProtKB:Q9Z1X2}; Multi-pass membrane protein {ECO:0000255}. Note=Highly enriched in the mitochondria-associated membrane (MAM). {ECO:0000250|UniProtKB:Q9Z1X2}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">PTSS2_HUMAN</td>
+<td style="text-align: left;">PATHWAY: Phospholipid metabolism; phosphatidylserine biosynthesis.</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">BIOPHYSICOCHEMICAL PROPERTIES: pH dependence: Optimum pH is around 7.5. {ECO:0000269|PubMed:19014349};</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2.7.8.29</td>
+<td style="text-align: left;">Phosphatidyl serine synthase family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRANSMEM 63..83; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 97..117; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 127..147; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 314..334; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 336..356; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 377..397; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 404..424; /note=“Helical”; /evidence=“ECO:0000255”</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=a 1,2-diacyl-sn-glycero-3-phosphoethanolamine + L-serine = a 1,2-diacyl-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:27606, ChEBI:CHEBI:33384, ChEBI:CHEBI:57262, ChEBI:CHEBI:57603, ChEBI:CHEBI:64612; EC=2.7.8.29; Evidence={ECO:0000269|PubMed:19014349}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:27607; Evidence={ECO:0000305|PubMed:19014349}; CATALYTIC ACTIVITY: Reaction=1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-hexadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41484, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:73007, ChEBI:CHEBI:75029; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41485; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-hexadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-hexadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoserine + ethanolamine; Xref=Rhea:RHEA:41488, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78261, ChEBI:CHEBI:78262; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41489; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-octadecanoyl-2-(5Z,8Z,11Z,14Z)-eicosatetraenoyl-sn-glycero-3-phosphoethanolamine + L-serine = 1-octadecanoyl-2-(5Z,8Z,11Z,14Z)-eicosatetraenoyl-sn-glycero-3-phosphoserine + ethanolamine; Xref=Rhea:RHEA:41500, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78268, ChEBI:CHEBI:78269; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41501; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-octadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-octadecanoyl-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoserine + ethanolamine; Xref=Rhea:RHEA:41492, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78265, ChEBI:CHEBI:78266; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41493; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-(1Z-octadecenyl)-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-(1Z-octadecenyl)-2-(4Z,7Z,10Z,13Z,16Z,19Z-docosahexaenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41496, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78263, ChEBI:CHEBI:78264; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41497; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-octadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-octadecanoyl-2-(9Z-octadecenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:40795, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:75038, ChEBI:CHEBI:78260; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:40796; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-(1Z-octadecenyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-(1Z-octadecenyl)-2-(9Z-octadecenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41600, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78340, ChEBI:CHEBI:78341; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41601; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; CATALYTIC ACTIVITY: Reaction=1-(1Z-octadecenyl)-2-(5Z,8Z,11Z,14Z- eicosatetraenoyl)-sn-glycero-3-phosphoethanolamine + L-serine = 1-(1Z-octadecenyl)-2-(5Z,8Z,11Z,14Z-eicosatetraenoyl)-sn-glycero-3-phospho-L-serine + ethanolamine; Xref=Rhea:RHEA:41604, ChEBI:CHEBI:33384, ChEBI:CHEBI:57603, ChEBI:CHEBI:78342, ChEBI:CHEBI:78343; Evidence={ECO:0000250|UniProtKB:Q9Z1X2}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:41605; Evidence={ECO:0000250|UniProtKB:Q9Z1X2};</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q96MR9</td>
+<td style="text-align: left;">ZNF560</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: May be involved in transcriptional regulation.</td>
+<td style="text-align: left;">Zinc finger protein 560</td>
+<td style="text-align: left;">DNA-binding transcription repressor activity, RNA polymerase II-specific [GO:0001227]; metal ion binding [GO:0046872]; RNA polymerase II transcription regulatory region sequence-specific DNA binding [GO:0000977]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000305}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">ZN560_HUMAN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Krueppel C2H2-type zinc-finger protein family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Q9HAC7</td>
+<td style="text-align: left;">SUGCT C7orf10 DERP13</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: Catalyzes the succinyl-CoA-dependent conversion of glutarate to glutaryl-CoA. Can use different dicarboxylic acids as CoA acceptors, the preferred ones are glutarate, succinate, adipate, and 3-hydroxymethylglutarate. {ECO:0000269|PubMed:23893049}.</td>
+<td style="text-align: left;">Succinate–hydroxymethylglutarate CoA-transferase (EC 2.8.3.13) (Dermal papilla-derived protein 13) (SuccinylCoA:glutarate-CoA transferase)</td>
+<td style="text-align: left;">succinate-hydroxymethylglutarate CoA-transferase activity [GO:0047369]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Mitochondrion {ECO:0000269|PubMed:23893049}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">SUCHY_HUMAN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2.8.3.13</td>
+<td style="text-align: left;">CoA-transferase III family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=3-hydroxy-3-methylglutarate + succinyl-CoA = (3S)-hydroxy-3-methylglutaryl-CoA + succinate; Xref=Rhea:RHEA:12284, ChEBI:CHEBI:17325, ChEBI:CHEBI:30031, ChEBI:CHEBI:43074, ChEBI:CHEBI:57292; EC=2.8.3.13; Evidence={ECO:0000269|PubMed:23893049};</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q9Y236</td>
+<td style="text-align: left;">OSGIN2 C8orf1</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: May be involved in meiosis or the maturation of germ cells.</td>
+<td style="text-align: left;">Oxidative stress-induced growth inhibitor 2 (hT41)</td>
+<td style="text-align: left;">growth factor activity [GO:0008083]</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">OSGI2_HUMAN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">OKL38 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P61581</td>
+<td style="text-align: left;">ERVK-24</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: May possess a function in tumorigenesis.</td>
+<td style="text-align: left;">Endogenous retrovirus group K member 24 Np9 protein (HERV-K101 Np9 protein) (HERV-K_22q11.21 provirus Np9 protein)</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus. Note=When overexpressed.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">NP24_HUMAN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q2TB90</td>
+<td style="text-align: left;">HKDC1</td>
+<td style="text-align: left;">Homo sapiens (Human)</td>
+<td style="text-align: left;">FUNCTION: Catalyzes the phosphorylation of hexose to hexose 6-phosphate, although at very low level compared to other hexokinases (PubMed:30517626). Has low glucose phosphorylating activity compared to other hexokinases (PubMed:30517626). Involved in glucose homeostasis and hepatic lipid accumulation. Required to maintain whole-body glucose homeostasis during pregnancy; however additional evidences are required to confirm this role (By similarity). {ECO:0000250|UniProtKB:Q91W97, ECO:0000269|PubMed:30517626}.</td>
+<td style="text-align: left;">Hexokinase HKDC1 (EC 2.7.1.1) (Hexokinase domain-containing protein 1)</td>
+<td style="text-align: left;">ATP binding [GO:0005524]; fructokinase activity [GO:0008865]; glucokinase activity [GO:0004340]; glucose binding [GO:0005536]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm {ECO:0000269|PubMed:30085091}. Mitochondrion membrane {ECO:0000305|PubMed:30517626}; Peripheral membrane protein {ECO:0000305}. Photoreceptor inner segment {ECO:0000250|UniProtKB:Q91W97}. Note=The mitochondrial-binding peptide (MBP) region promotes association with the mitochondrion. {ECO:0000305|PubMed:30517626}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">HKDC1_HUMAN</td>
+<td style="text-align: left;">PATHWAY: Carbohydrate metabolism; hexose metabolism. {ECO:0000305|PubMed:30517626}.; PATHWAY: Carbohydrate degradation; glycolysis; D-glyceraldehyde 3-phosphate and glycerone phosphate from D-glucose: step 1/4. {ECO:0000305|PubMed:30517626}.</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">2.7.1.1</td>
+<td style="text-align: left;">Hexokinase family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=ATP + D-hexose = ADP + D-hexose 6-phosphate + H(+); Xref=Rhea:RHEA:22740, ChEBI:CHEBI:4194, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:61567, ChEBI:CHEBI:456216; EC=2.7.1.1; Evidence={ECO:0000269|PubMed:30517626}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:22741; Evidence={ECO:0000269|PubMed:30517626}; CATALYTIC ACTIVITY: Reaction=ATP + D-glucose = ADP + D-glucose 6-phosphate + H(+); Xref=Rhea:RHEA:17825, ChEBI:CHEBI:4167, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:61548, ChEBI:CHEBI:456216; EC=2.7.1.1; Evidence={ECO:0000269|PubMed:30517626}; PhysiologicalDirection=left-to-right; Xref=Rhea:RHEA:17826; Evidence={ECO:0000269|PubMed:30517626};</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Q9D6Z1</td>
+<td style="text-align: left;">Nop56 Nol5a</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Involved in the early to middle stages of 60S ribosomal subunit biogenesis. Core component of box C/D small nucleolar ribonucleoprotein (snoRNP) particles. Required for the biogenesis of box C/D snoRNAs such U3, U8 and U14 snoRNAs. Part of the small subunit (SSU) processome, first precursor of the small eukaryotic ribosomal subunit. During the assembly of the SSU processome in the nucleolus, many ribosome biogenesis factors, an RNA chaperone and ribosomal proteins associate with the nascent pre-rRNA and work in concert to generate RNA folding, modifications, rearrangements and cleavage as well as targeted degradation of pre-ribosomal RNA by the RNA exosome. {ECO:0000250|UniProtKB:O00567}.</td>
+<td style="text-align: left;">Nucleolar protein 56 (Nucleolar protein 5A)</td>
+<td style="text-align: left;">histone methyltransferase binding [GO:1990226]; RNA binding [GO:0003723]; snoRNA binding [GO:0030515]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus, nucleolus {ECO:0000250|UniProtKB:O00567}. Cytoplasm {ECO:0000269|PubMed:21683323}. Nucleus, nucleoplasm {ECO:0000250|UniProtKB:O00567}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">NOP56_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NOP5/NOP56 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q8BH66</td>
+<td style="text-align: left;">Atl1 Spg3a</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: GTPase tethering membranes through formation of trans-homooligomers and mediating homotypic fusion of endoplasmic reticulum membranes. Functions in endoplasmic reticulum tubular network biogenesis. May also regulate Golgi biogenesis. May regulate axonal development. {ECO:0000250|UniProtKB:Q8WXF7}.</td>
+<td style="text-align: left;">Atlastin-1 (EC 3.6.5.-) (Spastic paraplegia 3A homolog)</td>
+<td style="text-align: left;">GTP binding [GO:0005525]; GTPase activity [GO:0003924]; identical protein binding [GO:0042802]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Endoplasmic reticulum membrane {ECO:0000250|UniProtKB:Q8WXF7}; Multi-pass membrane protein {ECO:0000250|UniProtKB:Q8WXF7}. Golgi apparatus membrane {ECO:0000250|UniProtKB:Q8WXF7}; Multi-pass membrane protein {ECO:0000250|UniProtKB:Q8WXF7}. Cell projection, axon {ECO:0000250|UniProtKB:Q6PST4}. Note=Localizes to endoplasmic reticulum tubular network. {ECO:0000269|PubMed:24668814}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">ATLA1_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">3.6.5.-</td>
+<td style="text-align: left;">TRAFAC class dynamin-like GTPase superfamily, GB1/RHD3 GTPase family, GB1 subfamily</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRANSMEM 450..470; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 472..492; /note=“Helical”; /evidence=“ECO:0000255”</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">P54276</td>
+<td style="text-align: left;">Msh6 Gtmbp</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: Component of the post-replicative DNA mismatch repair system (MMR). Heterodimerizes with MSH2 to form MutS alpha, which binds to DNA mismatches thereby initiating DNA repair. When bound, MutS alpha bends the DNA helix and shields approximately 20 base pairs, and recognizes single base mismatches and dinucleotide insertion-deletion loops (IDL) in the DNA. After mismatch binding, forms a ternary complex with the MutL alpha heterodimer, which is thought to be responsible for directing the downstream MMR events, including strand discrimination, excision, and resynthesis. ATP binding and hydrolysis play a pivotal role in mismatch repair functions. The ATPase activity associated with MutS alpha regulates binding similar to a molecular switch: mismatched DNA provokes ADP–&gt;ATP exchange, resulting in a discernible conformational transition that converts MutS alpha into a sliding clamp capable of hydrolysis-independent diffusion along the DNA backbone. This transition is crucial for mismatch repair. MutS alpha may also play a role in DNA homologous recombination repair. Recruited on chromatin in G1 and early S phase via its PWWP domain that specifically binds trimethylated ‘Lys-36’ of histone H3 (H3K36me3): early recruitment to chromatin to be replicated allowing a quick identification of mismatch repair to initiate the DNA mismatch repair reaction (By similarity). {ECO:0000250|UniProtKB:P52701}.</td>
+<td style="text-align: left;">DNA mismatch repair protein Msh6 (G/T mismatch-binding protein) (GTBP) (GTMBP) (MutS protein homolog 6) (MutS-alpha 160 kDa subunit) (p160)</td>
+<td style="text-align: left;">ADP binding [GO:0043531]; ATP binding [GO:0005524]; ATP-dependent activity, acting on DNA [GO:0008094]; ATP-dependent DNA damage sensor activity [GO:0140664]; chromatin binding [GO:0003682]; damaged DNA binding [GO:0003684]; DNA binding [GO:0003677]; enzyme binding [GO:0019899]; four-way junction DNA binding [GO:0000400]; guanine/thymine mispair binding [GO:0032137]; magnesium ion binding [GO:0000287]; methylated histone binding [GO:0035064]; mismatched DNA binding [GO:0030983]; MutLalpha complex binding [GO:0032405]; oxidized purine DNA binding [GO:0032357]; single guanine insertion binding [GO:0032142]; single thymine insertion binding [GO:0032143]</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000250|UniProtKB:P52701}. Chromosome {ECO:0000250|UniProtKB:P52701}. Note=Associates with H3K36me3 via its PWWP domain. {ECO:0000250|UniProtKB:P52701}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">MSH6_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">DNA mismatch repair MutS family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Q6PE87</td>
+<td style="text-align: left;">Cfap206</td>
+<td style="text-align: left;">Mus musculus (Mouse)</td>
+<td style="text-align: left;">FUNCTION: [Isoform 1]: Essential for sperm motility and is involved in the regulation of the beating frequency of motile cilia on the epithelial cells of the respiratory tract (PubMed:32376681). Required for the establishment of radial spokes in sperm flagella (PubMed:32376681). {ECO:0000269|PubMed:32376681}.; FUNCTION: [Isoform 2]: Essential for sperm motility and is involved in the regulation of the beating frequency of motile cilia on the epithelial cells of the respiratory tract (PubMed:32376681). Required for the establishment of radial spokes in sperm flagella (PubMed:32376681). {ECO:0000269|PubMed:32376681}.</td>
+<td style="text-align: left;">Cilia- and flagella-associated protein 206</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">SUBCELLULAR LOCATION: Cytoplasm, cytoskeleton, cilium axoneme {ECO:0000269|PubMed:32376681}. Cytoplasm, cytoskeleton, cilium basal body {ECO:0000269|PubMed:32376681}.</td>
+<td style="text-align: left;">reviewed</td>
+<td style="text-align: left;">CF206_MOUSE</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">CFAP206 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
+</section>
+<section id="and-methods" class="slide level2">
+<h2>and Methods</h2>
+<p>Logoplots</p>
+<p>Linear modelling</p>
+</section>
+<section id="results---size-and-mass" class="slide level2">
+<h2>Results - Size and Mass</h2>
+</section>
+<section id="results---enzyme-classes" class="slide level2">
+<h2>Results - Enzyme Classes</h2>
+</section>
+<section id="results---active-sites" class="slide level2">
+<h2>Results - Active sites</h2>
+<p><img data-src="../results/06_logoplot_enz.png" style="width:45.0%"> <img data-src="../results/06_logoplot_prot_fam.png" style="width:45.0%"></p>
+</section>
+<section id="discussion" class="slide level2">
+<h2>Discussion</h2>
+<p>Human and mice</p>
 <div class="footer footer-default">
 
 </div>
