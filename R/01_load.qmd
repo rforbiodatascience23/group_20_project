@@ -26,6 +26,7 @@ data_sequence <- read_delim(file = "../data/_raw/sequence_file.tsv.gz", delim = 
 ```{r}
 # joining data
 joined_data <- data_function |>
+  # setdiff is base R not tidy verse
   select(Entry, setdiff(colnames(data_function), colnames(data_sequence))) |>
   full_join(data_sequence,
             by = "Entry")
