@@ -1,10 +1,12 @@
 ---
-title: "Clean and join data"
+title: ""
 format:
   html:
     embed-resources: true
 editor: visual
 ---
+
+# Clean and join data
 
 ## Load libraries
 
