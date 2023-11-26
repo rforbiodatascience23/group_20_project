@@ -8,11 +8,12 @@ editor: visual
 ---
 
 ## Introduction
-- The mouse as a model organism 
 
-- Differences in protein location, role and more between mice and humans
+-   The mouse as a model organism
 
-- UniProt
+-   Differences in protein location, role and more between mice and humans
+
+-   UniProt
 
 ## Materials
 
@@ -37,6 +38,7 @@ untidy |>
 ## Materials
 
 Variables to describe proteins in humans and mice
+
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
 library(readr)
@@ -64,7 +66,6 @@ Overview of workflow
 ## Results - Length, Cofactors and Enzyme Classes
 
 ::: {layout-ncol="2"}
-
 ![](../results/05_size_analysis_cofactor_size.png){width="45%"}
 
 ![](../results/05_size_analysis_class_size.png){width="45%"}
@@ -101,7 +102,8 @@ Table: Organism == human & enzyme_class != NA
 :::
 
 <!-- Add a blank line for space -->
-&nbsp;
+
+ 
 
 ```{=html}
 <style>
@@ -110,14 +112,12 @@ table {
 }
 </style>
 ```
-
-
-| entry  | organism |  enzymeclass  | logo_seq |
-|:------:|:--------:|:-------------:|:--------:|
-| Q8K0D2 |  mouse   | isomerase     | QGDSGGP  |
-|  ...   |   ...    |      ...      |   ...    |
-| Q91ZA3 |  mouse   |   hydrolase   | STYEKHL  |
-| Q9EQW8 |  mouse   |  transferase  | AIVDKRV  |
+| entry  | organism | enzymeclass | logo_seq |
+|:------:|:--------:|:-----------:|:--------:|
+| Q8K0D2 |  mouse   |  isomerase  | QGDSGGP  |
+|  ...   |   ...    |     ...     |   ...    |
+| Q91ZA3 |  mouse   |  hydrolase  | STYEKHL  |
+| Q9EQW8 |  mouse   | transferase | AIVDKRV  |
 
 ::: {style="font-size: 35%;"}
 Table: Organism == mouse & enzyme_class != NA
@@ -131,7 +131,16 @@ Table: Organism == mouse & enzyme_class != NA
 
 ## Discussion
 
-- Human and mice are very similar
+::: incremental
+-   The process ![](../doc/Flowdiagram_R_project.png)
 
-- The process
-![](../doc/Flowdiagram_R_project.png)
+-   Human and mice enzymes are very similar
+
+-   Data from UniProt is easy to utilize
+
+    -   We examined general trends for mouse vs human enzymes
+
+    -   Could also "zoom in" and examine more specific proteins/enzymes
+
+    -   UniProt contain data for many other organisms
+:::
