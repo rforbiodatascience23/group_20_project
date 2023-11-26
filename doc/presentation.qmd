@@ -16,7 +16,7 @@ Briefly about UniProt
 ## Materials
 
 -   Swiss-Prot data
--   The entries was very untidy and had to be wrangeled a lot
+-   The entries was very untidy and had to be wrangled a lot
 -   This is a example of one of the original datafiles
 
 ```{r, fig.width=2, fig.height=2}
