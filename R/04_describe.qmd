@@ -15,6 +15,7 @@ editor: visual
 #| message: false 
 library(tidyverse)
 library(knitr)
+library(patchwork)
 ```
 
 ## Loading data
