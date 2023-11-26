@@ -136,9 +136,7 @@ Table: Organism == mouse & enzyme_class != NA
 
 -   Human and mice enzymes are very similar
 
--   Data from UniProt is easy to utilize
-
-    -   We examined general trends for mouse vs human enzymes
+-   Data from UniProts
 
     -   Could also "zoom in" and examine more specific proteins/enzymes
 
