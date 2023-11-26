@@ -6,15 +6,15 @@ format:
 editor: visual
 ---
 
-# Decription of the data used in this project
+# Description of the data used in this project
 
 ## Loading libraries
 
 ```{r}
 ## Loading libraries
+#| message: false 
 library(tidyverse)
 library(knitr)
-library(patchwork)
 ```
 
 ## Loading data
@@ -77,11 +77,14 @@ Originally the dataset also contained entries from other mouse-species and from 
 
 ### Protein amount for each organism
 
-We do not see a great difference in the amount of proteins described for mouse and human. The following plot visualizes how similar the count is.
+We do not see a great difference in the amount of proteins described for mice and humans. The following plot visualizes how similar the count is.
 
 ```{r}
 ## This plot shows the total count of human proteins in the database vs. mouse proteins in the database
 data |>
+  select(organism, entry) |>
+  distinct() |>
+  drop_na() |> 
   ggplot(mapping = aes(x=organism,
              fill = organism)) +
   geom_bar() +
@@ -93,7 +96,7 @@ data |>
         axis.text.x = element_text(angle = 0, 
                                    size = 10)) +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
-  labs(title = "Total count of human and mouse",
+  labs(title = "Total count of proteins in humans and mice",
        y = "Count",
        x = "Organism")
 
@@ -102,7 +105,7 @@ ggsave("04_descibe_plot1_totalcount.png",
        path = "../results")
 ```
 
-The low difference in amount of proteins for mouse and human respectively is illustrating the low difference between mouse and human in general. The following plots shows the difference in length (first plot) and mass (second plot) for mouse and human. It is clear that the density plots for mouse and human respectively are very similar. This indicates that the proteins described in human has an ortholog in mouse which explains the low difference in length and mass.
+The low difference in amount of proteins for mouse and human respectively is illustrating the low difference between mouse and human in general. The following plots shows the difference in length (first plot) and mass (second plot) for mouse and human. It is clear that the density plots for mouse and human respectively are very similar. This indicates that the proteins described in humans have an ortholog in mice which explains the low difference in length and mass.
 
 ### Density plot for length of the proteins in the database stratified on mouse and human
 
@@ -111,8 +114,12 @@ The low difference in amount of proteins for mouse and human respectively is ill
 
 ## Density plot for the length of the proteins stratified on mouse and human
 data |>
+  select(length, organism, entry) |>
+  distinct() |>
+  drop_na() |> 
   ggplot(aes(x = length, 
-             fill = organism)) +
+             fill = organism,
+             color = organism)) +
   xlim(0, 2500) +
   geom_density(alpha = 0.5) +
   theme_bw() +
@@ -124,8 +131,9 @@ data |>
                                    size = 11)) +
   labs(title = "Density plot of the length of the proteins in the database",
        y = "Density",
-       x = "Length",
-       fill = "Organism")
+       x = "Length (amino acids)",
+       fill = "Organism",
+       color = "Organism")
 
 ## Saving the plot in results
 ggsave("04_descibe_plot2_density_length.png",
@@ -139,8 +147,12 @@ ggsave("04_descibe_plot2_density_length.png",
 
 ## Density plot for the mass of the proteins stratified on mouse and human
 data |>
+  select(mass, organism, entry) |>
+  distinct() |>
+  drop_na() |> 
   ggplot(aes(x = mass, 
-             fill = organism)) +
+             fill = organism,
+             color = organism)) +
   geom_density(alpha = 0.5) +
   scale_x_continuous(
     labels = function(x) format(x, scientific = FALSE),
@@ -156,8 +168,9 @@ data |>
                                    size = 11)) +
   labs(title = "Density plot of the mass of the proteins in the database",
        y = "Density",
-       x = "Mass",
-       fill = "Organism")
+       x = "Mass (kDa)",
+       fill = "Organism",
+       color = "Organism")
 
 ## Saving the plot in results
 ggsave("04_descibe_plot3_density_mass.png",
@@ -165,11 +178,16 @@ ggsave("04_descibe_plot3_density_mass.png",
 ```
 
 ```{r}
+#| warning = FALSE
 ## Making a patchwork of the two density plots above
 ## Density plot for the length
-length_density_plot <- data |>
+length_density_plot <- data |> 
+  select(length, organism, entry) |>
+  distinct() |>
+  drop_na() |> 
   ggplot(aes(x = length, 
-             fill = organism)) +
+             fill = organism,
+             color = organism)) +
   xlim(0, 2500) +
   geom_density(alpha = 0.5) +
   theme_bw() +
@@ -178,15 +196,20 @@ length_density_plot <- data |>
                                     size = 11),
         axis.text.x = element_text(angle = 40, 
                                    hjust = 1, 
-                                   size = 11)) +
+                                   size = 11),
+        legend.position = "none") +
   labs(y = "Density",
-       x = "Length") +
+       x = "Length (amino acids)") +
   guides(fill = FALSE)
 
 ## Density plot for the mass
 mass_density_plot <- data |>
+  select(mass, organism, entry) |>
+  distinct() |>
+  drop_na() |> 
   ggplot(aes(x = mass, 
-             fill = organism)) +
+             fill = organism,
+             color = organism)) +
   geom_density(alpha = 0.5) +
   scale_x_continuous(
     labels = function(x) format(x, scientific = FALSE),
@@ -198,8 +221,9 @@ mass_density_plot <- data |>
                                    hjust = 1, 
                                    size = 11),
         axis.title.y = element_blank()) +
-  labs(x = "Mass",
-       fill = "Organism")
+  labs(x = "Mass (kDa)",
+       fill = "Organism",
+       color = "Organism")
 
 ## Combine the plots
 combined_length_mass <- length_density_plot + 
@@ -248,7 +272,7 @@ summary_table <- data |>
 kable(summary_table)
 ```
 
-To further improve the overview of the unique entries, we have made a bar plot showing the same as the table:
+To further improve the overview of the unique entries we have made a bar plot showing the same as the table:
 
 #### Illustrated with a bar plot as well
 
@@ -285,7 +309,7 @@ data |>
                                size = 11),
         ) +
   guides(fill = FALSE) +
-  labs(title = "Amounts of unique entries for the different variables",
+  labs(title = "Number of unique entries for the different variables",
        x = "Variable",
        y = "Unique entries")
 
@@ -297,11 +321,12 @@ ggsave("04_descibe_plot4_unique_entries.png",
 
 ### The unique entries of the variable "enzyme_class"
 
-Now we dig into a specific variable to give an example of how the variables look like. The "enzyme_class" contains seven unique entries. The amount of each entry is shown in the plot below:
+Now we dig into a specific variable to give an example of what the variables look like. The "enzyme_class" contains seven unique entries. The number of observations in each entry is shown in the plot below:
 
 ```{r}
 data |>
-  select(enzyme_class) |>
+  select(enzyme_class, entry) |>
+  distinct() |>
   drop_na() |> 
   group_by(enzyme_class) |>
   summarise(Amount = n()) |>
@@ -320,20 +345,22 @@ data |>
         ) +
   guides(fill = FALSE) +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
-  labs(title = "Amount of different enzyme classes",
-       y = "Amount",
+  labs(title = "Enzyme classes",
+       subtitle = "The number of observations in each enzyme class",
+       y = "Count",
        x = "Enzyme class")
 ```
 
-In this project, we have primarilt tried to examine a difference between mouse and human. The following plot is an example of how we have dug into the data with the intention to visualized the difference between mouse and human in different categories.
+In this project, we have primarily tried to examine a difference between mouse and human. The following plot is an example of how we have dug into the data with the intention to visualized the differences between mouse and human in different categories.
 
 ```{r}
-## Amount of different enzyme classes in Human
-enzymes_Human <- data |>
-  select(enzyme_class, organism) |>
-  drop_na() |> 
-  filter(organism == "Human") |> 
-  group_by(enzyme_class) |>
+#| warning = FALSE
+## Amount of different enzyme classes in human and mouse
+data |>
+  drop_na(enzyme_class, organism) |> 
+  select(enzyme_class, organism, entry) |>
+  distinct() |>
+  group_by(organism, enzyme_class) |>
   summarise(Amount = n()) |>
   ggplot(aes(x=enzyme_class, 
              y=Amount, 
@@ -343,41 +370,13 @@ enzymes_Human <- data |>
   theme(axis.title.x = element_blank(),
         axis.text.x = element_text(angle = 40, 
                                    hjust = 1, 
-                                   size = 10),
-        plot.title = element_text(hjust = 0.5)) +
+                                   size = 10)) +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
-  labs(title = "Human") +
-  guides(fill = FALSE)
-
-## Amount of different enzyme classes in Mouse
-enzyme_Mouse <-  data |>
-  select(enzyme_class, 
-         organism) |>
-  drop_na() |> 
-  filter(organism == "Mouse") |> 
-  group_by(enzyme_class) |>
-  summarise(Amount = n()) |>
-  ggplot(aes(x=enzyme_class, 
-             y=Amount, 
-             fill=enzyme_class)) +
-  geom_bar(stat = "identity") +
-  theme_bw() +
-  theme(axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.x = element_text(angle = 40, 
-                                   hjust = 1, 
-                                   size = 10),
-        plot.title = element_text(hjust = 0.5)) +
-  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
-  labs(title = "Mouse") +
-  guides(fill = FALSE)
-
-## Combining the two plots with patchwork
-p <- enzymes_Human + 
-  enzyme_Mouse +
-  plot_annotation("Amount of different enzyme classes in human and mouse",
-                  theme=theme(plot.title=element_text(hjust=0.5)))
-p
+  guides(fill = FALSE) +
+  labs(title = "Distribution of enzyme classes",
+       subtitle = "Number of proteins in each enzyme class in humans and mice",
+       y = "Count") +
+  facet_wrap(~organism)
 
 ## Saving the plot in results
 ggsave("04_descibe_plot5_different_enzyme_classes.png",

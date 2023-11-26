@@ -71,6 +71,13 @@ Linear modelling
 ![](../results/05_size_analysis_class_size.png){width="45%"}
 :::
 
+## Enzyme classes in subcellular locations
+
+::: {layout-ncol="2"}
+![](../results/04_descibe_plot5_different_enzyme_classes.png){width="70%"}
+
+![](../results/07_location_analysis_EC.png){width="70%"}
+:::
 
 ## Almost identical logo plots for mouse and human enzymes
 

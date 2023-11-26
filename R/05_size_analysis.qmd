@@ -6,7 +6,7 @@ format:
 editor: visual
 ---
 
-# Protein size analysis 
+# Protein size analysis
 
 ## Load augmented data
 
@@ -47,7 +47,7 @@ ggsave("05_size_analysis_mol_func.png",
        path = "../results")
 ```
 
-## Plot boxplot of cofactor vs length
+## Boxplot of cofactor vs length
 
 We wanted to see if proteins that had more cofactors were generally larger. We chose to do this as a boxplot because the maximum number of cofactors was 5 and it was therefore a visually manageable plot that eased visualization substantially. it did however require that the number of cofactors was treated as a factor.
 
@@ -89,13 +89,13 @@ We were wondering if humans used more large side chains than mice. To investigat
 #####
 # Plot size vs mass (fix the structure to use pipes)
 #####
-data|>
+data |>
   select(organism,
        entry,
        length,
-       mass)|>
-  distinct()|>
-  drop_na()|>
+       mass) |>
+  distinct() |>
+  drop_na() |>
   # Create scatter plot with linear regression lines
   ggplot(aes(x = mass,
                  y = length,
@@ -118,7 +118,8 @@ data|>
                   formula = y ~ x,
                   linetype = "dashed",
                   colour = "blue")+
-    labs(title = "Scatter Plot of Length vs. Mass with Linear Regressions",
+    labs(title = "Length vs. Mass",
+        subtitle = "Length vs. Mass of proteins in humans and mice including Linear Regressions",
          x = "Mass (kDa)",
            y = "Length",
            color = "Organism") +
@@ -133,14 +134,14 @@ ggsave("05_size_analysis_lm_size_length.png",
 
 
 linear_models <- lm(length ~ mass + organism,
-                    data = data|>
+                    data = data |>
                               select(organism,
                                    entry,
                                    length,
-                                   mass)|>
-                              distinct()|>
+                                   mass) |>
+                              distinct() |>
                               drop_na())
-  
+linear_models
 ```
 
 ## pH Length investigation
