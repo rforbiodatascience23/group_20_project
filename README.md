@@ -8,7 +8,7 @@
 
 ### Running these lines of code from terminal will run the entire project ###
 # Should be run with working directory where the .Rproj file is located
-# The code will create a data directory and store the raw data there
+# The code will create a data directory and store raw data there (Via an API)
 dir.create("data")
 dir.create("data/_raw")
 library(quarto)

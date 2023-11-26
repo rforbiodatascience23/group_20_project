@@ -42,7 +42,7 @@ aug_data <- clean_data |>
   mutate(logo_seq = if_else(nchar(logo_seq) != 7, NA, logo_seq))
 ```
 
-## Add count for the number of molecular functions for each protein
+### Add count for the number of molecular functions for each protein
 
 ```{r}
 ####
@@ -60,7 +60,7 @@ aug_data <- aug_data |>
 
 ```
 
-## Add number of cofactors that binds to each protein
+### Add number of cofactors that binds to each protein
 
 ```{r}
 ####
@@ -78,7 +78,7 @@ aug_data <- aug_data |>
 
 ```
 
-## Convert the first EC number into an enzyme class number
+### Convert the first EC number into an enzyme class number
 
 ```{r}
 ####
