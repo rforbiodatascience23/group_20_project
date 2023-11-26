@@ -68,7 +68,7 @@ data |>
                colour = factor(num_cofactors))) + 
     geom_boxplot(alpha = 0.5,
                  size = 0.75)+
-    labs(title = "Boxplot of length by number of binding cofactors",
+    labs(title = "Length by number of binding cofactors",
          y = "Length",
          fill = "Number of cofactors",
          color = "Number of cofactors") +
@@ -232,9 +232,10 @@ data|>
                fill = enzyme_class,
                colour = enzyme_class)) +
     geom_boxplot(alpha = 0.75, size = 0.9) +
-    labs(color = "Enzyme class",
-       fill = "Enzyme class",
-       y = "Length") + 
+    labs(title = "Length by enzyme class",
+         color = "Enzyme class",
+         fill = "Enzyme class",
+         y = "Length") + 
     facet_wrap(~organism) +
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1))

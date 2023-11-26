@@ -1,17 +1,18 @@
 ---
-title: "Differences in protein location, role and more in mice and humans"
+title: "Proteins in humans and mice"
 format: 
   revealjs:
     scrollable: true
-author: "Anton Wang(s183220), Line(s184242), Jeppe(s184242), Oscar(s184242) og Johan(s184242)"
+author: "Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan (s225001)"
 editor: visual
 ---
 
 ## Introduction
+- The mouse as a model organism 
 
-Hvad vil vi undersøge? Humans vs mice
+- Differences in protein location, role and more between mice and humans
 
-Briefly about UniProt
+- UniProt
 
 ## Materials
 
@@ -25,6 +26,8 @@ library(tidyverse)
 library(knitr)
 untidy <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t") 
 
+set.seed(4294)
+
 untidy |> 
   sample_n(10) |> 
   relocate(Entry,`Gene Names`, Organism,`Function [CC]`,`Protein names`,`Gene Ontology (molecular function)`, `Subcellular location [CC]`) |>
@@ -33,8 +36,7 @@ untidy |>
 
 ## Materials
 
-Swiss-Prot data of all proteins in human and mouse with to following variables/columns:
-
+Variables to describe proteins in humans and mice
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
 library(readr)
@@ -51,10 +53,6 @@ Overview of workflow
 
 ![](../doc/Flowdiagram_R_project.png){width="60%"}
 
-Logoplots
-
-Linear modelling
-
 ## Results - Length and Mass
 
 -   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
@@ -66,7 +64,8 @@ Linear modelling
 ## Results - Length, Cofactors and Enzyme Classes
 
 ::: {layout-ncol="2"}
-![](../results/05_analysis_cofactor_size.png){width="45%"}
+
+![](../results/05_size_analysis_cofactor_size.png){width="45%"}
 
 ![](../results/05_size_analysis_class_size.png){width="45%"}
 :::
@@ -132,6 +131,7 @@ Table: Organism == mouse & enzyme_class != NA
 
 ## Discussion
 
-Human and mice are very similar.
+- Human and mice are very similar
 
-The process
+- The process
+![](../doc/Flowdiagram_R_project.png)
