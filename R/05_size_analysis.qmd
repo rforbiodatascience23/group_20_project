@@ -87,7 +87,7 @@ We were wondering if humans used more large side chains than mice. To investigat
 
 ```{r}
 #####
-# Plot size vs mass (fix the structure to use pipes)
+# Plot size vs mass
 #####
 data |>
   select(organism,
@@ -96,44 +96,36 @@ data |>
        mass) |>
   distinct() |>
   drop_na() |>
+  group_by(organism) |>
   # Create scatter plot with linear regression lines
-  ggplot(aes(x = mass,
-                 y = length,
-                 color = organism)) +
+  ggplot(aes(x = length,
+             y = mass,
+             color = organism,
+             linetype = organism)) +
     geom_point(alpha = 0.25,
                size = 0.75) +
     # Add linear regression line for human
-    geom_smooth(data = data |>
-                  filter(organism == "Human"),
-                  method = "lm",
-                  se = TRUE,
-                  formula = y ~ x,
-                  linetype = "solid",
-                  colour = "red")+
-    # Add linear regression line Mouse
-    geom_smooth(data = data |>
-                  filter(organism == "Mouse"),
-                  method = "lm",
-                  se = TRUE,
-                  formula = y ~ x,
-                  linetype = "dashed",
-                  colour = "blue")+
+    geom_smooth(method = "lm",
+                se = TRUE,
+                formula = y ~ x) +
     labs(title = "Length vs. Mass",
-        subtitle = "Length vs. Mass of proteins in humans and mice including Linear Regressions",
-         x = "Mass (kDa)",
-           y = "Length",
-           color = "Organism") +
+        subtitle = "Length vs. mass of proteins in humans and mice including linear regressions",
+        x = "Length (amino acids)",
+        y = "Mass (kDa)",
+        color = "Organism",
+        linetype = "Organism") +
     # Extreme outliers are ignored to improove visualization
-    scale_y_continuous(limits = c(0, quantile(data$length, 0.99))) +
+    scale_y_continuous(labels = function(x) format(x, scientific = FALSE),
+                       limits = c(0, quantile(data$mass, 0.99))) +
     scale_x_continuous(labels = function(x) format(x, scientific = FALSE),
-                       limits = c(0, quantile(data$mass, 0.99)))+
+                       limits = c(0, quantile(data$length, 0.99)))+
     theme_bw()
 
 ggsave("05_size_analysis_lm_size_length.png",
       path = "../results")
 
 
-linear_models <- lm(length ~ mass + organism,
+linear_models <- lm(mass ~ length + organism,
                     data = data |>
                               select(organism,
                                    entry,
@@ -143,6 +135,8 @@ linear_models <- lm(length ~ mass + organism,
                               drop_na())
 linear_models
 ```
+
+The linear models for humans and mice are very similar indicating that there is no difference in their amino acid preferences. The linear models have a slope of 110.63 kDa which is consistent with the average amino acid mass of 110 kDA typically used for calculations.
 
 ## pH Length investigation
 
