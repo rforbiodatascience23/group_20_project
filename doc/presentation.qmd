@@ -1,5 +1,5 @@
 ---
-title: "Proteins in humans and mice"
+title: "Comparison of proteins in humans and mice"
 format: 
   revealjs:
     scrollable: true

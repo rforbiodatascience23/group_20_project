@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>quarto-input417c1aaa</title>
+<title>quarto-inputd6414541</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -3070,8 +3070,8 @@ vertical-align: -.125em;
 </div>
 </section>
 </section>
-<section id="clean-and-join-data" class="level1">
-<h1>Clean and join data</h1>
+<section id="clean-data" class="level1">
+<h1>Clean data</h1>
 <section id="load-libraries-1" class="level2">
 <h2 class="anchored" data-anchor-id="load-libraries-1">Load libraries</h2>
 <div class="cell">
@@ -3318,9 +3318,8 @@ vertical-align: -.125em;
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">logo_seq =</span> <span class="fu">if_else</span>(<span class="fu">nchar</span>(logo_seq) <span class="sc">!=</span> <span class="dv">7</span>, <span class="cn">NA</span>, logo_seq))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-</section>
-<section id="add-count-for-the-number-of-molecular-functions-for-each-protein" class="level2">
-<h2 class="anchored" data-anchor-id="add-count-for-the-number-of-molecular-functions-for-each-protein">Add count for the number of molecular functions for each protein</h2>
+<section id="add-count-for-the-number-of-molecular-functions-for-each-protein" class="level3">
+<h3 class="anchored" data-anchor-id="add-count-for-the-number-of-molecular-functions-for-each-protein">Add count for the number of molecular functions for each protein</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">####</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of molecular functions for each entry</span></span>
@@ -3336,8 +3335,8 @@ vertical-align: -.125em;
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(molecular_function_count, <span class="at">by =</span> <span class="st">&quot;entry&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="add-number-of-cofactors-that-binds-to-each-protein" class="level2">
-<h2 class="anchored" data-anchor-id="add-number-of-cofactors-that-binds-to-each-protein">Add number of cofactors that binds to each protein</h2>
+<section id="add-number-of-cofactors-that-binds-to-each-protein" class="level3">
+<h3 class="anchored" data-anchor-id="add-number-of-cofactors-that-binds-to-each-protein">Add number of cofactors that binds to each protein</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">####</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the number of cofactors</span></span>
@@ -3353,8 +3352,8 @@ vertical-align: -.125em;
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(cofactor_count, <span class="at">by =</span> <span class="st">&quot;entry&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="convert-the-first-ec-number-into-an-enzyme-class-number" class="level2">
-<h2 class="anchored" data-anchor-id="convert-the-first-ec-number-into-an-enzyme-class-number">Convert the first EC number into an enzyme class number</h2>
+<section id="convert-the-first-ec-number-into-an-enzyme-class-number" class="level3">
+<h3 class="anchored" data-anchor-id="convert-the-first-ec-number-into-an-enzyme-class-number">Convert the first EC number into an enzyme class number</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">####</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Change &quot;EC&quot; column (we have decided only to work with the first digit but we are aware that the others have information aswell)</span></span>
@@ -3375,6 +3374,7 @@ vertical-align: -.125em;
 <span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>         )) <span class="sc">|&gt;</span> </span>
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>first_digit, <span class="sc">-</span>ec_number)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 </section>
 <section id="save-augment-data-object" class="level2">
 <h2 class="anchored" data-anchor-id="save-augment-data-object">Save augment data object</h2>
@@ -3399,7 +3399,8 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="loading-data">Loading data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Loading data</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="at">file =</span> <span class="st">&quot;../data/03_dat_aug.tsv&quot;</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="at">file =</span> <span class="st">&quot;../data/03_dat_aug.tsv&quot;</span>)  </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>data_clean <span class="ot">&lt;-</span> <span class="fu">read_tsv</span>(<span class="at">file =</span> <span class="st">&quot;../data/02_dat_clean.tsv&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="introduction" class="level2">
@@ -3413,19 +3414,18 @@ vertical-align: -.125em;
 <h3 class="anchored" data-anchor-id="the-different-variables-columns-in-the-dataset">The different variables (columns) in the dataset:</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the column names</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data_clean <span class="sc">|&gt;</span> </span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>entry, <span class="sc">-</span>gene_name) <span class="sc">|&gt;</span> </span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] &quot;cofactor&quot;                  &quot;ph_dependence&quot;            
- [3] &quot;pathway&quot;                   &quot;GO_molecular_function&quot;    
- [5] &quot;subcellular_location_[cc]&quot; &quot;organism&quot;                 
- [7] &quot;length&quot;                    &quot;mass&quot;                     
- [9] &quot;sequence&quot;                  &quot;active_site&quot;              
-[11] &quot;binding_site_pos&quot;          &quot;binding_site_ligand&quot;      
-[13] &quot;protein_family&quot;            &quot;family_type&quot;              
-[15] &quot;logo_seq&quot;                  &quot;num_molecular_functions&quot;  
-[17] &quot;num_cofactors&quot;             &quot;enzyme_class&quot;             </code></pre>
+ [3] &quot;pathway&quot;                   &quot;ec_number&quot;                
+ [5] &quot;GO_molecular_function&quot;     &quot;subcellular_location_[cc]&quot;
+ [7] &quot;organism&quot;                  &quot;length&quot;                   
+ [9] &quot;mass&quot;                      &quot;sequence&quot;                 
+[11] &quot;active_site&quot;               &quot;binding_site_pos&quot;         
+[13] &quot;binding_site_ligand&quot;       &quot;protein_family&quot;           
+[15] &quot;family_type&quot;              </code></pre>
 </div>
 </div>
 <p>Originally the dataset also contained entries from other mouse-species and from neanderthal. These have been removed. The proteins are described with 15 variables (including the species):</p>
