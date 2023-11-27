@@ -90,41 +90,6 @@ We were wondering if humans used more large side chains than mice. To investigat
 #####
 # Plot size vs mass
 #####
-data |>
-  select(organism,
-       entry,
-       length,
-       mass) |>
-  distinct() |>
-  drop_na() |>
-  group_by(organism) |>
-  # Create scatter plot with linear regression lines
-  ggplot(aes(x = length,
-             y = mass,
-             color = organism,
-             linetype = organism)) +
-    geom_point(alpha = 0.25,
-               size = 0.75) +
-    # Add linear regression line for human
-    geom_smooth(method = "lm",
-                se = TRUE,
-                formula = y ~ x) +
-    labs(title = "Length vs. Mass",
-        subtitle = "Length vs. mass of proteins in humans and mice including linear regressions",
-        x = "Length (amino acids)",
-        y = "Mass (kDa)",
-        color = "Organism",
-        linetype = "Organism") +
-    # Extreme outliers are ignored to improove visualization
-    scale_y_continuous(labels = function(x) format(x, scientific = FALSE),
-                       limits = c(0, quantile(data$mass, 0.99))) +
-    scale_x_continuous(labels = function(x) format(x, scientific = FALSE),
-                       limits = c(0, quantile(data$length, 0.99)))+
-    theme_bw()
-
-ggsave("05_size_analysis_lm_size_length.png",
-      path = "../results")
-
 # Linear model of mass vs length for mice
 mouse_model <- lm(mass ~ length,
    data = data |>
@@ -168,6 +133,51 @@ summary <- summary(combined_linear_model)
 
 length_mouse <-summary$coefficients[4,1]
 pval_mouse <- summary$coefficients[4,4]
+
+data |>
+  select(organism,
+       entry,
+       length,
+       mass) |>
+  distinct() |>
+  drop_na() |>
+  group_by(organism) |>
+  # Create scatter plot with linear regression lines
+  ggplot(aes(x = length,
+             y = mass,
+             color = organism,
+             linetype = organism)) +
+    geom_point(alpha = 0.25,
+               size = 0.75) +
+    # Add linear regression line for human
+    geom_smooth(method = "lm",
+                se = TRUE,
+                formula = y ~ x) +
+    geom_text(x = 5.5, 
+              y = 3.5, 
+              label = paste("Difference in slope =", length_mouse),
+              size = 4, 
+              color = "blue")+
+    geom_text(x = 5.5, 
+                y = 3.0, 
+                label = paste("p value =", pval_mouse),
+                size = 4, 
+                color = "blue")+
+    labs(title = "Length vs. Mass",
+        subtitle = "Length vs. mass of proteins in humans and mice including linear regressions",
+        x = "Length (amino acids)",
+        y = "Mass (kDa)",
+        color = "Organism",
+        linetype = "Organism") +
+    # Extreme outliers are ignored to improove visualization
+    scale_y_continuous(labels = function(x) format(x, scientific = FALSE),
+                       limits = c(0, quantile(data$mass, 0.99))) +
+    scale_x_continuous(labels = function(x) format(x, scientific = FALSE),
+                       limits = c(0, quantile(data$length, 0.99)))+
+    theme_bw()
+
+ggsave("05_size_analysis_lm_size_length.png",
+      path = "../results")
 ```
 
 The linear models for humans and mice are very similar with the slope of humans being 110.50162 kDa while mice have 110.78923. When running the combined linear model, we can however see that this small change in the slope is statistically significant with a p-value of 4.39\*e-10. This highly significant difference of 0.28760 kDa in the slope indicates that mice do in fact have slightly larger side chains than humans. The difference in slope is harder to draw meaningful conclusions on as this is the supposed mass when the length is zero. The fact that the intercept is not zero is most likely to improve model fit.
