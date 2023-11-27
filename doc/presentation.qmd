@@ -48,7 +48,7 @@ Variables to describe proteins in humans and mice
 ```{r, message=FALSE, echo=FALSE}
 library(tidyverse)
 library(readr)
-data <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
+data <- read_delim(file = "../data/02_dat_clean.tsv", delim = "\t")
 ```
 
 ```{r}
