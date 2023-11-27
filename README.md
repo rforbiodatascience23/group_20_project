@@ -1,6 +1,8 @@
-# group_20_project
+# Read me for group 20 github repo
 
 ## Project contributors
+
+Here the student number and github username for all project contributors are stated.
 
 Anton: (s183220), AntonWangDTU\
 Line: (s184242), line-dh\
@@ -11,6 +13,18 @@ Johan: (s225001), johanstaffeldt
 ## Data availability
 
 /R/01_load.qmd downloads raw data via api call to uniprot
+
+## Dependencies
+
+Following packages are required
+
+-   tidyverse
+
+-   knitr
+
+-   patchwork
+
+-   ggseqlogo
 
 ## Instruction to run the project
 
