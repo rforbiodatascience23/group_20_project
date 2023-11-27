@@ -3,6 +3,7 @@ title: "Proteins in humans and mice"
 format: 
   revealjs:
     scrollable: true
+    embed-resources: true
 author: "Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan (s225001)"
 editor: visual
 ---
@@ -136,7 +137,7 @@ Table: Organism == mouse & enzyme_class != NA
 
 -   Human and mice enzymes are very similar
 
--   Data from UniProts
+-   Data from UniProt
 
     -   Could also "zoom in" and examine more specific proteins/enzymes
 
