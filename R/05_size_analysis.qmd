@@ -155,7 +155,7 @@ human_model <- lm(mass ~ length,
 summary(human_model)
 
 # combined linear model
-linear_model <- lm(mass ~ length * organism,
+combined_linear_model <- lm(mass ~ length * organism,
                    data = data |>
                              select(organism,
                                     entry,
@@ -164,7 +164,7 @@ linear_model <- lm(mass ~ length * organism,
                              distinct() |>
                              drop_na())
                     
-summary(linear_model)
+summary(combined_linear_model)
 ```
 
 The linear models for humans and mice are very similar with the slope of humans being 110.50162 kDa while mice have 110.78923. When running the combined linear model, we can however see that this small change in the slope is statistically significant with a p-value of 4.39\*e-10. This highly significant difference of 0.28760 kDa in the slope indicates that mice do in fact have slightly larger side chains than humans. The difference in slope is harder to draw meaningful conclusions on as this is the supposed mass when the length is zero. The fact that the intercept is not zero is most likely to improve model fit.
