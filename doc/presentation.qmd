@@ -10,9 +10,9 @@ editor: visual
 
 ## Introduction
 
--   Use R and github for a collaborative life science project 
+-   Use R and github for a collaborative life science project
 
--   The mouse as a model organism 
+-   The mouse as a model organism
 
 -   Differences/similarites in protein location, role and more between mice and humans.
 
