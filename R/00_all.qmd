@@ -10,30 +10,30 @@ editor: visual
 #| include: false
 library(quarto)
 
-# # # Render all analysis quarto documents
-# quarto_render(input = "01_load.qmd")
-# quarto_render(input = "02_clean.qmd")
-# quarto_render(input = "03_augment.qmd")
-# quarto_render(input = "04_describe.qmd")
-# quarto_render(input = "05_size_analysis.qmd")
-# quarto_render(input = "06_logo_plots.qmd")
-# quarto_render(input = "07_analysis_3.qmd")
-# 
-# # # Move all rendered files to results folder
-# file.rename(from = "01_load.html",
-#              to = "../results/01_load.html")
-# file.rename(from = "02_clean.html",
-#             to = "../results/02_clean.html")
-# file.rename(from = "03_augment.html",
-#             to = "../results/03_augment.html")
-# file.rename(from = "04_describe.html",
-#             to = "../results/04_describe.html")
-# file.rename(from = "05_size_analysis.html",
-#             to = "../results/05_analasys_1.html")
-# file.rename(from = "06_logo_plots.html",
-#             to = "../results/06_logo_plots.html")
-# file.rename(from = "07_location_analysis.html",
-#             to = "../results/07_location_analysis.html")
+# Render all analysis quarto documents
+quarto_render(input = "01_load.qmd")
+quarto_render(input = "02_clean.qmd")
+quarto_render(input = "03_augment.qmd")
+quarto_render(input = "04_describe.qmd")
+quarto_render(input = "05_size_analysis.qmd")
+quarto_render(input = "06_logo_plots.qmd")
+quarto_render(input = "07_analysis_3.qmd")
+
+# Move all rendered files to results folder
+file.rename(from = "01_load.html",
+             to = "../results/01_load.html")
+file.rename(from = "02_clean.html",
+            to = "../results/02_clean.html")
+file.rename(from = "03_augment.html",
+            to = "../results/03_augment.html")
+file.rename(from = "04_describe.html",
+            to = "../results/04_describe.html")
+file.rename(from = "05_size_analysis.html",
+            to = "../results/05_analasys_1.html")
+file.rename(from = "06_logo_plots.html",
+            to = "../results/06_logo_plots.html")
+file.rename(from = "07_location_analysis.html",
+            to = "../results/07_location_analysis.html")
 ```
 
 {{< include 01_load.qmd >}}
