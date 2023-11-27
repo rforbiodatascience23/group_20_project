@@ -5,7 +5,7 @@ format:
     scrollable: true
     embed-resources: true
     theme: moon
-author: "Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan (s225001)"
+author: "Anton (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan (s225001)"
 editor: visual
 ---
 
@@ -79,7 +79,7 @@ Overview of workflow
 ![](../results/05_size_analysis_class_size.png){width="45%"}
 :::
 
-## Enzyme classes in subcellular locations
+## Similar distribution of enzyme classes in subcellular locations
 
 ::: {layout-ncol="2"}
 ![](../results/04_descibe_plot5_different_enzyme_classes.png){width="70%"}
@@ -140,7 +140,7 @@ Table: Organism == mouse & enzyme_class != NA
 ## Discussion
 
 ::: incremental
--   The process ![](../doc/Flowdiagram_R_project.png)
+-   The process ![](../doc/Flowdiagram_R_project.png){width="70%"}
 
 -   Human and mice enzymes are very similar
 
