@@ -11,13 +11,13 @@ editor: visual
 library(quarto)
 
 # Render all analysis quarto documents
-quarto_render(input = "01_load.qmd")
-quarto_render(input = "02_clean.qmd")
-quarto_render(input = "03_augment.qmd")
-quarto_render(input = "04_describe.qmd")
-quarto_render(input = "05_size_analysis.qmd")
-quarto_render(input = "06_logo_plots.qmd")
-quarto_render(input = "07_analysis_3.qmd")
+# quarto_render(input = "01_load.qmd")
+# quarto_render(input = "02_clean.qmd")
+# quarto_render(input = "03_augment.qmd")
+# quarto_render(input = "04_describe.qmd")
+# quarto_render(input = "05_size_analysis.qmd")
+# quarto_render(input = "06_logo_plots.qmd")
+quarto_render(input = "07_location_analysis.qmd")
 
 # Move all rendered files to results folder
 file.rename(from = "01_load.html",

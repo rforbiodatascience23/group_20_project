@@ -43,7 +43,7 @@ dir.create("data/_raw")
 # loading library
 library(quarto)
 
-# Render 00_all.qmd document will run the entire project
+# Render 00_all.qmd document will run the entire project and move output to /results
 quarto_render("R/00_all.qmd")
 file.rename(from = "00_all.html", to = "../results/00_all.html")
 ```
