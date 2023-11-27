@@ -10,9 +10,13 @@ editor: visual
 
 ## Introduction
 
--   The mouse as a model organism
+-   Use R and github for a collaborative life science project 
 
--   Differences in protein location, role and more between mice and humans
+-   The mouse as a model organism 
+
+-   Differences/similarites in protein location, role and more between mice and humans.
+
+-   Summary statistics on clean data and more elaborate analysis on augmented data
 
 ## Materials
 
