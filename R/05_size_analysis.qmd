@@ -75,7 +75,8 @@ data |>
     facet_wrap(~organism)+
     # Extreme outliers are ignored to improve visualization
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_bw()
 
 ggsave("05_size_analysis_cofactor_size.png",
        path = "../results")
@@ -124,16 +125,27 @@ data |>
 ggsave("05_size_analysis_lm_size_length.png",
       path = "../results")
 
+# Linear model of mass vs length for mice
+lm(mass ~ length,
+   data = data |>
+     select(organism,
+            entry,
+            length,
+            mass) |>
+     filter(organism == "Mouse") |>
+     distinct() |>
+     drop_na())
 
-linear_models <- lm(mass ~ length + organism,
-                    data = data |>
-                              select(organism,
-                                   entry,
-                                   length,
-                                   mass) |>
-                              distinct() |>
-                              drop_na())
-linear_models
+# Linear model for mass vs length for humans
+lm(mass ~ length,
+   data = data |>
+     select(organism,
+            entry,
+            length,
+            mass) |>
+     filter(organism == "Human") |>
+     distinct() |>
+     drop_na())
 ```
 
 The linear models for humans and mice are very similar indicating that there is no difference in their amino acid preferences. The linear models have a slope of 110.63 kDa which is consistent with the average amino acid mass of 110 kDA typically used for calculations.
@@ -164,7 +176,8 @@ data|>
              size = 0.75)+
   labs(title = "Scatter Plot of length vs. pH",
        x = "Sequence length",
-       y = "pH optimum")
+       y = "pH optimum") +
+  theme_bw()
 
 ggsave("05_size_analysis_pH_length.png",
        path = "../results")
@@ -197,7 +210,8 @@ data|>
   labs(color = "Enzyme class",
        fill = "Enzyme class",
        y = "pH optimum") +
-  facet_wrap(~organism)
+  facet_wrap(~organism) +
+  theme_bw()
    
 # 310 distinct entries
 data|>
@@ -238,7 +252,8 @@ data|>
          y = "Length") + 
     facet_wrap(~organism) +
     scale_y_continuous(limits = c(0, quantile(data$length, 0.98))) +
-    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_bw()
 # 310 distinct entries
 
 ggsave("05_size_analysis_class_size.png",
@@ -267,7 +282,8 @@ data |>
        y = "Protein Length",
        fill = "Subcellular location",
        color = "Subcellular location") +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom") +
+  theme_bw()
 
 ggsave("05_size_analysis_location_size.png",
        path = "../results")
