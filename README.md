@@ -1,19 +1,34 @@
 # group_20_project
 
-# /R/01_load.qmd downloads raw data via api call to uniprot
+## Project contributors
 
-# Rendering /R/00_all.qmd will render all /R/*.qmd files individually
+Anton: (s183220), AntonWangDTU\
+Line: (s184242), line-dh\
+Jeppe: (s213426), JeppeMikkelsenDenmark\
+Oscar: (s193775), OscarBaadWard\
+Johan: (s225001), johanstaffeldt
 
+## Data availability
 
+/R/01_load.qmd downloads raw data via api call to uniprot
 
-### Running these lines of code from terminal will run the entire project ###
-# Should be run with working directory where the .Rproj file is located
-# The code will create a data directory and store raw data there (Via an API)
+## Instruction to run the project
+
+Running these lines of code from console in R will run the entire project
+
+Working directory should be the root project directory (where the .Rproj file is located)
+
+Rendering /R/00_all.qmd will render all /R/\*.qmd files individually as well
+
+```{r}
+# Creating data folder with subdir _raw
 dir.create("data")
 dir.create("data/_raw")
+
+# loading library
 library(quarto)
+
+# Render 00_all.qmd document will run the entire project
 quarto_render("R/00_all.qmd")
-file.rename(from = "00_all.html",
-            to = "../results/00_all.html")
-            
-            
+file.rename(from = "00_all.html", to = "../results/00_all.html")
+```
