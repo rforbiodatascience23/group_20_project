@@ -342,15 +342,14 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <ul>
 <li><p>The mouse as a model organism</p></li>
 <li><p>Differences in protein location, role and more between mice and humans</p></li>
-<li><p>UniProt</p></li>
 </ul>
 </section>
 <section id="materials" class="slide level2">
 <h2>Materials</h2>
 <ul>
-<li>Swiss-Prot data</li>
+<li>Gene oncology and amino acid seq data from swiss-prot reviewed uniprot data</li>
 <li>The entries was very untidy and had to be wrangled a lot</li>
-<li>This is a example of one of the original datafiles</li>
+<li>An example of one of the raw data files:</li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -365,15 +364,15 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <col style="width: 19%">
 <col style="width: 0%">
 <col style="width: 0%">
-<col style="width: 0%">
-<col style="width: 23%">
-<col style="width: 0%">
 <col style="width: 4%">
 <col style="width: 0%">
 <col style="width: 0%">
-<col style="width: 3%">
+<col style="width: 0%">
 <col style="width: 0%">
 <col style="width: 2%">
+<col style="width: 0%">
+<col style="width: 3%">
+<col style="width: 23%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -386,15 +385,15 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <th style="text-align: left;">Subcellular location [CC]</th>
 <th style="text-align: left;">Reviewed</th>
 <th style="text-align: left;">Entry Name</th>
-<th style="text-align: left;">Cofactor</th>
-<th style="text-align: left;">Catalytic activity</th>
-<th style="text-align: left;">pH dependence</th>
 <th style="text-align: left;">Pathway</th>
-<th style="text-align: left;">EC number</th>
+<th style="text-align: left;">Cofactor</th>
+<th style="text-align: left;">pH dependence</th>
 <th style="text-align: left;">Temperature dependence</th>
-<th style="text-align: left;">Transmembrane</th>
-<th style="text-align: left;">Intramembrane</th>
+<th style="text-align: left;">EC number</th>
 <th style="text-align: left;">Protein families</th>
+<th style="text-align: left;">Intramembrane</th>
+<th style="text-align: left;">Transmembrane</th>
+<th style="text-align: left;">Catalytic activity</th>
 </tr>
 </thead>
 <tbody>
@@ -413,10 +412,10 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">TCP-1 chaperonin family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Q9NP81</td>
@@ -428,15 +427,15 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">SUBCELLULAR LOCATION: Mitochondrion matrix {ECO:0000250|UniProtKB:Q9N0F3}.</td>
 <td style="text-align: left;">reviewed</td>
 <td style="text-align: left;">SYSM_HUMAN</td>
+<td style="text-align: left;">PATHWAY: Aminoacyl-tRNA biosynthesis; selenocysteinyl-tRNA(Sec) biosynthesis; L-seryl-tRNA(Sec) from L-serine and tRNA(Sec): step 1/1.</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">6.1.1.11</td>
+<td style="text-align: left;">Class-II aminoacyl-tRNA synthetase family, Type-1 seryl-tRNA synthetase subfamily</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=ATP + L-serine + tRNA(Ser) = AMP + diphosphate + H(+) + L-seryl-tRNA(Ser); Xref=Rhea:RHEA:12292, Rhea:RHEA-COMP:9669, Rhea:RHEA-COMP:9703, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:33019, ChEBI:CHEBI:33384, ChEBI:CHEBI:78442, ChEBI:CHEBI:78533, ChEBI:CHEBI:456215; EC=6.1.1.11; Evidence={ECO:0000250|UniProtKB:Q9N0F3}; CATALYTIC ACTIVITY: Reaction=ATP + L-serine + tRNA(Sec) = AMP + diphosphate + H(+) + L-seryl-tRNA(Sec); Xref=Rhea:RHEA:42580, Rhea:RHEA-COMP:9742, Rhea:RHEA-COMP:10128, ChEBI:CHEBI:15378, ChEBI:CHEBI:30616, ChEBI:CHEBI:33019, ChEBI:CHEBI:33384, ChEBI:CHEBI:78442, ChEBI:CHEBI:78533, ChEBI:CHEBI:456215; EC=6.1.1.11; Evidence={ECO:0000250|UniProtKB:Q9N0F3};</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PATHWAY: Aminoacyl-tRNA biosynthesis; selenocysteinyl-tRNA(Sec) biosynthesis; L-seryl-tRNA(Sec) from L-serine and tRNA(Sec): step 1/1.</td>
-<td style="text-align: left;">6.1.1.11</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Class-II aminoacyl-tRNA synthetase family, Type-1 seryl-tRNA synthetase subfamily</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Q99KN1</td>
@@ -453,10 +452,10 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">Arrestin family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Q8WZB0</td>
@@ -513,10 +512,10 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">SCC3 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Q9D8B4</td>
@@ -533,10 +532,10 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;">Complex I NDUFA11 subunit family</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">TRANSMEM 21..43; /note=“Helical”; /evidence=“ECO:0000255”; TRANSMEM 58..80; /note=“Helical”; /evidence=“ECO:0000255”</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">Complex I NDUFA11 subunit family</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">A2A6Q5</td>
@@ -548,15 +547,15 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">SUBCELLULAR LOCATION: Nucleus {ECO:0000250|UniProtKB:P30260}. Cytoplasm, cytoskeleton, spindle {ECO:0000250|UniProtKB:P30260}.</td>
 <td style="text-align: left;">reviewed</td>
 <td style="text-align: left;">CDC27_MOUSE</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
 <td style="text-align: left;">PATHWAY: Protein modification; protein ubiquitination.</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">APC3/CDC27 family</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">P31254</td>
@@ -568,15 +567,15 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">reviewed</td>
 <td style="text-align: left;">UBA1Y_MOUSE</td>
+<td style="text-align: left;">PATHWAY: Protein modification; protein ubiquitination. {ECO:0000250|UniProtKB:P22314}.</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">6.2.1.45</td>
+<td style="text-align: left;">Ubiquitin-activating E1 family</td>
+<td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">CATALYTIC ACTIVITY: Reaction=ATP + ubiquitin + [E1 ubiquitin-activating enzyme]-L-cysteine = AMP + diphosphate + S-ubiquitinyl-[E1 ubiquitin-activating enzyme]-L-cysteine.; EC=6.2.1.45; Evidence={ECO:0000250|UniProtKB:P22314};</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">PATHWAY: Protein modification; protein ubiquitination. {ECO:0000250|UniProtKB:P22314}.</td>
-<td style="text-align: left;">6.2.1.45</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">NA</td>
-<td style="text-align: left;">Ubiquitin-activating E1 family</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Q8NBR0</td>
@@ -594,8 +593,8 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
 <td style="text-align: left;">NA</td>
-<td style="text-align: left;">TRANSMEM 310..330; /note=“Helical”; /evidence=“ECO:0000255”</td>
 <td style="text-align: left;">NA</td>
+<td style="text-align: left;">TRANSMEM 310..330; /note=“Helical”; /evidence=“ECO:0000255”</td>
 <td style="text-align: left;">NA</td>
 </tr>
 </tbody>
@@ -610,13 +609,13 @@ Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Entry"                              "Reviewed"                          
  [3] "Entry Name"                         "Gene Names"                        
- [5] "Organism"                           "Protein names"                     
- [7] "Cofactor"                           "Catalytic activity"                
- [9] "pH dependence"                      "Pathway"                           
-[11] "Function [CC]"                      "EC number"                         
-[13] "Temperature dependence"             "Gene Ontology (molecular function)"
-[15] "Subcellular location [CC]"          "Transmembrane"                     
-[17] "Intramembrane"                      "Protein families"                  </code></pre>
+ [5] "Pathway"                            "Cofactor"                          
+ [7] "Function [CC]"                      "pH dependence"                     
+ [9] "Temperature dependence"             "EC number"                         
+[11] "Subcellular location [CC]"          "Protein families"                  
+[13] "Organism"                           "Protein names"                     
+[15] "Intramembrane"                      "Gene Ontology (molecular function)"
+[17] "Transmembrane"                      "Catalytic activity"                </code></pre>
 </div>
 </div>
 </section>
@@ -771,15 +770,13 @@ table {
 <ul>
 <li class="fragment"><p>The process <img data-src="../doc/Flowdiagram_R_project.png"></p></li>
 <li class="fragment"><p>Human and mice enzymes are very similar</p></li>
-<li class="fragment"><p>Data from UniProt is easy to utilize ::: {style=“font-size: 35%;”}</p>
+<li class="fragment"><p>Data from UniProts</p>
 <ul>
-<li class="fragment"><p>We examined general trends for mouse vs human enzymes</p></li>
 <li class="fragment"><p>Could also “zoom in” and examine more specific proteins/enzymes</p></li>
 <li class="fragment"><p>UniProt contain data for many other organisms</p></li>
 </ul></li>
 </ul>
 </div>
-<p>:::</p>
 <div class="footer footer-default">
 
 </div>
