@@ -140,7 +140,7 @@ Table: Organism == mouse & enzyme_class != NA
 ## Discussion
 
 ::: incremental
--   The process ![](../doc/Flowdiagram_R_project.png){width="70%"}
+-   The process ![](../doc/Flowdiagram_R_project.png)
 
 -   Human and mice enzymes are very similar
 
