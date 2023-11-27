@@ -13,7 +13,7 @@ editor: visual
 
 -   Differences in protein location, role and more between mice and humans
 
--   UniProt
+-   Gene oncology and amino acid seq data from swiss-prot reviwed uniprot data 
 
 ## Materials
 
