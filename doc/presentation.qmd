@@ -11,14 +11,11 @@ editor: visual
 
 ## Introduction
 
-
-
 -   The mouse as a model organism
 
 -   Differences/similarities in protein location, role and more between mice and humans.
 
 -   Summary statistics on clean data and more elaborate analysis on augmented data
-
 
 ## Materials
 
@@ -132,7 +129,7 @@ Table: Organism == mouse & enzyme_class != NA
 :::
 
 ::: {.column width="70%"}
-![](../results/06_logoplot_enz.png){width="95%"}
+![](../results/06_logoplot_enz.png){fig-align="right"}
 :::
 :::
 
