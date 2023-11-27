@@ -55,13 +55,13 @@ data <- read_delim(file = "../data/_raw/function_file.tsv.gz", delim = "\t")
 data |> colnames()
 ```
 
-## and Methods
+## Methods
 
 Overview of workflow
 
 ![](../doc/Flowdiagram_R_project.png){width="60%"}
 
-## Results - Length and Mass
+## Results - Examening the length and mass variables
 
 -   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
 
