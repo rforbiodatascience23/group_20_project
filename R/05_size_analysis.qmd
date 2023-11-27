@@ -126,7 +126,7 @@ ggsave("05_size_analysis_lm_size_length.png",
       path = "../results")
 
 # Linear model of mass vs length for mice
-lm(mass ~ length,
+mouse_model <- lm(mass ~ length,
    data = data |>
      select(organism,
             entry,
@@ -136,8 +136,11 @@ lm(mass ~ length,
      distinct() |>
      drop_na())
 
+
+summary(mouse_model)
+
 # Linear model for mass vs length for humans
-lm(mass ~ length,
+human_model <- lm(mass ~ length,
    data = data |>
      select(organism,
             entry,
@@ -146,6 +149,22 @@ lm(mass ~ length,
      filter(organism == "Human") |>
      distinct() |>
      drop_na())
+
+
+
+summary(human_model)
+
+# combined linear model
+linear_model <- lm(mass ~ length * organism,
+                   data = data |>
+                             select(organism,
+                                    entry,
+                                    length,
+                                    mass) |>
+                             distinct() |>
+                             drop_na())
+                    
+summary(linear_model)
 ```
 
 The linear models for humans and mice are very similar indicating that there is no difference in their amino acid preferences. The linear models have a slope of 110.63 kDa which is consistent with the average amino acid mass of 110 kDA typically used for calculations.
