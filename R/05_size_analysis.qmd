@@ -153,16 +153,16 @@ data |>
     geom_smooth(method = "lm",
                 se = TRUE,
                 formula = y ~ x) +
-    geom_text(x = 5.5, 
-              y = 3.5, 
+    geom_text(x = 3000, 
+              y = 100000, 
               label = paste("Difference in slope =", length_mouse),
-              size = 4, 
-              color = "blue")+
-    geom_text(x = 5.5, 
-                y = 3.0, 
+              size = 3.5, 
+              color = "black")+
+    geom_text(x = 3000, 
+                y = 50000, 
                 label = paste("p value =", pval_mouse),
-                size = 4, 
-                color = "blue")+
+                size = 3.5, 
+                color = "black")+
     labs(title = "Length vs. Mass",
         subtitle = "Length vs. mass of proteins in humans and mice including linear regressions",
         x = "Length (amino acids)",
