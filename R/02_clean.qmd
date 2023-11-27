@@ -166,11 +166,14 @@ joined_data <- joined_data |>
   # Give column a better name
   rename(GO_molecular_function = `gene_ontology_(molecular_function)`) |> 
   # Remove GO numbers
-  mutate(GO_molecular_function = str_remove_all(GO_molecular_function, "\\[.*?\\]")) |> 
+  mutate(GO_molecular_function = str_remove_all(GO_molecular_function,
+                                                "\\[.*?\\]")) |> 
   # Use delimiter to make data longer
-  separate_longer_delim(GO_molecular_function, delim = " ; ") |> 
+  separate_longer_delim(GO_molecular_function,
+                        delim = " ; ") |> 
   # Removes space at the end
-  mutate(GO_molecular_function = str_remove(GO_molecular_function, "\\s$")) 
+  mutate(GO_molecular_function = str_remove(GO_molecular_function,
+                                            "\\s$")) 
 
 ####
 # Tidy "pH dependence" column 
