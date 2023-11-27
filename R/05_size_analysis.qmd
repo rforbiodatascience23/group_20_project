@@ -167,7 +167,7 @@ linear_model <- lm(mass ~ length * organism,
 summary(linear_model)
 ```
 
-The linear models for humans and mice are very similar indicating that there is no difference in their amino acid preferences. The linear models have a slope of 110.63 kDa which is consistent with the average amino acid mass of 110 kDA typically used for calculations.
+The linear models for humans and mice are very similar with the slope of humans being 110.50162 kDa while mice have 110.78923. When running the combined linear model, we can however see that this small change in the slope is statistically significant with a p-value of 4.39\*e-10. This highly significant difference of 0.28760 kDa in the slope indicates that mice do in fact have slightly larger side chains than humans. The difference in slope is harder to draw meaningful conclusions on as this is the supposed mass when the length is zero. The fact that the intercept is not zero is most likely to improve model fit.
 
 ## pH Length investigation
 
@@ -202,12 +202,11 @@ ggsave("05_size_analysis_pH_length.png",
        path = "../results")
 ```
 
-## pH enzyme class comparison (needs to be moved)
+## pH enzyme class comparison
 
 We decided to test if enzyme classes had varying pH dependencies between humans and mice. We therefore made a boxplot of the pH dependencies on all enzyme classes and stratified on the organism to compare the two.
 
 ```{r}
-# Needs to be moved
 ####
 # pH by enzyme class test 
 ####
