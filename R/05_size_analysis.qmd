@@ -126,7 +126,7 @@ ggsave("05_size_analysis_lm_size_length.png",
       path = "../results")
 
 # Linear model of mass vs length for mice
-lm(mass ~ length,
+mouse_model <- lm(mass ~ length,
    data = data |>
      select(organism,
             entry,
@@ -140,7 +140,7 @@ lm(mass ~ length,
 summary(mouse_model)
 
 # Linear model for mass vs length for humans
-lm(mass ~ length,
+human_model <- lm(mass ~ length,
    data = data |>
      select(organism,
             entry,
