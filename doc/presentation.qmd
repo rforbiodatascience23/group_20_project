@@ -13,13 +13,13 @@ editor: visual
 
 -   Differences in protein location, role and more between mice and humans
 
--   Gene oncology and amino acid seq data from swiss-prot reviwed uniprot data 
+
 
 ## Materials
 
--   Swiss-Prot data
+-   Gene oncology and amino acid seq data from swiss-prot reviewed uniprot data 
 -   The entries was very untidy and had to be wrangled a lot
--   This is a example of one of the original datafiles
+-   An example of one of the raw data files: 
 
 ```{r, fig.width=2, fig.height=2}
 #| message: false
