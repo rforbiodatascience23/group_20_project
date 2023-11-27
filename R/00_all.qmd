@@ -46,6 +46,6 @@ file.rename(from = "07_location_analysis.html",
 
 {{< include 05_size_analysis.qmd >}}
 
-{{< include 06_logo_plots.qmd >}}
+{{< include 06_logoplot.qmd >}}
 
 {{< include 07_location_analysis.qmd >}}
