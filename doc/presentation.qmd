@@ -12,19 +12,16 @@ editor: visual
 ## Introduction
 
 ::: incremental
-
 -   The mouse as a model organism
 
 -   Differences/similarities in protein location, role and more between mice and humans.
 
 -   Summary statistics on clean data and more elaborate analysis on augmented data
-
 :::
 
 ## Materials
 
 ::: incremental
-
 -   Gene ontology and amino acid seq data from swiss-prot reviewed uniprot data
 -   The entries was very untidy and had to be wrangled a lot
 -   An example of one of the raw data files:
@@ -42,7 +39,6 @@ untidy |>
   relocate(Entry,`Gene Names`, Organism,`Function [CC]`,`Protein names`,`Gene Ontology (molecular function)`, `Subcellular location [CC]`) |>
   kable()
 ```
-
 :::
 
 ## Materials
@@ -136,8 +132,8 @@ Table: Organism == mouse & enzyme_class != NA
 :::
 :::
 
-::: {.column width="70%"}
-![](../results/06_logoplot_enz.png){fig-align="right", width=90%}
+::: {.column width="65%"}
+![](../results/06_logoplot_enz.png){fig-align="right"}
 :::
 :::
 
