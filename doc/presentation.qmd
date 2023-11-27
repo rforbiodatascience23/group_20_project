@@ -4,6 +4,7 @@ format:
   revealjs:
     scrollable: true
     embed-resources: true
+    theme: moon
 author: "Anton Wang (s183220), Line (s184242), Jeppe (s213426), Oscar (s193775) and Johan (s225001)"
 editor: visual
 ---
@@ -65,6 +66,7 @@ Overview of workflow
 
 ::: {layout-ncol="2"}
 ![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"}
+
 ![](../results/05_size_analysis_lm_size_length.png){width="60%"}
 :::
 
