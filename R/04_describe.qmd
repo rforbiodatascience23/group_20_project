@@ -20,11 +20,12 @@ library(patchwork)
 
 ## Loading data
 
-```{r}
+```{r, message=FALSE}
 #| message: false
 
 ## Loading data
 data <- read_tsv(file = "../data/03_dat_aug.tsv")  
+data_clean <- read_tsv(file = "../data/02_dat_clean.tsv")
 ```
 
 ## Introduction
@@ -39,7 +40,7 @@ The data includes information about the function of each of the `r data |> selec
 
 ```{r}
 # Extracting the column names
-data |> 
+data_clean |> 
   select(-entry, -gene_name) |> 
   colnames()
 ```
