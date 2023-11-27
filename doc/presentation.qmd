@@ -10,17 +10,18 @@ editor: visual
 
 ## Introduction
 
--   Use R and github for a collaborative life science project
+
 
 -   The mouse as a model organism
 
--   Differences/similarites in protein location, role and more between mice and humans.
+-   Differences/similarities in protein location, role and more between mice and humans.
 
 -   Summary statistics on clean data and more elaborate analysis on augmented data
 
+
 ## Materials
 
--   Gene oncology and amino acid seq data from swiss-prot reviewed uniprot data
+-   Gene ontology and amino acid seq data from swiss-prot reviewed uniprot data
 -   The entries was very untidy and had to be wrangled a lot
 -   An example of one of the raw data files:
 
@@ -63,7 +64,8 @@ Overview of workflow
 -   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
 
 ::: {layout-ncol="2"}
-![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"} ![](../results/05_size_analysis_lm_size_length.png){width="60%"}
+![](../results/04_descibe_plot2and3_density_length_and_mass.png){width="60%"}
+![](../results/05_size_analysis_lm_size_length.png){width="60%"}
 :::
 
 ## Results - Length, Cofactors and Enzyme Classes
