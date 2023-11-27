@@ -124,8 +124,7 @@ logoseq_data_human_prot <- aug_data |>
 logo_list_mouse_prot <- logoseq_data_mouse_prot |>
   select(logo_seq, protein_family) |>
   group_split(protein_family) |> 
-  map(~ pull(.x, logo_seq)) |> 
-  map(unique)  # Filter out identical sequences
+  map(~ pull(.x, logo_seq))
 
 names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
@@ -137,8 +136,7 @@ names(logo_list_mouse_prot) <- c("CAMK Ser/Thr\nprotein kinase",
 logo_list_human_prot <- logoseq_data_human_prot |>
   select(logo_seq, protein_family) |>
   group_split(protein_family) |> 
-  map(~ pull(.x, logo_seq)) |> 
-  map(unique)  # Filter out identical sequences
+  map(~ pull(.x, logo_seq))
 
 names(logo_list_human_prot) <- c("CAMK Ser/Thr\nprotein kinase",
                                  "Peptidase C19 ",
@@ -218,8 +216,7 @@ logoseq_data_human_enz <- aug_data |>
 logo_list_mouse_enz <- logoseq_data_mouse_enz |>
   select(logo_seq, enzyme_class) |>
   group_split(enzyme_class) |> 
-  map(~ pull(.x, logo_seq)) |> 
-  map(unique)  # Filter out identical sequences
+  map(~ pull(.x, logo_seq))
 
 names(logo_list_mouse_enz) <- c("Hydrolases",
                                  "Isomerases",
@@ -232,8 +229,7 @@ names(logo_list_mouse_enz) <- c("Hydrolases",
 logo_list_human_enz <- logoseq_data_human_enz |>
   select(logo_seq, enzyme_class) |>
   group_split(enzyme_class) |> 
-  map(~ pull(.x, logo_seq)) |> 
-  map(unique)  # Filter out identical sequences
+  map(~ pull(.x, logo_seq))
 
 names(logo_list_human_enz) <- c("Hydrolases",
                                  "Isomerases",
