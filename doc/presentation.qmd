@@ -61,7 +61,7 @@ Overview of workflow
 
 ![](../doc/Flowdiagram_R_project.png){width="60%"}
 
-## Results - Examening the length and mass variables
+## Examining the length and mass variables
 
 -   Preliminary summary statistics of protein length and mass distributions in mice and humans clearly show their similarity as organisms.
 
