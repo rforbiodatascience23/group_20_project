@@ -129,7 +129,7 @@ Table: Organism == mouse & enzyme_class != NA
 :::
 
 ::: {.column width="70%"}
-![](../results/06_logoplot_enz.png){fig-align="right"}
+![](../results/06_logoplot_enz.png){fig-align="right", width=90%}
 :::
 :::
 
