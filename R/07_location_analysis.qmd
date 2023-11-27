@@ -13,7 +13,7 @@ editor: visual
 ```{r}
 #| message: false 
 library(tidyverse)
-data_clean <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
+data <- read_delim(file = "../data/03_dat_aug.tsv", delim = "\t")
 ```
 
 ## Analysis
@@ -25,7 +25,7 @@ We will look at the distribution of enzyme classes, molecular functions and path
 There are 7 enzyme classes representing 7 types of enzyme catalyzed reactions. The distribution of enzyme classes is very similar between human and mice but there are some subtle differences between the three subcellular locations. There are more translocases in the cell membrane than in the other subcellular locations. The high relative number of translocases in the cell membrane makes great biological sense as they catalyze the transport of molecules and ions across membranes among other things.
 
 ```{r}
-data_clean |>
+data |>
   drop_na(enzyme_class, `subcellular_location_[cc]`) |>
   select(entry, enzyme_class, organism, `subcellular_location_[cc]`) |>
   distinct() |>
@@ -59,7 +59,7 @@ The molecular functions are very equally distributed in human and mice but there
 
 ```{r}
 # Vector with top 5 molecular functions
-top5_GO_molecular_function <- data_clean |>
+top5_GO_molecular_function <- data |>
   drop_na(GO_molecular_function) |>
   select(entry, GO_molecular_function) |>
   distinct() |>
@@ -72,7 +72,7 @@ top5_GO_molecular_function <- data_clean |>
 
 ```{r}
 # Plot of molecular function vs subcellular location
-data_clean |>
+data |>
   drop_na(GO_molecular_function, `subcellular_location_[cc]`) |>
   select(entry, GO_molecular_function, organism, `subcellular_location_[cc]`) |>
   distinct() |>
@@ -107,7 +107,7 @@ Compared to the molecular functions and enzyme classes, there is a greater diffe
 
 ```{r}
 # Vector with top 10 pathways
-top10_pathway <- data_clean |>
+top10_pathway <- data |>
   drop_na(pathway) |>
   select(entry, pathway) |>
   distinct() |>
@@ -120,7 +120,7 @@ top10_pathway <- data_clean |>
 
 ```{r}
 # Plot of pathway vs subcellular location
-data_clean |>
+data |>
   drop_na(pathway, `subcellular_location_[cc]`) |>
   select(entry, pathway, organism, `subcellular_location_[cc]`) |>
   distinct() |>
