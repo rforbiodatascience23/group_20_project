@@ -12,7 +12,8 @@ Johan: (s225001), johanstaffeldt
 
 ## Data availability
 
-/R/01_load.qmd downloads raw data via api call to uniprot
+/R/01_load.qmd downloads raw data via API call to uniprot and saves data in the directory data/\_raw.\
+If you wish to download data for other purposes, then use the URLs from there.
 
 ## Dependencies
 
